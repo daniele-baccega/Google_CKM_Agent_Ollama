@@ -502,6 +502,11 @@ The ADK web interface provides an interactive UI for testing and debugging your 
    - Go back to your terminal window.
    - Press **Ctrl + C** to stop the process.
 
+**⚠️ CRITICAL NOTE: ONE CASE PER SESSION**
+To ensure patient safety and data integrity, you **MUST start a New Session**  before entering a new patient case.
+
+The agents maintain context ("memory") during a conversation. Entering a new patient in an active session will cause **data contamination** (e.g., mixing up age, sex, or medications from the previous patient).
+
 ### Method 2: ADK CLI Interface
 
 For command-line interaction:

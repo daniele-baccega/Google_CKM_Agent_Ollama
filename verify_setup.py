@@ -20,7 +20,7 @@ def check_ollama_running():
         return False, str(e)
 
 
-def check_model_available(model_name="ministral-3:14b"):
+def check_model_available(model_name="qwen2.5:14b"):
     """Check if the specified model is available in Ollama."""
     import requests
     
@@ -33,9 +33,9 @@ def check_model_available(model_name="ministral-3:14b"):
             # Check for exact match or partial match
             if model_name in model_names:
                 return True, "exact match"
-            # Check for partial matches (e.g., "ministral" in name)
+            # Check for partial matches (UPDATED for Qwen)
             for name in model_names:
-                if "ministral" in name.lower() or "mistral" in name.lower():
+                if "qwen" in name.lower():
                     return True, f"similar model found: {name}"
             return False, f"Model '{model_name}' not found. Available models: {', '.join(model_names)}"
     except Exception as e:
@@ -107,12 +107,12 @@ def main():
     # Check model availability
     if ollama_ok:
         print("\n4. Checking model availability...")
-        model_ok, message = check_model_available("ministral-3:14b")
+        model_ok, message = check_model_available("qwen2.5:14b")
         if model_ok:
             print(f"   ✓ Model found: {message}")
         else:
             print(f"   ✗ {message}")
-            print("   Pull the model with: ollama pull ministral-3:14b")
+            print("   Pull the model with: ollama pull qwen2.5:14b")
             all_ok = False
     
     # Check agent file

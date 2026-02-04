@@ -375,7 +375,7 @@ The system then generates the Consultation Snapshot.
 
 ## Usage Notes
 
-- The system uses Ollama `ministral-3:14b` model by default
+- The system uses Ollama `qwen2.5:14b` model by default
 - **Guided intake** is recommended for most cases
 - **Paste mode** is faster if you have a pre-formatted case
 - **Consultation Snapshot** is always ≤250 words

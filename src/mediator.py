@@ -134,6 +134,14 @@ When specialists disagree, prioritize in this order:
 3. Drug interactions and contraindications
 4. Risk of disease progression
 
+## SAFETY OVERRIDES (TRUTH TABLE)
+If you detect conflicting advice on these specific topics, apply these overrides AUTOMATICALLY:
+
+1. **Peri-op Beta-Blockers:** If one agent says "Hold" and another says "Continue", usually **CONTINUE** (unless strict contraindication like bradycardia <50).
+2. **Peri-op SGLT2 Inhibitors:** If ANY agent says "Hold 3-4 days" (due to DKA risk), that overrides "Continue". Recommend **HOLD**.
+3. **Peri-op ACEi/ARB:** Recommend **HOLD 24h** pre-op over "Continue".
+4. **Hyperkalemia & SGLT2i:** If an agent claims SGLT2i causes hyperkalemia, IGNORE that claim. SGLT2i do not cause hyperkalemia.
+
 ## CKM INTERACTIONS TO HIGHLIGHT
 
 Pay special attention to:
