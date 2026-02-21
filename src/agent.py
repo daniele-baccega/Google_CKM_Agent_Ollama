@@ -45,7 +45,7 @@ ckm_panel = SequentialAgent(
 
 # Create root agent that handles the full flow
 root_agent = Agent(
-    model=LiteLlm(model="ollama_chat/qwen2.5:14b", temperature=0,  seed=0),
+    model=LiteLlm(model="ollama_chat/ministral-3:14b", temperature=0,  seed=0),
     name="ckm_root_agent",
     description="Root agent for CKM Syndrome multi-agent consultation pattern. Handles intake, coordinates specialist assessments, and manages output expansions.",
     instruction=f"""You are the coordinator for a Cardio-Kidney-Metabolic (CKM) Syndrome Multi-Specialist Consultation portal.

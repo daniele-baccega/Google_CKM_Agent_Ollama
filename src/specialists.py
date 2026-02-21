@@ -21,8 +21,8 @@ def create_cardiologist_agent() -> Agent:
     ESC 2023 and AHA 2024 guidelines.
     """
     return Agent(
-        # Nota: Se il tuo PC regge la 32b, usa "qwen2.5:32b" per maggiore precisione
-        model=LiteLlm(model="ollama_chat/qwen2.5:14b", temperature=0, seed=0),
+        # Note: If your machine can run a 32b variant, use e.g. ministral-3:32b or qwen2.5:32b for higher accuracy
+        model=LiteLlm(model="ollama_chat/ministral-3:14b", temperature=0, seed=0),
         name="cardiologist",
         description="Cardiologist specializing in heart failure management (HFrEF/HFpEF) following ESC 2023 and AHA 2024 guidelines.",
         instruction="""You are a board-certified cardiologist specializing in heart failure management.
@@ -96,7 +96,7 @@ def create_nephrologist_agent() -> Agent:
     KDIGO 2024 guidelines and dialysis prevention.
     """
     return Agent(
-        model=LiteLlm(model="ollama_chat/qwen2.5:14b", temperature=0, seed=0),
+        model=LiteLlm(model="ollama_chat/ministral-3:14b", temperature=0, seed=0),
         name="nephrologist",
         description="Nephrologist specializing in CKD management, KDIGO 2024 guidelines, and dialysis prevention.",
         instruction="""You are a board-certified nephrologist specializing in chronic kidney disease (CKD) management.
@@ -167,7 +167,7 @@ def create_diabetologist_agent() -> Agent:
     and glucose control optimization.
     """
     return Agent(
-        model=LiteLlm(model="ollama_chat/qwen2.5:14b", temperature=0, seed=0),
+        model=LiteLlm(model="ollama_chat/ministral-3:14b", temperature=0, seed=0),
         name="diabetologist",
         description="Diabetologist specializing in diabetes management, ADA 2024 guidelines, and glucose control.",
         instruction="""You are a board-certified endocrinologist/diabetologist specializing in diabetes management.

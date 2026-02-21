@@ -20,7 +20,7 @@ def check_ollama_running():
         return False, str(e)
 
 
-def check_model_available(model_name="qwen2.5:14b"):
+def check_model_available(model_name="ministral-3:14b"):
     """Check if the specified model is available in Ollama."""
     import requests
     
@@ -35,7 +35,7 @@ def check_model_available(model_name="qwen2.5:14b"):
                 return True, "exact match"
             # Check for partial matches (UPDATED for Qwen)
             for name in model_names:
-                if "qwen" in name.lower():
+                if "ministral" in name.lower():
                     return True, f"similar model found: {name}"
             return False, f"Model '{model_name}' not found. Available models: {', '.join(model_names)}"
     except Exception as e:
@@ -107,12 +107,12 @@ def main():
     # Check model availability
     if ollama_ok:
         print("\n4. Checking model availability...")
-        model_ok, message = check_model_available("qwen2.5:14b")
+        model_ok, message = check_model_available("ministral-3:14b")
         if model_ok:
             print(f"   ✓ Model found: {message}")
         else:
             print(f"   ✗ {message}")
-            print("   Pull the model with: ollama pull qwen2.5:14b")
+            print("   Pull the model with: ollama pull ministral-3:14b")
             all_ok = False
     
     # Check agent file
@@ -128,9 +128,8 @@ def main():
     if all_ok:
         print("✓ All checks passed! You're ready to use the agent.")
         print("\nTry running:")
-        print("  adk web        # Start web interface")
+        print("  adk web .      # Start web interface")
         print("  adk run .      # Start CLI interface")
-        print("  python example.py  # Run example script")
     else:
         print("✗ Some checks failed. Please fix the issues above.")
         sys.exit(1)

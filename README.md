@@ -1,6 +1,6 @@
 # Google Agent Development Kit (ADK) with Ollama
 
-A multi-agent system for Cardio-Kidney-Metabolic (CKM) condition assessment using Google's Agent Development Kit (ADK) and Ollama's **qwen2.5:14b** model. This project demonstrates a sophisticated multi-agent pattern where specialist agents (cardiologist, nephrologist, and diabetologist) work in parallel, followed by a mediator agent that synthesizes their recommendations.
+A multi-agent system for Cardio-Kidney-Metabolic (CKM) condition assessment using Google's Agent Development Kit (ADK) and Ollama's **ministral-3:14b** model. This project demonstrates a sophisticated multi-agent pattern where specialist agents (cardiologist, nephrologist, and diabetologist) work in parallel, followed by a mediator agent that synthesizes their recommendations.
 
 ## Table of Contents
 
@@ -312,14 +312,14 @@ Before you begin, ensure you have the following installed:
 
 ### Pull the Required Model
 
-After Ollama is installed and running, you need to download the `qwen2.5:14b` model:
+After Ollama is installed and running, you need to download the `ministral-3:14b` model:
 
 ```bash
 # macOS/Linux
-ollama pull qwen2.5:14b
+ollama pull ministral-3:14b
 
 # Windows (Command Prompt or PowerShell)
-ollama pull qwen2.5:14b
+ollama pull ministral-3:14b
 ```
 
 This will download the model (approximately 8-10 GB). The download time depends on your internet connection.
@@ -331,12 +331,12 @@ This will download the model (approximately 8-10 GB). The download time depends 
 ollama list
 
 # Test the model
-ollama run qwen2.5:14b "Hello, how are you?"
+ollama run ministral-3:14b "Hello, how are you?"
 ```
 
 ### Using Other Ollama Models
 
-This project is configured and tested to use **`qwen2.5:14b`** by default, but you can use other Ollama models. Here are some popular alternatives:
+This project is configured and tested to use **`ministral-3:14b`** by default, but you can use other Ollama models. Here are some popular alternatives:
 
 **Popular Ollama Models:**
 - `qwen2.5:32b` - More capable, requires more RAM (approx 20GB+)
@@ -357,7 +357,7 @@ This project is configured and tested to use **`qwen2.5:14b`** by default, but y
    
    ```python
    # Change from:
-   model=LiteLlm(model="ollama_chat/qwen2.5:14b")
+   model=LiteLlm(model="ollama_chat/ministral-3:14b")
    
    # To (example):
    model=LiteLlm(model="ollama_chat/llama3.2:3b")
@@ -437,7 +437,7 @@ ADK Ollama Demo - Setup Verification
 
 3. Checking Ollama server connection...
    ✓ Ollama server is running
-   Available models: qwen2.5:14b
+   Available models: ministral-3:14b
 
 4. Checking model availability...
    ✓ Model found: exact match
@@ -521,6 +521,16 @@ For command-line interaction:
    ```
 
    This will start an interactive CLI session where you can input patient cases.
+
+### Optional: Baseline single-agent script
+
+For a simple single-prompt baseline (e.g. control group or comparison), run:
+
+```bash
+python baseline_agent.py
+```
+
+Then paste a case and press Ctrl+D (macOS/Linux) or Ctrl+Z (Windows) to submit. Uses the same `ministral-3:14b` model with a generic system prompt.
 
 ## Usage Examples
 
@@ -621,11 +631,11 @@ See `examples.md` for more detailed examples.
    netstat -ano | findstr :11434
    ```
 
-### Issue: "Model 'qwen2.5:14b' not found"
+### Issue: "Model 'ministral-3:14b' not found"
 
 **Solution:**
 ```bash
-ollama pull qwen2.5:14b
+ollama pull ministral-3:14b
 ```
 
 Wait for the download to complete (this may take several minutes depending on your internet speed).
@@ -710,18 +720,21 @@ venv\Scripts\Activate.ps1
 ## Project Structure
 
 ```
-Google-Agent-Ollama/
+Google-CKM-Agent-Ollama/
 ├── README.md                 # This file
 ├── requirements.txt          # Python dependencies
-├── pyproject.toml           # Project configuration
-├── examples.md              # Usage examples
-├── verify_setup.py          # Setup verification script
+├── pyproject.toml            # Project configuration
+├── examples.md               # Usage examples
+├── verify_setup.py           # Setup verification script
+├── baseline_agent.py         # Optional: single-agent baseline (control) script
 └── src/
     ├── __init__.py
-    ├── agent.py             # Root agent and orchestration
-    ├── mediator.py          # Mediator agent
+    ├── agent.py              # Root agent and orchestration
+    ├── intake_agent.py       # Intake flow (guided intake and paste mode)
+    ├── mediator.py           # Mediator agent
     ├── specialists.py       # Specialist agents (cardiologist, nephrologist, diabetologist)
-    └── utils.py             # Utility functions
+    ├── output_templates.py   # Consultation Snapshot and medication table templates
+    └── utils.py              # Utility functions
 ```
 
 ## Additional Resources
@@ -745,4 +758,4 @@ This project is provided as-is for demonstration purposes.
 
 ---
 
-**Note:** This project uses the `qwen2.5:14b` model via Ollama by default. Ensure you have sufficient disk space (approximately 8-10 GB) and system resources to run the model effectively. You can use other Ollama models by updating the model configuration in the source files (see [Using Other Ollama Models](#using-other-ollama-models) section). For additional model options and advanced configuration, refer to the [official Google ADK documentation](https://github.com/google/adk-python).
+**Note:** This project uses the `ministral-3:14b` model via Ollama by default. Ensure you have sufficient disk space (approximately 8-10 GB) and system resources to run the model effectively. You can use other Ollama models by updating the model configuration in the source files (see [Using Other Ollama Models](#using-other-ollama-models) section). For additional model options and advanced configuration, refer to the [official Google ADK documentation](https://github.com/google/adk-python).

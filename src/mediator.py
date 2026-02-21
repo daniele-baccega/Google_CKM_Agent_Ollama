@@ -24,7 +24,7 @@ def create_mediator_agent() -> Agent:
     - Expandable sections on request: A, B, or C
     """
     return Agent(
-        model=LiteLlm(model="ollama_chat/qwen2.5:14b", temperature=0,  seed=0),
+        model=LiteLlm(model="ollama_chat/ministral-3:14b", temperature=0,  seed=0),
         name="mediator",
         description="Mediator agent that synthesizes recommendations from cardiologist, nephrologist, and diabetologist into a unified CKM treatment plan using the Consultation Snapshot format.",
         instruction="""You are a senior clinical coordinator and mediator for Cardio-Kidney-Metabolic (CKM) conditions.

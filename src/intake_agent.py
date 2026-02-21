@@ -50,7 +50,7 @@ GUIDED_INTAKE_QUESTIONS = {
 def create_intake_agent() -> Agent:
     """Create the Intake agent for structured case collection."""
     return Agent(
-        model=LiteLlm(model="ollama_chat/qwen2.5:14b", temperature=0, seed=0),
+        model=LiteLlm(model="ollama_chat/ministral-3:14b", temperature=0, seed=0),
         name="intake_coordinator",
         description="Intake coordinator for CKM Syndrome Multi-Specialist Consultation. Handles guided intake and paste mode.",
         instruction=f"""You are the intake coordinator for the Cardio-Kidney-Metabolic (CKM) Syndrome Multi-Specialist Consultation portal.
