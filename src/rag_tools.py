@@ -22,7 +22,11 @@ def retrieve_rag_context(case_summary: str) -> str:
     embed_model = os.getenv(
         "RAG_EMBED_MODEL", "sentence-transformers/all-MiniLM-L6-v2"
     )
+    reranker_model = os.getenv(
+        "RAG_RERANKER_MODEL", "cross-encoder/ms-marco-MiniLM-L-6-v2"
+    )
     top_k = int(os.getenv("RAG_TOP_K", "5"))
+    enable_reranking = os.getenv("RAG_ENABLE_RERANKING", "false").lower() == "true"  # DISABLED for debugging
 
     matches = retrieve_context(
         query=case_summary,
@@ -30,8 +34,11 @@ def retrieve_rag_context(case_summary: str) -> str:
         collection_name=collection,
         embedding_model=embed_model,
         top_k=top_k,
+        reranker_model=reranker_model,
+        enable_reranking=enable_reranking,
     )
-    return format_rag_context(matches)
+    result = format_rag_context(matches)
+    return result
 
 
 def _extract_text_from_content(content: types.Content) -> str:
@@ -298,5 +305,53 @@ def inject_rag_context_before_model(
         )
     except Exception as exc:  # pragma: no cover - best-effort safety net
         callback_context.state["rag_injection_error"] = str(exc)
+
+    return None
+
+
+def hide_rag_internals_after_model(
+    callback_context: CallbackContext, llm_response: LlmResponse
+) -> Optional[LlmResponse]:
+    """Remove RAG internals (RAG_CONTEXT blocks and AUTHORITATIVE_SOURCES footers) from model output.
+    
+    This ensures users never see the internal RAG machinery in the final output.
+    Only the structured F) RAG Sources Used section should be visible.
+    """
+    try:
+        if not llm_response or not llm_response.text:
+            return None
+
+        text = llm_response.text
+        
+        # Remove RAG_CONTEXT: ... blocks (from start of line to end of that content)
+        # Pattern: "RAG_CONTEXT:" followed by anything until double newline or end
+        text = re.sub(
+            r"RAG_CONTEXT:.*?(?=\n\n|\Z)",
+            "",
+            text,
+            flags=re.DOTALL
+        )
+        
+        # Remove [AUTHORITATIVE_SOURCES: ...] footer lines
+        text = re.sub(
+            r"^\[AUTHORITATIVE_SOURCES:.*?\]\s*$",
+            "",
+            text,
+            flags=re.MULTILINE
+        )
+        
+        # Remove stray "---" dividers that may separate RAG content
+        text = re.sub(r"^---\s*$", "", text, flags=re.MULTILINE)
+        
+        # Clean up excess blank lines (more than 2 consecutive)
+        text = re.sub(r"\n\n\n+", "\n\n", text)
+        
+        # Strip leading/trailing whitespace
+        text = text.strip()
+        
+        # Update response
+        llm_response.text = text
+    except Exception as exc:  # pragma: no cover - best-effort safety net
+        callback_context.state["rag_hiding_error"] = str(exc)
 
     return None

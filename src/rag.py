@@ -11,6 +11,7 @@ from typing import Tuple
 
 import chromadb
 from chromadb.utils import embedding_functions
+from sentence_transformers import CrossEncoder
 
 DEFAULT_DOCS_DIR = os.getenv("RAG_DOCS_DIR", "docs")
 DEFAULT_CHROMA_DIR = os.getenv("RAG_CHROMA_DIR", ".chroma")
@@ -18,15 +19,20 @@ DEFAULT_COLLECTION = os.getenv("RAG_COLLECTION", "ckm_rules")
 DEFAULT_EMBED_MODEL = os.getenv(
     "RAG_EMBED_MODEL", "sentence-transformers/all-MiniLM-L6-v2"
 )
+DEFAULT_RERANKER_MODEL = os.getenv(
+    "RAG_RERANKER_MODEL", "cross-encoder/ms-marco-MiniLM-L-6-v2"
+)
 DEFAULT_TOP_K = int(os.getenv("RAG_TOP_K", "5"))
 DEFAULT_CHUNK_SIZE = int(os.getenv("RAG_CHUNK_SIZE", "800"))
 DEFAULT_CHUNK_OVERLAP = int(os.getenv("RAG_CHUNK_OVERLAP", "120"))
+DEFAULT_ENABLE_RERANKING = os.getenv("RAG_ENABLE_RERANKING", "true").lower() == "true"
 
 SUPPORTED_EXTENSIONS = (".md", ".txt")
 
 _CACHED_CLIENT: Optional[Tuple[str, chromadb.PersistentClient]] = None
 _CACHED_EMBED_FN: Optional[Tuple[str, embedding_functions.SentenceTransformerEmbeddingFunction]] = None
 _CACHED_COLLECTION: Optional[tuple[str, str, str, chromadb.Collection]] = None
+_CACHED_RERANKER: Optional[Tuple[str, CrossEncoder]] = None
 
 
 @dataclass(frozen=True)
@@ -130,6 +136,17 @@ def _get_embedding_fn(
     return embedding_fn
 
 
+def _get_reranker(reranker_model: str) -> CrossEncoder:
+    """Return a cached cross-encoder reranker model."""
+    global _CACHED_RERANKER
+    if _CACHED_RERANKER and _CACHED_RERANKER[0] == reranker_model:
+        return _CACHED_RERANKER[1]
+
+    reranker = CrossEncoder(reranker_model)
+    _CACHED_RERANKER = (reranker_model, reranker)
+    return reranker
+
+
 def _get_collection(
     chroma_dir: str,
     collection_name: str,
@@ -209,17 +226,22 @@ def retrieve_context(
     collection_name: str = DEFAULT_COLLECTION,
     embedding_model: str = DEFAULT_EMBED_MODEL,
     top_k: int = DEFAULT_TOP_K,
+    reranker_model: str = DEFAULT_RERANKER_MODEL,
+    enable_reranking: bool = DEFAULT_ENABLE_RERANKING,
 ) -> List[dict]:
-    """Retrieve top-k context chunks for a query."""
+    """Retrieve top-k context chunks for a query with optional re-ranking."""
     collection = _get_collection(
         chroma_dir=chroma_dir,
         collection_name=collection_name,
         embedding_model=embedding_model,
     )
 
+    # Retrieve more candidates if re-ranking is enabled (for better re-ranking)
+    retrieval_k = top_k * 2 if enable_reranking else top_k
+
     result = collection.query(
         query_texts=[query],
-        n_results=top_k,
+        n_results=retrieval_k,
         include=["documents", "metadatas", "distances"],
     )
 
@@ -233,8 +255,37 @@ def retrieve_context(
             "content": doc,
             "source": meta.get("source", "unknown"),
             "chunk_index": meta.get("chunk_index", 0),
-            "distance": dist,
+            "vector_distance": dist,
+            "rerank_score": None,
         })
+
+    # Re-rank if enabled
+    if enable_reranking and matches:
+        try:
+            reranker = _get_reranker(reranker_model)
+            
+            # Prepare query-document pairs for reranking
+            pairs = [[query, match["content"]] for match in matches]
+            
+            # Get re-ranker scores
+            rerank_scores = reranker.predict(pairs)
+            
+            # Attach re-ranker scores
+            for match, score in zip(matches, rerank_scores):
+                match["rerank_score"] = float(score)
+            
+            # Sort by re-ranker score (higher is better)
+            matches.sort(key=lambda m: m["rerank_score"], reverse=True)
+            
+            # Keep only top_k after re-ranking
+            matches = matches[:top_k]
+        except Exception as e:
+            # Fallback to vector similarity if re-ranking fails
+            print(f"Re-ranking failed: {e}. Using vector similarity ranking.")
+            matches = matches[:top_k]
+    else:
+        matches = matches[:top_k]
+
     return matches
 
 

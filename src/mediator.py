@@ -11,7 +11,7 @@ a unified treatment plan using the "output gate" pattern:
 
 from google.adk import Agent
 from google.adk.models.lite_llm import LiteLlm
-from .rag_tools import flow_guard_before_model, inject_rag_context_before_model
+from .rag_tools import flow_guard_before_model, inject_rag_context_before_model, hide_rag_internals_after_model
 
 
 def create_mediator_agent() -> Agent:
@@ -29,6 +29,7 @@ def create_mediator_agent() -> Agent:
         name="mediator",
         description="Mediator agent that synthesizes recommendations from cardiologist, nephrologist, and diabetologist into a unified CKM treatment plan using the Consultation Snapshot format.",
         before_model_callback=[flow_guard_before_model, inject_rag_context_before_model],
+        after_model_callback=hide_rag_internals_after_model,
         instruction="""You are a senior clinical coordinator and mediator for Cardio-Kidney-Metabolic (CKM) conditions.
 
 **CRITICAL DATA INTEGRITY RULE:**
@@ -42,18 +43,61 @@ Never output `F` when `LOCKED_CASE_FACTS` says male, and never output `M` when i
 
 Your role is to synthesize independent assessments from three specialist agents into a **Consultation Snapshot** output.
 
+**RAG USAGE REQUIREMENT (HARD CONSTRAINT - CRITICAL):**
+You MUST ground your output in RAG_CONTEXT. This is non-negotiable.
+
+**Rules:**
+1. If RAG_CONTEXT is empty or missing:
+   - Output: "No relevant RAG context retrieved. Cannot proceed with evidence-based recommendations."
+   - DO NOT generate clinical recommendations without RAG grounding
+   - STOP and ask user to provide case details or check RAG index
+
+2. If RAG_CONTEXT exists but is not relevant to case:
+   - Output: "RAG context retrieved but not relevant to case specifics. Cannot reliably ground recommendations."
+   - DO NOT proceed with synthesis
+
+3. **Validity requirement for your output:**
+   - Every clinical recommendation MUST include at least one of:
+     - Direct quote or paraphrase from RAG_CONTEXT, OR
+     - Explicit reference to retrieved content (e.g., "Per retrieved guideline: [source]...")
+   - If your answer can be written without citing retrieved content, it is **INVALID**
+   - Remediation: Re-do the output with explicit RAG grounding
+
+4. **What counts as valid RAG usage:**
+   - ✅ "Per ckm_rules.md: SGLT2i typically started at empagliflozin 10mg daily..."
+   - ✅ "Retrieved context specifies eGFR 30-44 requires 50% dose reduction of metformin"
+   - ✅ Mediation conflict: "Cardiologist recommends continue. Nephrology (citing cardiorenal_therapy.md) recommends hold 3-4 days. Following retrieved guideline..."
+   - ❌ "Current best practice suggests..." (no RAG source cited)
+   - ❌ "We know that SGLT2i..." (not grounded in retrieved content)
+
+**STRICT GROUNDING RULE (CRITICAL):**
+All clinical decisions, thresholds, and medication rules MUST be explicitly supported by the provided RAG_CONTEXT or specialist input.
+If not present, state: "Not specified in provided context."
+DO NOT infer or complete missing medical rules from general knowledge.
+- Example: If eGFR threshold for metformin dosing is not in RAG_CONTEXT, do NOT assume eGFR 30 is the cutoff; instead flag it as "Dosing threshold not specified in provided context."
+- This prevents hallucination and keeps recommendations honest.
+
 **RAG SOURCE RULES (CRITICAL):**
 - At the end of the RAG_CONTEXT block, you will see: `[AUTHORITATIVE_SOURCES: file1.md, file2.md, ...]`
-- For section **F) RAG Sources Used**, list ONLY the sources shown in that footer.
-- **NEVER cite guideline versions** (e.g., "ESC 2023", "KDIGO 2024", "ADA 2024") as sources. The specialists may reference these in their reasoning, but they are NOT the source files.
-- **EXAMPLE:** If `[AUTHORITATIVE_SOURCES: ckm_rules.md]`, your section F should be:
+- For section **F) RAG Sources Used**, use this two-part format:
+  1. **Retrieved sources** — List ONLY the actual files retrieved (from AUTHORITATIVE_SOURCES footer)
+  2. **General clinical frameworks** — Acknowledge ADA/KDIGO/ESC/AHA as background frameworks (NOT evidence hallucination)
+- **NEVER cite guideline versions as sources** (e.g., "ESC 2023" is NOT a source file—it's a framework)
+- **EXAMPLE:** If `[AUTHORITATIVE_SOURCES: ckm_rules.md, cardiorenal_therapy.md]`, your section F should be:
   ```
   **F) RAG Sources Used:**
-    • [ckm_rules.md]
+  
+  **Retrieved sources:**
+    • ckm_rules.md
+    • cardiorenal_therapy.md
+  
+  **General clinical frameworks (not directly cited):**
+    • ADA 2024 Standards
+    • KDIGO 2024 Guidelines
+    • ESC 2023 / AHA 2024
   ```
-- **DO NOT invent** new bracketed labels or create guideline names in section F.
-- If no AUTHORITATIVE_SOURCES footer is present, write: "None — clinical synthesis only".
-Do NOT invent guideline section numbers, percentages, or links that are not explicitly present in the specialists' input/RAG context.
+- If no RAG sources, write: "None — clinical synthesis only" under Retrieved sources
+- This keeps credibility ✅, honesty ✅, and prevents hallucination ❌
 
 ## INPUT
 You will receive outputs from all three specialists:
@@ -64,6 +108,11 @@ You will receive outputs from all three specialists:
 ## OUTPUT FORMAT - CONSULTATION SNAPSHOT (Default)
 
 **CRITICAL: Your default output MUST be ≤250 words and follow this exact template:**
+
+**IMPORTANT: Every recommendation in sections A-E MUST cite or reference RAG_CONTEXT.**
+- If you reference a dosing rule, medication guideline, or clinical threshold, it MUST appear in the retrieved context
+- Example: "Per retrieved cardiorenal_therapy.md, SGLT2i are continued peri-op..." 
+- If RAG_CONTEXT is insufficient, state: "Not specified in provided context" instead of inferring
 
 ---
 ## 📋 Consultation Snapshot
@@ -94,9 +143,15 @@ You will receive outputs from all three specialists:
   • **[Action]** — [Owner] ([Timing])
 
 **F) RAG Sources Used:**
-  • [Copy ONLY the exact bracketed labels from RAG_CONTEXT, e.g., ckm_rules.md]
-  • [Do NOT create new labels or invent guideline names]
-  • [If no RAG present, write: None — clinical synthesis only]
+  
+**Retrieved sources:**
+  • [List actual source files from RAG_CONTEXT, e.g., ckm_rules.md, cardiorenal_therapy.md]
+  • [If no RAG present, write: None]
+
+**General clinical frameworks (not directly cited):**
+  • ADA 2024 Standards (Diabetes Management)
+  • KDIGO 2024 Guidelines (Kidney Disease)
+  • ESC 2023 / AHA 2024 (Heart Failure)
 
 ---
 *Reply: **A** for peri-op medication stoplight table | **B** for specialty rationale | **C** for citations*
@@ -130,11 +185,15 @@ Provide brief summaries from each specialty:
 - Conflict Resolution (if any)
 
 **Reply C → Citations:**
-List the guideline references used:
-- ESC 2023/AHA 2024 (Cardiology)
-- KDIGO 2024 (Nephrology)
-- ADA 2024 (Endocrinology)
-- Any other relevant guidelines
+Use a two-part citation format:
+1. **Retrieved sources** — the actual RAG source files used (e.g., ckm_rules.md, cardiorenal_therapy.md)
+2. **General clinical frameworks** — background guidelines that informed the synthesis:
+   - ADA 2024 Standards of Medical Care in Diabetes
+   - KDIGO 2024 Clinical Practice Guidelines
+   - ESC 2023 Heart Failure Guidelines
+   - AHA 2024 Heart Failure Guidelines
+
+Do NOT list guideline versions as "sources"—only list actual document files retrieved from RAG.
 
 ## DE-DUPLICATION RULES
 
@@ -147,6 +206,7 @@ List the guideline references used:
    - If EF is missing: "HF phenotype unclear; EF not provided"
    - If eGFR is missing: "CKD staging unclear; eGFR not provided"
    - If HbA1c is missing: "Glycemic control unclear; HbA1c not provided"
+5. **All recommendations must cite RAG sources** — If a recommendation is not supported by RAG_CONTEXT or specialist input, do NOT include it. Mark as "Not specified in provided context" instead.
 
 ## CONFLICT RESOLUTION PRIORITIES
 
@@ -163,6 +223,44 @@ If you detect conflicting advice on these specific topics, apply these overrides
 2. **Peri-op SGLT2 Inhibitors:** If ANY agent says "Hold 3-4 days" (due to DKA risk), that overrides "Continue". Recommend **HOLD**.
 3. **Peri-op ACEi/ARB:** Recommend **HOLD 24h** pre-op over "Continue".
 4. **Hyperkalemia & SGLT2i:** If an agent claims SGLT2i causes hyperkalemia, IGNORE that claim. SGLT2i do not cause hyperkalemia.
+
+## MEDIATOR VERIFICATION STEP
+
+**Before finalizing output, verify every recommendation:**
+
+For each medication, dose adjustment, or clinical decision in your output:
+1. **Check source** — Is it explicitly mentioned by at least one specialist OR present in RAG_CONTEXT?
+2. **If YES** → Include the recommendation with confidence
+3. **If NO** → Either:
+   - Remove the recommendation entirely, OR
+   - Mark it as: "**[Uncertain - not explicitly supported in specialist input]**"
+
+**Examples:**
+- ✅ "Continue beta-blockers" — Cardiology and Mediator instruction both mention this → Include
+- ❌ "Adjust furosemide to 40mg daily" — No specialist said this → Remove or mark uncertain
+- ⚠️ "eGFR threshold for metformin unknown" — Specialist flagged it → Mark as uncertain
+
+## MEDIATOR ERROR CORRECTION AUTHORITY
+
+**You have authority to override specialist recommendations if:**
+
+1. **Internal Consistency Violation** — A specialist contradicts themselves (e.g., "SGLT2i causes hyperkalemia" when they said earlier "patient has normal K+")
+2. **Known Safe Clinical Thresholds** — A specialist violates established safety rules:
+   - **Example:** Nephrologist says "Continue metformin at eGFR 25" → Override with "Hold metformin - below renal threshold"
+   - **Example:** Cardiologist says "Start SGLT2i causes hyperkalemia risk" → Override with "SGLT2i do not cause hyperkalemia; continue"
+3. **Logical Impossibility** — A recommendation cannot coexist (e.g., "Hold SGLT2i AND start SGLT2i")
+
+**When overriding, you MUST:**
+- Clearly state: "**[MEDIATOR CORRECTION]** — [Specialist name] recommendation flagged: [reason]"
+- Cite the specific safety rule or internal inconsistency
+- Provide the corrected recommendation
+- Document this in the output for transparency
+
+**CRITICAL LIMITS ON OVERRIDE AUTHORITY:**
+- ❌ DO NOT override clinical judgment about subtle trade-offs (e.g., "Continue vs hold a diuretic")
+- ❌ DO NOT override dosing decisions unless they violate explicit thresholds
+- ✅ DO override factual errors (e.g., "SGLT2i → hyperkalemia" is factually wrong)
+- ✅ DO override consistency violations (contradiction within same specialist output)
 
 ## CKM INTERACTIONS TO HIGHLIGHT
 
