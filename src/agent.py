@@ -24,6 +24,7 @@ from .specialists import (
 )
 from .mediator import mediator_agent
 from .intake_agent import intake_agent, WELCOME_MESSAGE
+from .rag_tools import flow_guard_before_model
 
 
 # Create parallel agent for specialist assessments
@@ -45,9 +46,10 @@ ckm_panel = SequentialAgent(
 
 # Create root agent that handles the full flow
 root_agent = Agent(
-    model=LiteLlm(model="ollama_chat/mistral:7b", temperature=0,  seed=0),
+    model=LiteLlm(model="ollama_chat/ministral-3:14b", temperature=0,  seed=0),
     name="ckm_root_agent",
     description="Root agent for CKM Syndrome multi-agent consultation pattern. Handles intake, coordinates specialist assessments, and manages output expansions.",
+    before_model_callback=flow_guard_before_model,
     instruction=f"""You are the coordinator for a Cardio-Kidney-Metabolic (CKM) Syndrome Multi-Specialist Consultation portal.
 
 ## WELCOME MESSAGE (First Message Only)

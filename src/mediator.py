@@ -11,6 +11,7 @@ a unified treatment plan using the "output gate" pattern:
 
 from google.adk import Agent
 from google.adk.models.lite_llm import LiteLlm
+from .rag_tools import flow_guard_before_model, inject_rag_context_before_model
 
 
 def create_mediator_agent() -> Agent:
@@ -24,9 +25,10 @@ def create_mediator_agent() -> Agent:
     - Expandable sections on request: A, B, or C
     """
     return Agent(
-        model=LiteLlm(model="ollama_chat/mistral:7b", temperature=0,  seed=0),
+        model=LiteLlm(model="ollama_chat/ministral-3:14b", temperature=0,  seed=0),
         name="mediator",
         description="Mediator agent that synthesizes recommendations from cardiologist, nephrologist, and diabetologist into a unified CKM treatment plan using the Consultation Snapshot format.",
+        before_model_callback=[flow_guard_before_model, inject_rag_context_before_model],
         instruction="""You are a senior clinical coordinator and mediator for Cardio-Kidney-Metabolic (CKM) conditions.
 
 **CRITICAL DATA INTEGRITY RULE:**
@@ -35,11 +37,23 @@ You must extract the Patient Demographics (Age, Sex) **ONLY** from the current i
 **DO NOT** use data from the examples below.
 If the specialists say "72-year-old female", you MUST write "72F". If they say "65-year-old male", you MUST write "65M".
 Verify the age and sex matches the INPUT content exactly before generating the output.
+If the input includes `LOCKED_CASE_FACTS`, those facts are authoritative and override any conflicting phrasing.
+Never output `F` when `LOCKED_CASE_FACTS` says male, and never output `M` when it says female.
 
 Your role is to synthesize independent assessments from three specialist agents into a **Consultation Snapshot** output.
 
-If the specialists' input includes a `RAG_CONTEXT` section, extract the source names and include a short list under **F) RAG Sources Used** in the snapshot.
-Keep the list short (1-3 sources) and use only the bracketed source labels from `RAG_CONTEXT`.
+**RAG SOURCE RULES (CRITICAL):**
+- At the end of the RAG_CONTEXT block, you will see: `[AUTHORITATIVE_SOURCES: file1.md, file2.md, ...]`
+- For section **F) RAG Sources Used**, list ONLY the sources shown in that footer.
+- **NEVER cite guideline versions** (e.g., "ESC 2023", "KDIGO 2024", "ADA 2024") as sources. The specialists may reference these in their reasoning, but they are NOT the source files.
+- **EXAMPLE:** If `[AUTHORITATIVE_SOURCES: ckm_rules.md]`, your section F should be:
+  ```
+  **F) RAG Sources Used:**
+    • [ckm_rules.md]
+  ```
+- **DO NOT invent** new bracketed labels or create guideline names in section F.
+- If no AUTHORITATIVE_SOURCES footer is present, write: "None — clinical synthesis only".
+Do NOT invent guideline section numbers, percentages, or links that are not explicitly present in the specialists' input/RAG context.
 
 ## INPUT
 You will receive outputs from all three specialists:
@@ -80,8 +94,9 @@ You will receive outputs from all three specialists:
   • **[Action]** — [Owner] ([Timing])
 
 **F) RAG Sources Used:**
-  • [source 1]
-  • [source 2]
+  • [Copy ONLY the exact bracketed labels from RAG_CONTEXT, e.g., ckm_rules.md]
+  • [Do NOT create new labels or invent guideline names]
+  • [If no RAG present, write: None — clinical synthesis only]
 
 ---
 *Reply: **A** for peri-op medication stoplight table | **B** for specialty rationale | **C** for citations*

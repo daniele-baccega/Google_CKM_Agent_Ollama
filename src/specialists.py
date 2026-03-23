@@ -12,6 +12,7 @@ by default, with details available on request.
 
 from google.adk import Agent
 from google.adk.models.lite_llm import LiteLlm
+from .rag_tools import inject_rag_context_before_model
 
 
 def create_cardiologist_agent() -> Agent:
@@ -22,9 +23,10 @@ def create_cardiologist_agent() -> Agent:
     """
     return Agent(
         # Note: If your machine can run a 32b variant, use e.g. ministral-3:32b or qwen2.5:32b for higher accuracy
-        model=LiteLlm(model="ollama_chat/mistral:7b", temperature=0, seed=0),
+        model=LiteLlm(model="ollama_chat/ministral-3:14b", temperature=0, seed=0),
         name="cardiologist",
         description="Cardiologist specializing in heart failure management (HFrEF/HFpEF) following ESC 2023 and AHA 2024 guidelines.",
+        before_model_callback=inject_rag_context_before_model,
         instruction="""You are a board-certified cardiologist specializing in heart failure management.
 
 ## EXPERTISE
@@ -36,7 +38,9 @@ def create_cardiologist_agent() -> Agent:
 
 ## RAG CONTEXT (IF PROVIDED)
 If the input includes a section labeled `RAG_CONTEXT`, treat it as supplemental, high-priority rules.
-Use it to adjust recommendations when applicable and cite it in your guideline references.
+Use it to adjust recommendations when applicable.
+**IMPORTANT:** In your assessment, reference "the provided context" or "guideline recommendations" rather than citing specific guideline versions (e.g., avoid "ESC 2023 says..."). The mediator will handle source attribution correctly.
+Do NOT invent guideline section numbers, percentages, links, or trial outcomes that are not explicitly present in the input/RAG context.
 
 ## SGLT2 INHIBITOR SAFETY NOTE (CRITICAL)
 - SGLT2 inhibitors (Empagliflozin, Dapagliflozin) do **NOT** cause hyperkalemia. They typically reduce potassium levels or have a neutral effect. 
@@ -100,9 +104,10 @@ def create_nephrologist_agent() -> Agent:
     KDIGO 2024 guidelines and dialysis prevention.
     """
     return Agent(
-        model=LiteLlm(model="ollama_chat/mistral:7b", temperature=0, seed=0),
+        model=LiteLlm(model="ollama_chat/ministral-3:14b", temperature=0, seed=0),
         name="nephrologist",
         description="Nephrologist specializing in CKD management, KDIGO 2024 guidelines, and dialysis prevention.",
+        before_model_callback=inject_rag_context_before_model,
         instruction="""You are a board-certified nephrologist specializing in chronic kidney disease (CKD) management.
 
 ## EXPERTISE
@@ -112,7 +117,9 @@ def create_nephrologist_agent() -> Agent:
 
 ## RAG CONTEXT (IF PROVIDED)
 If the input includes a section labeled `RAG_CONTEXT`, treat it as supplemental, high-priority rules.
-Use it to adjust recommendations when applicable and cite it in your guideline references.
+Use it to adjust recommendations when applicable.
+**IMPORTANT:** In your assessment, reference "the provided context" or "guideline recommendations" rather than citing specific guideline versions (e.g., avoid "KDIGO 2024 says..."). The mediator will handle source attribution correctly.
+Do NOT invent guideline section numbers, percentages, links, or trial outcomes that are not explicitly present in the input/RAG context.
 
 ## METFORMIN & DRUG SAFETY RULES (CRITICAL)
 Strictly follow KDIGO/FDA dosing guidelines based on eGFR value:
@@ -175,9 +182,10 @@ def create_diabetologist_agent() -> Agent:
     and glucose control optimization.
     """
     return Agent(
-        model=LiteLlm(model="ollama_chat/mistral:7b", temperature=0, seed=0),
+        model=LiteLlm(model="ollama_chat/ministral-3:14b", temperature=0, seed=0),
         name="diabetologist",
         description="Diabetologist specializing in diabetes management, ADA 2024 guidelines, and glucose control.",
+        before_model_callback=inject_rag_context_before_model,
         instruction="""You are a board-certified endocrinologist/diabetologist specializing in diabetes management.
 
 ## EXPERTISE
@@ -187,7 +195,9 @@ def create_diabetologist_agent() -> Agent:
 
 ## RAG CONTEXT (IF PROVIDED)
 If the input includes a section labeled `RAG_CONTEXT`, treat it as supplemental, high-priority rules.
-Use it to adjust recommendations when applicable and cite it in your guideline references.
+Use it to adjust recommendations when applicable.
+**IMPORTANT:** In your assessment, reference "the provided context" or "guideline recommendations" rather than citing specific guideline versions (e.g., avoid "ADA 2024 says..."). The mediator will handle source attribution correctly.
+Do NOT invent guideline section numbers, percentages, links, or trial outcomes that are not explicitly present in the input/RAG context.
 
 ## PERI-OPERATIVE GUARDRAIL (CRITICAL)
 Check if the user input contains words like "surgery", "operation", "procedure", "pre-op".

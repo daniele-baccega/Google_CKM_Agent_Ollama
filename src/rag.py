@@ -6,6 +6,8 @@ import hashlib
 import os
 from dataclasses import dataclass
 from typing import Iterable, List
+from typing import Optional
+from typing import Tuple
 
 import chromadb
 from chromadb.utils import embedding_functions
@@ -21,6 +23,10 @@ DEFAULT_CHUNK_SIZE = int(os.getenv("RAG_CHUNK_SIZE", "800"))
 DEFAULT_CHUNK_OVERLAP = int(os.getenv("RAG_CHUNK_OVERLAP", "120"))
 
 SUPPORTED_EXTENSIONS = (".md", ".txt")
+
+_CACHED_CLIENT: Optional[Tuple[str, chromadb.PersistentClient]] = None
+_CACHED_EMBED_FN: Optional[Tuple[str, embedding_functions.SentenceTransformerEmbeddingFunction]] = None
+_CACHED_COLLECTION: Optional[tuple[str, str, str, chromadb.Collection]] = None
 
 
 @dataclass(frozen=True)
@@ -69,10 +75,20 @@ def chunk_text(text: str, chunk_size: int, overlap: int) -> List[str]:
         if current:
             chunks.append("\n\n".join(current))
 
-        if overlap > 0 and chunks:
-            overlap_text = chunks[-1][-overlap:]
-            current = [overlap_text, paragraph]
-            current_len = len(overlap_text) + len(paragraph) + 2
+        if overlap > 0 and current:
+            # Preserve overlap using full trailing paragraphs (not raw char slices)
+            # to avoid broken tokens like "atins" in retrieval snippets.
+            overlap_parts: List[str] = []
+            overlap_len = 0
+            for prior_paragraph in reversed(current):
+                paragraph_len = len(prior_paragraph) + 2
+                if overlap_len + paragraph_len > overlap and overlap_parts:
+                    break
+                overlap_parts.insert(0, prior_paragraph)
+                overlap_len += paragraph_len
+
+            current = overlap_parts + [paragraph]
+            current_len = sum(len(p) + 2 for p in current)
         else:
             current = [paragraph]
             current_len = len(paragraph) + 2
@@ -86,6 +102,58 @@ def chunk_text(text: str, chunk_size: int, overlap: int) -> List[str]:
 def _make_chunk_id(source: str, chunk_index: int) -> str:
     digest = hashlib.sha1(source.encode("utf-8")).hexdigest()[:12]
     return f"{digest}-{chunk_index}"
+
+
+def _get_client(chroma_dir: str) -> chromadb.PersistentClient:
+    """Return a cached Chroma client for the given storage path."""
+    global _CACHED_CLIENT
+    if _CACHED_CLIENT and _CACHED_CLIENT[0] == chroma_dir:
+        return _CACHED_CLIENT[1]
+
+    client = chromadb.PersistentClient(path=chroma_dir)
+    _CACHED_CLIENT = (chroma_dir, client)
+    return client
+
+
+def _get_embedding_fn(
+    embedding_model: str,
+) -> embedding_functions.SentenceTransformerEmbeddingFunction:
+    """Return a cached sentence-transformers embedding function."""
+    global _CACHED_EMBED_FN
+    if _CACHED_EMBED_FN and _CACHED_EMBED_FN[0] == embedding_model:
+        return _CACHED_EMBED_FN[1]
+
+    embedding_fn = embedding_functions.SentenceTransformerEmbeddingFunction(
+        model_name=embedding_model
+    )
+    _CACHED_EMBED_FN = (embedding_model, embedding_fn)
+    return embedding_fn
+
+
+def _get_collection(
+    chroma_dir: str,
+    collection_name: str,
+    embedding_model: str,
+) -> chromadb.Collection:
+    """Return a cached collection handle bound to the current embedding model."""
+    global _CACHED_COLLECTION
+    if _CACHED_COLLECTION:
+        cached_dir, cached_name, cached_model, cached_collection = _CACHED_COLLECTION
+        if (
+            cached_dir == chroma_dir
+            and cached_name == collection_name
+            and cached_model == embedding_model
+        ):
+            return cached_collection
+
+    client = _get_client(chroma_dir)
+    embedding_fn = _get_embedding_fn(embedding_model)
+    collection = client.get_or_create_collection(
+        name=collection_name,
+        embedding_function=embedding_fn,
+    )
+    _CACHED_COLLECTION = (chroma_dir, collection_name, embedding_model, collection)
+    return collection
 
 
 def build_rag_index(
@@ -105,13 +173,10 @@ def build_rag_index(
             "message": f"No docs found in '{docs_dir}'.",
         }
 
-    client = chromadb.PersistentClient(path=chroma_dir)
-    embedding_fn = embedding_functions.SentenceTransformerEmbeddingFunction(
-        model_name=embedding_model
-    )
-    collection = client.get_or_create_collection(
-        name=collection_name,
-        embedding_function=embedding_fn,
+    collection = _get_collection(
+        chroma_dir=chroma_dir,
+        collection_name=collection_name,
+        embedding_model=embedding_model,
     )
 
     ids: List[str] = []
@@ -146,13 +211,10 @@ def retrieve_context(
     top_k: int = DEFAULT_TOP_K,
 ) -> List[dict]:
     """Retrieve top-k context chunks for a query."""
-    client = chromadb.PersistentClient(path=chroma_dir)
-    embedding_fn = embedding_functions.SentenceTransformerEmbeddingFunction(
-        model_name=embedding_model
-    )
-    collection = client.get_or_create_collection(
-        name=collection_name,
-        embedding_function=embedding_fn,
+    collection = _get_collection(
+        chroma_dir=chroma_dir,
+        collection_name=collection_name,
+        embedding_model=embedding_model,
     )
 
     result = collection.query(

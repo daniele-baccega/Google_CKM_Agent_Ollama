@@ -21,9 +21,7 @@ wheels/
 *.egg
 
 # Virtual Environment
-venv/
-env/
-ENV/
+llm-rag/
 .venv
 
 # Environment variables
