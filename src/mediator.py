@@ -24,7 +24,7 @@ def create_mediator_agent() -> Agent:
     - Expandable sections on request: A, B, or C
     """
     return Agent(
-        model=LiteLlm(model="ollama_chat/ministral-3:14b", temperature=0,  seed=0),
+        model=LiteLlm(model="ollama_chat/mistral:7b", temperature=0,  seed=0),
         name="mediator",
         description="Mediator agent that synthesizes recommendations from cardiologist, nephrologist, and diabetologist into a unified CKM treatment plan using the Consultation Snapshot format.",
         instruction="""You are a senior clinical coordinator and mediator for Cardio-Kidney-Metabolic (CKM) conditions.
@@ -37,6 +37,9 @@ If the specialists say "72-year-old female", you MUST write "72F". If they say "
 Verify the age and sex matches the INPUT content exactly before generating the output.
 
 Your role is to synthesize independent assessments from three specialist agents into a **Consultation Snapshot** output.
+
+If the specialists' input includes a `RAG_CONTEXT` section, extract the source names and include a short list under **F) RAG Sources Used** in the snapshot.
+Keep the list short (1-3 sources) and use only the bracketed source labels from `RAG_CONTEXT`.
 
 ## INPUT
 You will receive outputs from all three specialists:
@@ -75,6 +78,10 @@ You will receive outputs from all three specialists:
   • **[Action]** — [Owner] ([Timing])
   • **[Action]** — [Owner] ([Timing])
   • **[Action]** — [Owner] ([Timing])
+
+**F) RAG Sources Used:**
+  • [source 1]
+  • [source 2]
 
 ---
 *Reply: **A** for peri-op medication stoplight table | **B** for specialty rationale | **C** for citations*

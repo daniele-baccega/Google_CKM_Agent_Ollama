@@ -22,7 +22,7 @@ def create_cardiologist_agent() -> Agent:
     """
     return Agent(
         # Note: If your machine can run a 32b variant, use e.g. ministral-3:32b or qwen2.5:32b for higher accuracy
-        model=LiteLlm(model="ollama_chat/ministral-3:14b", temperature=0, seed=0),
+        model=LiteLlm(model="ollama_chat/mistral:7b", temperature=0, seed=0),
         name="cardiologist",
         description="Cardiologist specializing in heart failure management (HFrEF/HFpEF) following ESC 2023 and AHA 2024 guidelines.",
         instruction="""You are a board-certified cardiologist specializing in heart failure management.
@@ -33,6 +33,10 @@ def create_cardiologist_agent() -> Agent:
 - ESC 2023 Heart Failure Guidelines
 - AHA 2024 Heart Failure Guidelines
 - Peri-operative cardiac risk assessment
+
+## RAG CONTEXT (IF PROVIDED)
+If the input includes a section labeled `RAG_CONTEXT`, treat it as supplemental, high-priority rules.
+Use it to adjust recommendations when applicable and cite it in your guideline references.
 
 ## SGLT2 INHIBITOR SAFETY NOTE (CRITICAL)
 - SGLT2 inhibitors (Empagliflozin, Dapagliflozin) do **NOT** cause hyperkalemia. They typically reduce potassium levels or have a neutral effect. 
@@ -96,7 +100,7 @@ def create_nephrologist_agent() -> Agent:
     KDIGO 2024 guidelines and dialysis prevention.
     """
     return Agent(
-        model=LiteLlm(model="ollama_chat/ministral-3:14b", temperature=0, seed=0),
+        model=LiteLlm(model="ollama_chat/mistral:7b", temperature=0, seed=0),
         name="nephrologist",
         description="Nephrologist specializing in CKD management, KDIGO 2024 guidelines, and dialysis prevention.",
         instruction="""You are a board-certified nephrologist specializing in chronic kidney disease (CKD) management.
@@ -105,6 +109,10 @@ def create_nephrologist_agent() -> Agent:
 - Chronic Kidney Disease (CKD) staging and management
 - KDIGO 2024 Clinical Practice Guidelines
 - Drug dosing adjustments for kidney function (Safety First)
+
+## RAG CONTEXT (IF PROVIDED)
+If the input includes a section labeled `RAG_CONTEXT`, treat it as supplemental, high-priority rules.
+Use it to adjust recommendations when applicable and cite it in your guideline references.
 
 ## METFORMIN & DRUG SAFETY RULES (CRITICAL)
 Strictly follow KDIGO/FDA dosing guidelines based on eGFR value:
@@ -167,7 +175,7 @@ def create_diabetologist_agent() -> Agent:
     and glucose control optimization.
     """
     return Agent(
-        model=LiteLlm(model="ollama_chat/ministral-3:14b", temperature=0, seed=0),
+        model=LiteLlm(model="ollama_chat/mistral:7b", temperature=0, seed=0),
         name="diabetologist",
         description="Diabetologist specializing in diabetes management, ADA 2024 guidelines, and glucose control.",
         instruction="""You are a board-certified endocrinologist/diabetologist specializing in diabetes management.
@@ -176,6 +184,10 @@ def create_diabetologist_agent() -> Agent:
 - T2DM/T1DM management (ADA 2024)
 - Glucose control optimization
 - Cardiorenal protection (SGLT2i, GLP-1 RA)
+
+## RAG CONTEXT (IF PROVIDED)
+If the input includes a section labeled `RAG_CONTEXT`, treat it as supplemental, high-priority rules.
+Use it to adjust recommendations when applicable and cite it in your guideline references.
 
 ## PERI-OPERATIVE GUARDRAIL (CRITICAL)
 Check if the user input contains words like "surgery", "operation", "procedure", "pre-op".

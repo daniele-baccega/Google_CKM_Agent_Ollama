@@ -532,6 +532,39 @@ python baseline_agent.py
 
 Then paste a case and press Ctrl+D (macOS/Linux) or Ctrl+Z (Windows) to submit. Uses the same `ministral-3:14b` model with a generic system prompt.
 
+## RAG Setup (Chroma + Markdown)
+
+This project can use a local RAG index to inject custom rules or documents into the specialist panel.
+
+### 1) Add documents
+
+Put your rules/docs in the `docs/` folder as Markdown or plain text files.
+
+Example file:
+```
+docs/ckm_rules.md
+```
+
+### 2) Build the index
+
+```bash
+python scripts/build_rag_index.py --docs-dir docs --chroma-dir .chroma --collection ckm_rules
+```
+
+### 3) Run the agent
+
+When the intake agent compiles the case summary, it will retrieve relevant chunks and add a `RAG_CONTEXT` block for the specialists.
+
+### 4) Optional environment variables
+
+```bash
+export RAG_DOCS_DIR=docs
+export RAG_CHROMA_DIR=.chroma
+export RAG_COLLECTION=ckm_rules
+export RAG_EMBED_MODEL=sentence-transformers/all-MiniLM-L6-v2
+export RAG_TOP_K=5
+```
+
 ## Usage Examples
 
 ### Example 1: Basic Patient Case
@@ -727,6 +760,10 @@ Google-CKM-Agent-Ollama/
 ├── examples.md               # Usage examples
 ├── verify_setup.py           # Setup verification script
 ├── baseline_agent.py         # Optional: single-agent baseline (control) script
+├── docs/                      # RAG documents (Markdown/text)
+│   └── ckm_rules.md           # Example rules file
+├── scripts/
+│   └── build_rag_index.py     # Build/update Chroma index
 └── src/
     ├── __init__.py
     ├── agent.py              # Root agent and orchestration
@@ -734,6 +771,8 @@ Google-CKM-Agent-Ollama/
     ├── mediator.py           # Mediator agent
     ├── specialists.py       # Specialist agents (cardiologist, nephrologist, diabetologist)
     ├── output_templates.py   # Consultation Snapshot and medication table templates
+   ├── rag.py                 # RAG indexing + retrieval utilities
+   ├── rag_tools.py           # RAG tool for ADK agents
     └── utils.py              # Utility functions
 ```
 
