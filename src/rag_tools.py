@@ -26,7 +26,7 @@ def retrieve_rag_context(case_summary: str) -> str:
         "RAG_RERANKER_MODEL", "cross-encoder/ms-marco-MiniLM-L-6-v2"
     )
     top_k = int(os.getenv("RAG_TOP_K", "5"))
-    enable_reranking = os.getenv("RAG_ENABLE_RERANKING", "false").lower() == "true"  # DISABLED for debugging
+    enable_reranking = os.getenv("RAG_ENABLE_RERANKING", "false").lower() == "true"
 
     matches = retrieve_context(
         query=case_summary,
@@ -215,7 +215,7 @@ def _extract_locked_case_facts(text: str) -> str:
 
     bullet_lines = "\n".join(f"- {fact}" for fact in facts)
     return (
-        "LOCKED_CASE_FACTS (do not alter or contradict):\n"
+        "PATIENT_DATA (do not alter or contradict):\n"
         f"{bullet_lines}\n"
         "If any generated text conflicts with these facts, correct the output to match these facts."
     )
@@ -239,27 +239,29 @@ def inject_rag_context_before_model(
     """
     try:
         full_user_text = _all_user_text(llm_request)
-        locked_facts = _extract_locked_case_facts(full_user_text)
+        patient_data = _extract_patient_data(full_user_text)
 
-        # Reuse locked facts across the full consultation flow.
-        if not locked_facts:
-            cached_facts = callback_context.state.get("case_locked_facts")
-            if isinstance(cached_facts, str) and cached_facts.strip():
-                locked_facts = cached_facts
+        # Reuse patient data across the full consultation flow
+        if not patient_data:
+            cached_data = callback_context.state.get("patient_data")
+            if isinstance(cached_data, str) and cached_data.strip():
+                patient_data = cached_data
         else:
-            callback_context.state["case_locked_facts"] = locked_facts
+            callback_context.state["patient_data"] = patient_data
 
-        if locked_facts:
+        if patient_data:
             llm_request.contents.append(
                 types.Content(
                     role="user",
-                    parts=[types.Part(text=locked_facts)],
+                    parts=[types.Part(text=patient_data)],
                 )
             )
 
         if _has_rag_context(llm_request):
             return None
 
+        agent_name = callback_context.agent_name
+        
         # Reuse context across specialists/mediator within the same session.
         cached = callback_context.state.get("rag_context_block")
         if isinstance(cached, str) and cached.strip():
@@ -269,12 +271,26 @@ def inject_rag_context_before_model(
             if len(query_text) < 80:
                 query_text = _clean_noise(full_user_text)
 
-            # Ignore short control inputs (e.g., "A", "B", "C", "Back").
-            if len(query_text) < 80:
+            # Only skip if TRULY empty (control commands like "A", "B", "C" shouldn't get RAG)
+            if not query_text or len(query_text) < 10:
                 return None
 
+            # Save original case summary for mediator to use later
+            if agent_name != "mediator" and query_text:
+                callback_context.state["original_case_summary"] = query_text
+            
             rag_context = retrieve_rag_context(query_text)
             callback_context.state["rag_context_block"] = rag_context
+
+        # MEDIATOR SPECIAL: Always retrieve fresh RAG context using original case
+        if agent_name == "mediator":
+            original_case = callback_context.state.get("original_case_summary", "")
+            if original_case and len(original_case) >= 10:
+                rag_context = retrieve_rag_context(original_case)
+                callback_context.state["rag_context_block"] = rag_context
+            else:
+                # No original case to use
+                return None
 
         if not rag_context or rag_context.strip() == "RAG_CONTEXT: None":
             return None
@@ -312,10 +328,10 @@ def inject_rag_context_before_model(
 def hide_rag_internals_after_model(
     callback_context: CallbackContext, llm_response: LlmResponse
 ) -> Optional[LlmResponse]:
-    """Remove RAG internals (RAG_CONTEXT blocks and AUTHORITATIVE_SOURCES footers) from model output.
+    """Clean up internal RAG machinery but preserve source attribution.
     
-    This ensures users never see the internal RAG machinery in the final output.
-    Only the structured F) RAG Sources Used section should be visible.
+    Removes the verbose RAG_CONTEXT blocks (internal details) but keeps
+    [AUTHORITATIVE_SOURCES] footer for transparency and mediator's section F).
     """
     try:
         if not llm_response or not llm_response.text:
@@ -323,7 +339,7 @@ def hide_rag_internals_after_model(
 
         text = llm_response.text
         
-        # Remove RAG_CONTEXT: ... blocks (from start of line to end of that content)
+        # Remove RAG_CONTEXT: ... blocks (the verbose internal machinery)
         # Pattern: "RAG_CONTEXT:" followed by anything until double newline or end
         text = re.sub(
             r"RAG_CONTEXT:.*?(?=\n\n|\Z)",
@@ -332,13 +348,11 @@ def hide_rag_internals_after_model(
             flags=re.DOTALL
         )
         
-        # Remove [AUTHORITATIVE_SOURCES: ...] footer lines
-        text = re.sub(
-            r"^\[AUTHORITATIVE_SOURCES:.*?\]\s*$",
-            "",
-            text,
-            flags=re.MULTILINE
-        )
+        # Keep [AUTHORITATIVE_SOURCES: ...] footer!
+        # This is needed for:
+        # 1. Mediator to extract real PDF names for section F)
+        # 2. Users to see which sources were cited
+        # (It's not internal machinery—it's the source attribution)
         
         # Remove stray "---" dividers that may separate RAG content
         text = re.sub(r"^---\s*$", "", text, flags=re.MULTILINE)

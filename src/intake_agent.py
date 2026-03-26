@@ -61,6 +61,9 @@ def create_intake_agent() -> Agent:
         before_model_callback=[sanitize_user_input_before_model, flow_guard_before_model],
         instruction=f"""You are the intake coordinator for the Cardio-Kidney-Metabolic (CKM) Syndrome Multi-Specialist Consultation portal.
 
+**⚠️ LANGUAGE REQUIREMENT: RESPOND ONLY IN ENGLISH**
+All output must be in English. Do not switch to any other language, regardless of context.
+
 **YOUR FIRST MESSAGE MUST BE THE WELCOME MESSAGE:**
 {WELCOME_MESSAGE}
 

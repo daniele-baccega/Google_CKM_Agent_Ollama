@@ -1,0 +1,415 @@
+[ckm_root_agent]: Welcome to the **Cardio-Kidney-Metabolic (CKM) Syndrome Multi-Specialist Consultation** portal.
+
+I help clinicians prepare and synthesize complex CKM cases involving the interplay of heart failure, chronic kidney disease, and metabolic conditions (diabetes, obesity). Recommendations follow current guidelines from cardiology (ESC/AHA), nephrology (KDIGO), and endocrinology (ADA).
+
+**Choose your intake mode:**
+
+**1. Guided intake** *(recommended)* — I'll ask 3–5 high-yield questions step by step
+
+**2. Paste mode** — Paste the full case (free text or JSON) and I'll structure it
+
+Reply **1** or **2** to begin.
+[user]: 2
+
+[intake_coordinator]: Please paste your case (free text or JSON format). I'll structure it for the specialist panel.
+[user]: 70-year-old male patient Demographics: - Age: 70 years - Sex: Male - Weight: 78 kg - Height: 172 cm Medical History: - Hypertension - CKD Stage 3b - T2DM - HFrEF (EF 40%) Vital Signs: - Blood pressure: 115/70 mmHg - Heart rate: 65 bpm Laboratory Results: - HbA1c: 7.1% - eGFR: 40 mL/min/1.73m² - Creatinine: 1.7 mg/dL Current Medications: - Lisinopril 40mg daily - Carvedilol 25mg BID - Empagliflozin 10mg daily - Metformin 500mg daily Chief Complaint: Peri-operative clearance for urgent orthopedic surgery (ORIF for ankle fracture) tomorrow morning.
+
+[intake_coordinator]: ```markdown
+**Structured Case Summary**
+
+---
+**Patient Demographics**
+- Age: 70 years
+- Sex: Male
+- Weight: 78 kg
+- Height: 172 cm
+- BMI: **26.3 kg/m²** *(calculated: 78 / (1.72)²)*
+
+---
+**Medical History**
+- **Cardiac**: HFrEF (EF **40%**), hypertension
+- **Kidney**: CKD Stage **3b** (eGFR **40 mL/min/1.73m²**)
+- **Metabolic**: T2DM (HbA1c **7.1%**)
+
+---
+**Vital Signs**
+- BP: **115/70 mmHg**
+- HR: **65 bpm**
+
+---
+**Laboratory Results**
+- **HbA1c**: 7.1%
+- **eGFR**: 40 mL/min/1.73m²
+- **Creatinine**: 1.7 mg/dL
+
+---
+**Medications**
+- **Cardio-Renal**:
+  - Lisinopril **40 mg daily** (ACEi)
+  - Carvedilol **25 mg BID** (beta-blocker)
+  - Empagliflozin **10 mg daily** (SGLT2i)
+- **Metabolic**:
+  - Metformin **500 mg daily**
+
+---
+**Chief Complaint**
+- **Peri-operative clearance** for **urgent orthopedic surgery** (ORIF for ankle fracture) **tomorrow morning**.
+- **Key risks**: CKD, HFrEF, SGLT2i use, potential volume shifts, and contrast/medication interactions.
+
+---
+**Additional Context**
+- **Procedure details**: ORIF (ankle fracture) – **elective but urgent** (tomorrow AM).
+- **Contrast use**: Not explicitly mentioned (assume none unless specified).
+- **Blood loss risk**: Moderate (orthopedic surgery).
+- **Volume status**: Not explicitly documented (assume baseline on guideline-directed therapy).
+
+---
+**Is this correct?**
+Reply **'Confirm'** to proceed with specialist consultation or provide corrections.
+```
+[user]: Confirm
+
+[intake_coordinator]: ```markdown
+---
+**Case Summary for CKM Specialist Panel**
+
+### **Patient Overview**
+- **Demographics**: 70M, 78 kg, 172 cm (BMI 26.3)
+- **Primary Indication**: Peri-operative clearance for **urgent ORIF (ankle fracture)** tomorrow AM.
+
+### **CKM Triad**
+| **Domain**       | **Key Findings**                                                                 |
+|------------------|---------------------------------------------------------------------------------|
+| **Cardiac**      | HFrEF (EF **40%**), HTN, on **lisinopril + carvedilol**                          |
+| **Kidney**       | CKD **Stage 3b** (eGFR **40**), Cr **1.7 mg/dL**                                  |
+| **Metabolic**    | T2DM (HbA1c **7.1%**), on **empagliflozin + metformin**                         |
+
+### **Medications**
+- **Cardio-Renal**:
+  - Lisinopril 40 mg daily
+  - Carvedilol 25 mg BID
+  - Empagliflozin 10 mg daily *(SGLT2i)*
+- **Metabolic**: Metformin 500 mg daily
+
+### **Procedure Context**
+- **Type**: ORIF (ankle fracture)
+- **Urgency**: **Urgent** (tomorrow AM)
+- **Risks**:
+  - Volume shifts (HFrEF + CKD)
+  - SGLT2i hold? (peri-op guidelines)
+  - Contrast: None planned
+  - Blood loss: Moderate (orthopedic)
+
+### **Vitals & Labs**
+- **BP**: 115/70 mmHg
+- **HR**: 65 bpm
+- **HbA1c**: 7.1% *(well-controlled)*
+- **eGFR**: 40 mL/min/1.73m²
+
+---
+**Clinical Questions for Panel**:
+1. **SGLT2i management**: Hold empagliflozin peri-operatively? If so, for how long?
+2. **Fluid/medication adjustments**: Optimize diuretics/ACEi pre-op? Monitor for hypotension.
+3. **Kidney protection**: Continue lisinopril? Risk of AKI with volume shifts.
+4. **Metformin**: Hold peri-operatively? Risk of lactic acidosis with contrast/renal stress.
+5. **Post-op monitoring**: Target BP/HR goals, renal function trends, and HF decompensation signs.
+
+---
+**RAG_CONTEXT**:
+*(Pending retrieval of guideline-based rules for peri-operative CKM management)*
+```
+
+[nephrologist]: ### **Nephrology Assessment**
+
+**CKD Stage:** **G3b A2** (eGFR **40 mL/min/1.73m²**, albuminuria status not specified but assumed stable per baseline CKD management)
+**AKI Risk:** **Moderate-High** — Contributing factors:
+- **HFrEF (EF 40%)** with CKD Stage 3b (dual risk for hemodynamic AKI)
+- **Moderate blood loss** (orthopedic surgery) + **volume shifts** (HFrEF)
+- **SGLT2i/ACEi use** (peri-operative GFR "dip" risk per RAG context)
+- **No contrast** (reduces but does not eliminate AKI risk)
+
+**Dialysis Risk:** **Low** (no acute kidney injury or severe fluid overload at baseline).
+
+---
+
+### **Key Recommendations**
+
+#### **1. SGLT2i (Empagliflozin) Management**
+- **Hold empagliflozin 24–48 hours pre-op** (per **AHA/ACC 2024 Perioperative Guidelines** for non-cardiac surgery in CKD/HFrEF).
+  - *Rationale*: Risk of **hypotension** (synergistic with ACEi) and **acute GFR decline** intraoperatively. Resume **post-op Day 1–2** if:
+    - **BP stable** (≥100 mmHg systolic, no orthostatic changes).
+    - **No signs of dehydration/hypovolemia** (e.g., tachycardia, oliguria).
+    - **eGFR ≥30 mL/min/1.73m²** (monitor post-op Day 1).
+  - *Alternative*: If surgery is delayed >48 hours, consider **holding until post-op** to mitigate GFR dip.
+
+#### **2. ACEi (Lisinopril) Management**
+- **Hold lisinopril 12–24 hours pre-op** (per **KDIGO/AHA guidelines** for peri-operative CKD).
+  - *Rationale*: Risk of **intra-operative hypotension** (especially with HFrEF) and **post-op AKI** due to volume shifts.
+  - **Resume post-op Day 1** if:
+    - **BP stable** (≥110 mmHg systolic, no orthostatic hypotension).
+    - **No AKI** (eGFR ≥ baseline or <25% decline from pre-op).
+    - **No signs of HF decompensation** (e.g., elevated JVP, pulmonary edema).
+  - *Monitor*: Serial **eGFR/Cr** on post-op Days 1–3.
+
+#### **3. Metformin Management**
+- **Hold metformin 48 hours pre-op** (per **ADA guidelines** for CKD Stage 3b + surgery).
+  - *Rationale*: Risk of **lactic acidosis** with:
+    - **Hypoperfusion** (peri-operative hypotension).
+    - **Contrast** (if inadvertently administered).
+    - **Dehydration** (common post-op).
+  - **Resume post-op** if:
+    - **eGFR ≥45 mL/min/1.73m²** (check post-op Day 1).
+    - **No AKI** (stable Cr/eGFR).
+    - **No metabolic acidosis** (lactate levels if clinically indicated).
+
+#### **4. Beta-Blocker (Carvedilol)**
+- **Continue carvedilol pre-op** (per **AHA/ACC guidelines** for HFrEF).
+  - *Dose*: **Reduce to 50% of maintenance dose** if:
+    - **HR <60 bpm** or **BP <100 mmHg systolic**.
+    - **Hypotension risk** (e.g., pre-op fasting, dehydration).
+  - *Resume full dose post-op* if:
+    - **HR ≥60 bpm** and **BP stable**.
+    - **No signs of HF decompensation**.
+
+#### **5. Peri-Operative Fluid/Electrolyte Management**
+- **Intra-operative**:
+  - **Goal**: **Euvolemia** (avoid fluid overload in HFrEF).
+  - **Monitor**: **CVP/ScvO₂** if available; otherwise, **clinical assessment** (JVP, lung auscultation).
+  - **Avoid crystalloids** if possible; consider **colloid** (e.g., albumin) for volume replacement.
+- **Post-op**:
+  - **Diuretics**: **Hold loop diuretics pre-op** (risk of hypotension). Restart **post-op Day 1** if:
+    - **Volume overload** (e.g., elevated JVP, peripheral edema).
+    - **eGFR stable** (no AKI).
+  - **Electrolytes**: Monitor **K⁺, Mg²⁺** (risk of hypokalemia with resumed ACEi/diuretics).
+
+#### **6. Post-Operative Monitoring**
+- **Day 1–3**:
+  - **Renal**: **eGFR/Cr** (target <25% decline from baseline).
+  - **Cardiac**: **BP/HR trends**, **JVP**, **lung auscultation** (HF decompensation).
+  - **Metabolic**: **Lactate** (if metformin was held and concern for lactic acidosis).
+- **Day 5–7**:
+  - **Resume empagliflozin** if:
+    - **eGFR ≥30 mL/min/1.73m²**.
+    - **No AKI** (stable Cr/eGFR).
+  - **Resume lisinopril** if:
+    - **BP stable** (≥110 mmHg systolic).
+    - **No AKI** (eGFR ≥ baseline).
+
+---
+
+### **Summary of Peri-Operative Plan**
+| **Medication**       | **Pre-Op Hold**       | **Post-Op Resume**                          | **Monitoring**                          |
+|----------------------|-----------------------|--------------------------------------------|-----------------------------------------|
+| **Empagliflozin**    | 24–48 hours           | Day 1–2 (if stable BP/eGFR)                | BP, eGFR, signs of dehydration          |
+| **Lisinopril**       | 12–24 hours           | Day 1 (if stable BP, no AKI)               | BP, eGFR, JVP                            |
+| **Metformin**        | 48 hours              | Day 1 (if eGFR ≥45)                        | eGFR, lactate (if risk factors)         |
+| **Carvedilol**       | Continue (50% dose)   | Full dose if HR/BP stable                  | HR, BP, signs of HF decompensation      |
+| **Diuretics**        | Hold pre-op           | Day 1 if volume overload                    | JVP, lung auscultation, eGFR            |
+
+---
+### **Risks & Mitigation**
+| **Risk**                          | **Mitigation Strategy**                                  |
+|-----------------------------------|--------------------------------------------------------|
+| **AKI (HFrEF + volume shifts)**   | Hold ACEi/SGLT2i pre-op, optimize fluids intra-op.     |
+| **Hypotension (ACEi + SGLT2i)**   | Reduce carvedilol dose, monitor BP closely.           |
+| **Lactic acidosis (metformin)**   | Hold pre-op, resume only if eGFR stable post-op.       |
+| **HF decompensation**             | Avoid fluid overload, monitor JVP/lung sounds.         |
+
+---
+### **Final Notes**
+- **Surgery Team Communication**: Ensure anesthesia is aware of **HFrEF/CKD** and **held medications** (ACEi/SGLT2i).
+- **Post-Op Discharge Criteria**:
+  - **Stable BP/HR** (no orthostatic changes).
+  - **eGFR ≥ baseline** (no AKI).
+  - **No signs of HF decompensation** (e.g., dyspnea, edema).
+- **Follow-Up**: **Nephrology consult** if:
+  - **eGFR declines >25%** post-op.
+  - **AKI** (Cr rise >0.3 mg/dL or eGFR <30 mL/min/1.73m²).
+
+---
+*(Hybrid of **KDIGO 2021 CKD Guidelines**, **AHA/ACC 2024 Perioperative Guidelines**, and **ADA 2023 Metformin in CKD**.)*
+
+**(Hybrid of RAG context: AHA/ACC 2024 Perioperative Guidelines + KDIGO CKD management.)**
+
+[diabetologist]: ### **Endocrinology Assessment**
+
+**Diabetes Type:** T2DM
+**Glycemic Control:** HbA1c **7.1%** (well-controlled, ADA target range)
+**Hypoglycemia Risk:** **Low** (current regimen: empagliflozin + metformin 500 mg daily)
+
+---
+**Key Findings:**
+• **Cardiorenal Comorbidities**: HFrEF (EF 40%) + CKD Stage 3b (eGFR 40) — **high-risk for volume shifts, AKI, and HF decompensation peri-operatively**.
+• **SGLT2i Use**: Empagliflozin provides **cardiorenal protection** but requires **peri-operative hold** due to risk of euglycemic DKA and hemodynamic instability.
+• **Metformin Dose**: **500 mg daily** (low dose) with **no recent renal decline** (eGFR stable at 40), but **peri-operative hold recommended** due to theoretical lactic acidosis risk with stress (e.g., blood loss, contrast).
+• **RAASi (Lisinopril)**: **Continue pre-operatively** if BP stable (115/70), but **hold if hypotension develops** (risk of AKI with volume shifts).
+
+---
+**Peri-Operative Management (ADA/AHA/KDIGO Guidelines):**
+1. **SGLT2i (Empagliflozin)**:
+   - **Hold 24–48 hours pre-op** (per [AHA 2024 Perioperative Guidelines](https://doi.org/10.1161/CIR.0000000000001285)) to mitigate risk of euglycemic DKA and hemodynamic instability.
+   - **Resume 48 hours post-op** if oral intake tolerated and renal function stable (eGFR >40).
+
+2. **Metformin**:
+   - **Hold 24–48 hours pre-op** (ADA 2024) due to theoretical lactic acidosis risk with peri-operative stress (e.g., blood loss, contrast).
+   - **Resume 48 hours post-op** if renal function unchanged (eGFR >40) and no signs of dehydration.
+
+3. **RAASi (Lisinopril)**:
+   - **Continue if BP stable** (115/70) and no signs of hypoperfusion.
+   - **Hold if hypotension develops** (risk of AKI with volume shifts; monitor creatinine trends).
+
+4. **Fluid/Electrolytes**:
+   - **Avoid volume overload** (HFrEF risk); consider **low-dose loop diuretic** (e.g., furosemide) if signs of congestion (e.g., elevated JVP, peripheral edema).
+   - **Monitor for AKI**: Serial creatinine (baseline 1.7 mg/dL) and urine output peri-operatively.
+
+5. **Post-Operative Monitoring**:
+   - **Target BP**: 120–130/80 mmHg (avoid hypotension).
+   - **Renal Function**: Repeat eGFR/Cr **24–48 hours post-op**; target eGFR >35 for SGLT2i resumption.
+   - **HF Decompensation**: Monitor for dyspnea, edema, or S3 gallop (consider NT-proBNP if available).
+
+---
+**Rationale for Recommendations:**
+- **SGLT2i Hold**: Peri-operative risk of euglycemic DKA (rare but reported) and hemodynamic instability (e.g., hypotension with anesthesia).
+- **Metformin Hold**: Low-dose but theoretical risk of lactic acidosis with stress (e.g., blood loss, contrast).
+- **RAASi Continuation**: Evidence supports **continuation if hemodynamically stable** (reduces post-op AKI risk); hold only if hypotension develops.
+- **Diuretic Use**: Prophylactic loop diuretic may prevent HF decompensation but requires close monitoring for AKI.
+
+---
+**Post-Operative Plan:**
+1. **Day 1 Post-Op**:
+   - Resume **lisinopril** if BP stable (>120/80).
+   - **Hold metformin/empagliflozin** until renal function confirmed stable.
+   - **IV fluids**: Crystalloid only (avoid overload).
+
+2. **Day 2 Post-Op**:
+   - Resume **metformin** if eGFR >40 and no signs of dehydration.
+   - Resume **empagliflozin** if oral intake tolerated and eGFR >40.
+
+3. **Follow-Up**:
+   - **1-week post-op**: Repeat eGFR/Cr, BP, and HF symptoms assessment.
+   - **Long-term**: Optimize HF therapy (e.g., add MRA if tolerated) and monitor for CKD progression.
+
+---
+**Hypertension Note**: Current BP (115/70) is **well-controlled**; no immediate need for antihypertensive adjustments unless hypotension develops peri-operatively.
+
+---
+*(Hybrid of **ADA 2024**, **AHA 2024 Perioperative Guidelines**, and **KDIGO CKD Management**.)*
+
+**Hybrid of RAG Context**: **FALLBACK TO ADA/AHA/KDIGO GUIDELINES** due to limited actionable data in retrieved RAG context.
+
+[cardiologist]: ### Cardiology Assessment
+
+**HF Classification:** HFrEF (EF 40%)
+**Current GDMT Status:** **Suboptimal** (Missing ARNI, MRA, and potentially submaximal beta-blocker dose)
+**Peri-op Cardiac Risk:** **Intermediate** (AHA 2024: CKD Stage 3b + HFrEF with moderate blood loss risk)
+
+---
+
+#### **Key Findings & Peri-operative Management**
+1. **SGLT2i (Empagliflozin) Management**
+   - **Action:** **Hold empagliflozin 24–48 hours pre-op** (AHA 2024 guidelines) due to:
+     - Risk of **euglycemic DKA** with stress (surgery, fasting).
+     - Potential **GFR dip** post-op (RAG context: SGLT2i cause acute GFR declines).
+   - **Resume:** Post-op when **oral intake tolerated** and **renal function stable** (eGFR >40 mL/min/1.73m2).
+
+2. **RAASi (Lisinopril) Management**
+   - **Action:** **Continue lisinopril** if:
+     - **BP >110 mmHg systolic** (current BP 115/70 is acceptable).
+     - **No signs of hypoperfusion** (e.g., tachycardia, oliguria).
+   - **Hold if:** BP drops <100 mmHg systolic or **AKI risk** (e.g., hypotension, dehydration).
+   - **Monitor:** Serial creatinine (baseline Cr 1.7 mg/dL; target <20% rise post-op).
+
+3. **Beta-Blocker (Carvedilol)**
+   - **Action:** **Continue carvedilol** (current dose 25 mg BID is reasonable for HFrEF).
+   - **Hold if:** HR <50 bpm or **hypotension** (peri-op stress may exacerbate bradycardia).
+
+4. **Metformin**
+   - **Action:** **Hold metformin 24–48 hours pre-op** (ADA guidelines) due to:
+     - Risk of **lactic acidosis** with renal stress (eGFR 40 mL/min/1.73m2).
+   - **Resume:** Post-op when **renal function stable** and **oral intake resumed**.
+
+5. **Diuretics**
+   - **Action:** **No routine diuretics pre-op** unless:
+     - **Volume overload** (e.g., peripheral edema, dyspnea).
+     - **Monitor for dehydration** (risk with orthopedic surgery + CKD).
+
+6. **Fluid Management**
+   - **Intra-op:** **Crystalloid only** (avoid overhydration; risk of **HF decompensation**).
+   - **Post-op:** **Strict I/O monitoring**; target **urine output >0.5 mL/kg/hour**.
+
+7. **Post-operative Monitoring**
+   - **Vitals:** BP/HR q4h; target **BP >110 mmHg systolic** (avoid hypotension).
+   - **Renal:** Creatinine **daily** for 48 hours post-op (baseline Cr 1.7 mg/dL).
+   - **HF Decompensation:** Monitor for **dyspnea, edema, or S3 gallop**.
+
+---
+
+#### **RAG Context Alignment**
+- **AHA 2024 Guidelines** (Perioperative Cardiovascular Management):
+  - SGLT2i/RAASi holding based on **BP stability** and **renal function**.
+  - **Intermediate-risk** patients (CKD + HFrEF) require **close monitoring**.
+- **KDIGO (CKD Stage 3b):**
+  - Avoid **nephrotoxic agents** (e.g., NSAIDs, contrast).
+  - **Hydration** to prevent **AKI** (no contrast planned here).
+
+---
+#### **Summary of Recommendations**
+| **Medication**       | **Pre-op**               | **Post-op**                          |
+|----------------------|--------------------------|--------------------------------------|
+| Empagliflozin        | **Hold 24–48h**          | Resume when oral intake tolerated   |
+| Lisinopril           | **Continue** (if BP >110) | Hold if BP <100 or AKI               |
+| Carvedilol           | **Continue**             | Hold if HR <50 or hypotension        |
+| Metformin            | **Hold 24–48h**          | Resume with stable renal function    |
+| Diuretics            | **PRN for overload**     | Monitor I/O closely                  |
+
+---
+#### **Critical Alerts**
+1. **Avoid contrast** (no planned, but if needed, **hydrate aggressively**).
+2. **Hypotension risk** (CKD + HFrEF + orthopedic surgery).
+3. **DKA risk** (SGLT2i + stress; monitor glucose even if HbA1c 7.1%).
+
+**Next Steps:**
+- **Anesthesia:** Notify of **RAASi/SGLT2i holding** and **CKD risk**.
+- **Post-op:** **Step-down care** with **renal/HF monitoring** for 72 hours.
+
+---
+*(Hybrid RAG + Clinical Judgment: Limited RAG data on SGLT2i/RAASi peri-op; defaulted to AHA 2024 + KDIGO.)*
+
+[mediator]: **[MEDIATOR CORRECTION]** — **Cardiology Assessment** contained a factual error:
+- **Claim:** *"SGLT2i cause acute GFR declines"* → **Correction:** SGLT2i **do not cause acute GFR declines**; they stabilize or improve GFR long-term. The **peri-op GFR dip** is due to **volume shifts/hypoperfusion**, not SGLT2i. **Hold is justified for DKA risk, not renal decline** (AHA 2024).
+
+---
+### **Consultation Snapshot**
+**Patient:** HFrEF (EF 40%), CKD Stage 3b (eGFR ~40 mL/min), T2DM (HbA1c 7.1%)
+**Surgery:** Orthopedic (moderate blood loss risk)
+
+#### **Key Recommendations**
+1. **GDMT Optimization (Post-op Priority)**
+   - **Add ARNI (e.g., sacubitril/valsartan)** and **MRA (e.g., spironolactone)** if tolerated (current GDMT suboptimal).
+   - **Beta-blocker (carvedilol 25 mg BID):** **Continue** (no dose adjustment needed).
+
+2. **Peri-operative Medication Management**
+   | **Medication**       | **Pre-op Action**               | **Post-op Resumption**                          |
+   |----------------------|---------------------------------|-----------------------------------------------|
+   | **Empagliflozin**    | **Hold 24–48h** (DKA risk)      | Resume with **oral intake + eGFR >40**        |
+   | **Lisinopril**       | **Continue** (BP >110 mmHg)     | Hold if **BP <100 mmHg** or **AKI**           |
+   | **Metformin**        | **Hold 24–48h** (lactic acidosis risk) | Resume with **stable renal function**      |
+   | **Diuretics**        | **PRN for volume overload**     | Monitor **I/O + weight** (avoid dehydration) |
+
+3. **Critical Monitoring**
+   - **Renal:** Creatinine **daily ×48h** (baseline Cr 1.7 mg/dL; target <20% rise).
+   - **Cardiac:** BP/HR **q4h** (target **BP >110 mmHg**); monitor for **HF decompensation**.
+   - **Glucose:** Check **q6h** (SGLT2i hold + stress → DKA risk even with HbA1c 7.1%).
+
+4. **Fluid & Anesthesia**
+   - **Intra-op:** **Crystalloid only** (avoid overhydration).
+   - **Notify anesthesia** of **RAASi/SGLT2i holding** and **CKD risk**.
+
+---
+**Next Steps:**
+- **Post-op Day 1:** Reassess **eGFR + BP** before resuming SGLT2i/RAASi.
+- **Day 3:** Optimize **ARNI/MRA** if hemodynamically stable.
+
+---
+**Information Source Transparency:**
+*Hybrid approach: AHA 2024/KDIGO for peri-op management; general knowledge for GDMT optimization (limited RAG on ARNI/MRA in CKD).*

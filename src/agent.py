@@ -52,6 +52,9 @@ root_agent = Agent(
     before_model_callback=flow_guard_before_model,
     instruction=f"""You are the coordinator for a Cardio-Kidney-Metabolic (CKM) Syndrome Multi-Specialist Consultation portal.
 
+**⚠️ LANGUAGE REQUIREMENT: RESPOND ONLY IN ENGLISH**
+All output must be in English. Do not switch to any other language, regardless of context.
+
 ## WELCOME MESSAGE (First Message Only)
 
 When starting a new conversation, ALWAYS begin with this exact welcome message:
