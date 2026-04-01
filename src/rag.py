@@ -580,26 +580,71 @@ def retrieve_context(
     return matches
 
 
-def format_rag_context(matches: List[dict], max_chars: int = 3000) -> str:
-    """Format retrieved chunks into a compact context block."""
-    if not matches:
-        return "RAG_CONTEXT: None"
+def _strip_extension(filename: str) -> str:
+    """Remove file extensions (.pdf, .md, .txt) from document names for cleaner citations."""
+    for ext in (".pdf", ".md", ".txt"):
+        if filename.lower().endswith(ext):
+            return filename[:-len(ext)]
+    return filename
 
-    lines: List[str] = ["RAG_CONTEXT:"]
+
+def format_rag_context(matches: List[dict], max_chars: int = 3000) -> str:
+    """Format retrieved chunks into a citable context block with numbered excerpts.
+    
+    Each excerpt has an ID (E1, E2, etc.) that agents MUST cite when using that content.
+    Format: "Per [Source Document]: [recommendation] (based on excerpt E1)"
+    
+    Includes:
+    - Excerpt ID and document source for traceability
+    - Full text snippet
+    - Map of excerpt IDs to source documents
+    """
+    if not matches:
+        return "No relevant documents found."
+
+    lines: List[str] = ["DOCUMENT EXCERPTS:\n"]
+    
+    # Track mapping of excerpt IDs to sources
+    excerpt_sources = {}
+    unique_sources = set()
     total = 0
     
     for idx, match in enumerate(matches, start=1):
-        snippet = match.get("content", "").strip().replace("\n", " ")
+        excerpt_id = f"E{idx}"
+        content = match.get("content", "").strip()
+        # Collapse multiple spaces for cleaner display, but preserve structure
+        snippet = " ".join(content.split())
         source = match.get("source", "unknown")
+        source_clean = _strip_extension(source)  # Remove .pdf, .md, .txt
+        chunk_index = match.get("chunk_index", 0)
         
-        # Ensure we always include the source, even if we truncate snippet
-        short_snippet = snippet[:200] if len(snippet) > 200 else snippet
-        line = f"{idx}. [{source}] {short_snippet}"
+        # Map excerpt ID to source for reference
+        excerpt_sources[excerpt_id] = source_clean
+        unique_sources.add(source_clean)
+        
+        # Truncate snippet to reasonable length for display (but full text is in content field)
+        snippet_preview = snippet[:500] if len(snippet) > 500 else snippet
+        
+        # Format: EXCERPT_ID [DOCUMENT_SOURCE] "PREVIEW..." 
+        line = f"{excerpt_id}. [Document: {source_clean} | Chunk {chunk_index}]\n    \"{snippet_preview}...\"\n"
         
         if total + len(line) > max_chars:
             break
             
         lines.append(line)
         total += len(line)
+
+    # Add explicit instructions for citation
+    lines.append("\n---")
+    lines.append("CITATION REQUIREMENT:")
+    lines.append("When recommending something based on an excerpt, MUST cite like this:")
+    lines.append('  ✓ "Per [DOCUMENT_SOURCE]: [recommendation] (E1: \'[key phrase]\')"')
+    lines.append('  ✓ "[Per Document X, Guideline Y]: [recommendation] (E2)"')
+    lines.append("  ✓ Include both the EXCERPT_ID (E1, E2, etc.) AND the SOURCE DOCUMENT")
+    lines.append("  ❌ Do NOT hide the source - cite explicitly which excerpt AND DOCUMENT informed your recommendation")
+    lines.append("\nEXCERPT ID → SOURCE DOCUMENT MAP:")
+    for excerpt_id in sorted(excerpt_sources.keys(), key=lambda x: int(x[1:])):
+        source_doc = excerpt_sources[excerpt_id]
+        lines.append(f"  {excerpt_id} → {source_doc}")
 
     return "\n".join(lines)

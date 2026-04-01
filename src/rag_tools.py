@@ -26,7 +26,8 @@ def retrieve_rag_context(case_summary: str) -> str:
         "RAG_RERANKER_MODEL", "cross-encoder/ms-marco-MiniLM-L-6-v2"
     )
     top_k = int(os.getenv("RAG_TOP_K", "5"))
-    enable_reranking = os.getenv("RAG_ENABLE_RERANKING", "false").lower() == "true"
+    # Enable reranking by default for better citation quality
+    enable_reranking = os.getenv("RAG_ENABLE_RERANKING", "true").lower() == "true"
 
     matches = retrieve_context(
         query=case_summary,
@@ -239,23 +240,6 @@ def inject_rag_context_before_model(
     """
     try:
         full_user_text = _all_user_text(llm_request)
-        patient_data = _extract_patient_data(full_user_text)
-
-        # Reuse patient data across the full consultation flow
-        if not patient_data:
-            cached_data = callback_context.state.get("patient_data")
-            if isinstance(cached_data, str) and cached_data.strip():
-                patient_data = cached_data
-        else:
-            callback_context.state["patient_data"] = patient_data
-
-        if patient_data:
-            llm_request.contents.append(
-                types.Content(
-                    role="user",
-                    parts=[types.Part(text=patient_data)],
-                )
-            )
 
         if _has_rag_context(llm_request):
             return None

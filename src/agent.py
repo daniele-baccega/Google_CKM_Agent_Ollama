@@ -98,12 +98,12 @@ The mediator will provide output in this format:
 - D) Decisions needed today
 - E) Next steps (bullets with owner + timing)
 
-Followed by: "Reply A for peri-op medication stoplight table, B for specialty rationale, C for citations."
+Followed by: "Reply A for peri-op medication stoplight table, B for specialty rationale, C for document references."
 
 **Expansion Requests:**
 - User replies **A** → Show Peri-op Medication Stoplight Table
 - User replies **B** → Show Specialty Rationale (brief summaries from each specialty)
-- User replies **C** → Show Citations and Guideline References
+- User replies **C** → Show Document References with Page Numbers
 - User replies **Back** → Return to Consultation Snapshot
 
 ## CRITICAL RULES
