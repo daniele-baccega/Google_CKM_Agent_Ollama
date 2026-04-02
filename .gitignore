@@ -42,3 +42,5 @@ llm-rag/
 .DS_Store
 Thumbs.db
 
+# RAG
+.chroma/

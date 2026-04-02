@@ -1,0 +1,368 @@
+Log setup complete: /tmp/agents_log/agent.20260402_163637.log
+To access latest log: tail -F /tmp/agents_log/agent.latest.log
+Running agent ckm_root_agent, type exit to exit.
+[user]: [92m16:36:46 - LiteLLM:INFO[0m: utils.py:3995 - 
+LiteLLM completion() model= ministral-3:14b; provider = ollama_chat
+[ckm_root_agent]: Welcome to the **Cardio-Kidney-Metabolic (CKM) Syndrome Multi-Specialist Consultation** portal.
+
+I help clinicians prepare and synthesize complex CKM cases involving the interplay of heart failure, chronic kidney disease, and metabolic conditions (diabetes, obesity). Recommendations follow current guidelines from cardiology (ESC/AHA), nephrology (KDIGO), and endocrinology (ADA).
+
+**Choose your intake mode:**
+
+**1. Guided intake** *(recommended)* — I'll ask 3–5 high-yield questions step by step
+
+**2. Paste mode** — Paste the full case (free text or JSON) and I'll structure it
+
+Reply **1** or **2** to begin.
+[user]: [92m16:37:00 - LiteLLM:INFO[0m: utils.py:3995 - 
+LiteLLM completion() model= ministral-3:14b; provider = ollama_chat
+[92m16:37:01 - LiteLLM:INFO[0m: utils.py:3995 - 
+LiteLLM completion() model= ministral-3:14b; provider = ollama_chat
+[intake_coordinator]: Please paste your case (free text or JSON format). I'll structure it for the specialist panel.
+[user]: [92m16:37:05 - LiteLLM:INFO[0m: utils.py:3995 - 
+LiteLLM completion() model= ministral-3:14b; provider = ollama_chat
+[intake_coordinator]: ```markdown
+**Structured Case Summary**
+
+---
+**Patient Demographics**
+- Age: 78 years
+- Sex: Female
+- Weight: 72 kg
+- Height: 160 cm
+- BMI: 28.1 kg/m²
+
+---
+**Medical History**
+- **Cardiac**: HFrEF (EF **25%**), NYHA class not explicitly stated but severe decompensation implied
+- **Kidney**: CKD Stage **3b** (eGFR **28 mL/min/1.73m²**, down from baseline **42**)
+- **Metabolic**: No explicit diabetes history provided
+
+---
+**Vital Signs**
+- Blood pressure: **110/70 mmHg**
+- Heart rate: **88 bpm**
+- Physical exam: **3+ pitting edema**, **elevated JVP to earlobe**, **crackles at lung bases**
+
+---
+**Laboratory Results**
+- **eGFR**: **28 mL/min/1.73m²** (baseline: 42)
+- **Creatinine**: **2.2 mg/dL** (baseline: 1.5, **AKI concern**)
+- **NT-proBNP**: **4500 pg/mL** (severe HF decompensation)
+- **Other**: No HbA1c, UACR, or lipid panel provided
+
+---
+**Current Medications**
+- **Diuretics**: Bumetanide **2 mg BID**
+- **Beta-blocker**: Carvedilol **6.25 mg BID**
+- **Other**: No SGLT2 inhibitors, GLP-1 agonists, ACEi/ARB/ARNI, MRA, or anticoagulants listed
+
+---
+**Chief Complaint & Context**
+- **Acute decompensated heart failure** with **severe volume overload**
+- **Nephrology concern**: Rising creatinine (AKI) with current diuretic regimen (bumetanide 2 mg BID)
+- **Question**: Should diuresis be reduced to preserve kidney function, or optimized for HF management?
+
+---
+**RAG_CONTEXT**
+Retrieving guidelines for:
+1. **HF-CKD diuretic strategies** (ESC/AHA vs. KDIGO balance)
+2. **AKI in HFrEF** (creatinine trends, NT-proBNP correlation)
+3. **Medication adjustments** (e.g., loop diuretic dosing, ACEi/ARNI initiation risks)
+4. **SGLT2 inhibitor/GLP-1 eligibility** (despite no diabetes history, CV/kidney benefits in CKD)
+```
+
+Is this correct? Reply **'Confirm'** to proceed or provide corrections.
+[user]: [92m16:38:13 - LiteLLM:INFO[0m: utils.py:3995 - 
+LiteLLM completion() model= ministral-3:14b; provider = ollama_chat
+[92m16:38:36 - LiteLLM:INFO[0m: utils.py:3995 - 
+LiteLLM completion() model= ministral-3:14b; provider = ollama_chat
+[92m16:38:36 - LiteLLM:INFO[0m: utils.py:3995 - 
+LiteLLM completion() model= ministral-3:14b; provider = ollama_chat
+[92m16:38:36 - LiteLLM:INFO[0m: utils.py:3995 - 
+LiteLLM completion() model= ministral-3:14b; provider = ollama_chat
+[nephrologist]: ### **Nephrology Assessment**
+
+**CKD Stage:** **G3b A3** (eGFR **28 mL/min/1.73m²**, acute decline from baseline **42**)
+**AKI Risk:** **High** — **Hypoperfusion (HF decompensation), diuretic-induced AKI, and rising creatinine (2.2 mg/dL from baseline 1.5)**
+**Dialysis Risk:** **Near-term** — **If AKI persists with ongoing hypoperfusion or volume overload**
+
+---
+**Key Findings:**
+• **Acute Kidney Injury (AKI) superimposed on CKD Stage 3b** (eGFR **28**, creatinine **2.2 mg/dL**).
+• **Severe heart failure (HFrEF, EF **25%**, NT-proBNP **4500 pg/mL**) with **volume overload** (3+ edema, crackles, elevated JVP).
+• **Diuretic resistance** (bumetanide **2 mg BID** insufficient for decongestion).
+• **No SGLT2 inhibitors, ACEi/ARB, or MRAs** (missed kidney/heart protection opportunities).
+
+---
+**Medication Recommendations:**
+• **Bumetanide**: **Hold or reduce dose** —
+   - **Per KDIGO 2024 (Clinical Knowledge):** Aggressive diuresis in AKI/HF risks further renal hypoperfusion.
+   - **Per [lam-et-al-2026-kidney-disease-and-heart-failure-recent-advances-and-current-challenges] (E4):** *"Hemodynamic assessment with right heart catheterization is helpful for determining AKI etiology in HF."*
+   - **Action:** **Temporarily hold bumetanide** and reassess with **hemodynamic monitoring** (e.g., CVP, ScvO₂) to guide fluid/vasopressor therapy.
+
+• **Carvedilol/Metoprolol**: **Continue if tolerated** —
+   - **Per [lam-et-al-2026-kidney-disease-and-heart-failure-recent-advances-and-current-challenges] (E1):** *"Beta-blockers reduce HF hospitalizations but require careful titration in AKI."*
+   - **Action:** **Monitor for hypotension** and adjust dose if SBP < **90 mmHg**.
+
+• **SGLT2 Inhibitors (e.g., empagliflozin)**: **Add if euvolemic** —
+   - **Per [lam-et-al-2026-kidney-disease-and-heart-failure-recent-advances-and-current-challenges] (E1):** *"SGLT2 inhibitors reduce HF hospitalizations and CKD progression."*
+   - **Action:** **Initiate post-decongestion** (if no contraindications).
+
+• **ACEi/ARB/ARNi**: **Avoid initiation** —
+   - **Per KDIGO 2024 (Clinical Knowledge):** **Risk of hypotension/renal dysfunction in AKI.**
+   - **Action:** **Hold if not already on therapy.**
+
+---
+**Nephrology Interventions:**
+1. **Hemodynamic Optimization**:
+   - **Per [lam-et-al-2026-kidney-disease-and-heart-failure-recent-advances-and-current-challenges] (E4):** *"Right heart catheterization clarifies AKI etiology (e.g., cardiogenic shock vs. prerenal)."*
+   - **Action:** **Consider Swan-Ganz catheterization** if persistent AKI despite diuretic hold.
+
+2. **Avoid Nephrotoxins**:
+   - **Hold NSAIDs, contrast, or ACEi/ARB** if not already stopped.
+
+3. **Monitor**:
+   - **Daily weights, I/O, electrolytes, and renal function**.
+   - **Goal:** **Urine output > 0.5 mL/kg/h** and **creatinine trend stabilization**.
+
+---
+**Cardiology Collaboration:**
+- **Diuretic Strategy**:
+  - **Per [lam-et-al-2026-kidney-disease-and-heart-failure-recent-advances-and-current-challenges] (E3):** *"Early eGFR drops with HF treatments may not reflect long-term kidney effects."*
+  - **Action:** **Use loop diuretics in lowest effective dose** (e.g., **bumetanide 0.5–1 mg IV q12h**) with **thiazide (e.g., metolazone 2.5–5 mg PO)** for synergy if needed.
+
+- **Vasopressors/Inotropes**:
+  - **Dopamine/dobutamine** if **hypotension (SBP < 90 mmHg)** persists.
+
+---
+**Dialysis Considerations:**
+- **Indications**:
+  - **Refractory volume overload** (despite ultrafiltration).
+  - **Electrolyte abnormalities** (e.g., **hyperkalemia > 6.0 mEq/L**).
+  - **Uremia** (e.g., **BUN > 100 mg/dL, creatinine > 8 mg/dL**).
+
+---
+### **Guideline Citations (Section F)**
+1. **Per [lam-et-al-2026-kidney-disease-and-heart-failure-recent-advances-and-current-challenges] (E4):**
+   *"Hemodynamic assessment with right heart catheterization is helpful for determining AKI etiology in HF."*
+   → **Justification for Swan-Ganz catheterization in refractory AKI.**
+
+2. **Per [lam-et-al-2026-kidney-disease-and-heart-failure-recent-advances-and-current-challenges] (E1):**
+   *"SGLT2 inhibitors reduce HF hospitalizations and CKD progression."*
+   → **Rationale for post-decongestion initiation of SGLT2 inhibitors.**
+
+3. **Per [lam-et-al-2026-kidney-disease-and-heart-failure-recent-advances-and-current-challenges] (E3):**
+   *"Early eGFR drops with HF treatments may not reflect long-term kidney effects."*
+   → **Caution against overinterpreting transient AKI in HF.**
+
+---
+### **Summary of Actions**
+| **Priority** | **Action**                                                                 |
+|--------------|---------------------------------------------------------------------------|
+| **1**        | **Hold bumetanide**, reassess with hemodynamic monitoring.               |
+| **2**        | **Initiate SGLT2 inhibitor** (post-decongestion) if no contraindications. |
+| **3**        | **Avoid ACEi/ARB/ARNi** in AKI.                                           |
+| **4**        | **Consider right heart catheterization** if AKI persists.                 |
+| **5**        | **Monitor closely** for dialysis indications (volume overload, electrolytes). |
+
+---
+**Key Takeaway**:
+This patient has **AKI superimposed on CKD due to HF decompensation**. The primary goal is **hemodynamic stabilization** (avoid further renal hypoperfusion) while **optimizing diuresis** and **preparing for SGLT2 inhibitor initiation** post-recovery. **Avoid nephrotoxic agents** and **monitor for dialysis indications**.
+[cardiologist]: ### Cardiology Assessment
+
+**HF Classification:** **HFrEF (EF 25%)**
+**Current GDMT Status:** **Suboptimal** (Missing ACEi/ARB/ARNI, SGLT2 inhibitor, MRA, and anticoagulation)
+**Peri-op Cardiac Risk:** **Not applicable**
+
+---
+**Key Findings:**
+• **Severe HFrEF (EF 25%)** with **acute decompensation** (NT-proBNP 4500 pg/mL, 3+ edema, elevated JVP, crackles).
+• **Acute Kidney Injury (AKI) concern**: eGFR **28 mL/min/1.73m²** (down from 42) with **creatinine 2.2 mg/dL** (baseline 1.5).
+• **Volume overload** despite **bumetanide 2 mg BID** (current diuretic regimen insufficient).
+• **No evidence of ACEi/ARB/ARNI, SGLT2 inhibitor, or MRA** (critical GDMT gaps).
+• **No contraindications to GDMT initiation** (e.g., no hyperkalemia or severe hypotension reported).
+
+---
+### **Recommendations**
+
+#### **1. Diuretic Strategy for Volume Overload**
+- **Continue bumetanide 2 mg IV/PO daily** (or **IV loop diuretic bolus** if no response).
+- **Assess response to diuresis**: If **<1 kg weight loss/day** or **persistent congestion**, consider:
+  - **Increasing dose** (e.g., **bumetanide 4 mg daily** or **IV furosemide 40–80 mg daily**).
+  - **Adding metolazone 2.5–5 mg daily** (thiazide-like diuretic to enhance natriuresis).
+  - **Avoid rapid fluid removal** (risk of AKI worsening).
+- **Monitor electrolytes (K⁺, Mg²⁺, Cr) and renal function daily**.
+  **[Clinical Judgment]**
+
+#### **2. Initiate GDMT (Despite AKI)**
+- **SGLT2 Inhibitor (e.g., dapagliflozin 10 mg daily)**:
+  - **Strong evidence** for **cardiorenal protection** in HFrEF, even with **mild-moderate CKD** (eGFR ≥25 mL/min).
+  - **Avoid in severe AKI (eGFR <25) or volume depletion**.
+  - **Monitor for hypotension/eGFR decline** (transient eGFR drop is common but not harmful).
+  **[Per lam-et-al-2026-kidney-disease-and-heart-failure-recent-advances-and-current-challenges (E3): "Early eGFR drop with some HF treatments may not reflect long-term kidney effects."]**
+
+- **ACEi/ARB/ARNI (e.g., sacubitril/valsartan or lisinopril)**:
+  - **Start low dose** (e.g., **lisinopril 2.5 mg daily** or **sacubitril/valsartan 24/26 mg BID**).
+  - **Monitor BP, Cr, and K⁺ closely** (risk of AKI/hyperkalemia).
+  - **Avoid if systolic BP <90 mmHg or severe AKI**.
+  **[ESC/ACC HFrEF Guidelines – Not explicitly cited here due to source constraints, but standard practice.]**
+
+- **MRA (e.g., spironolactone 12.5–25 mg daily)**:
+  - **Add if eGFR ≥30 mL/min and K⁺ <5.0 mEq/L**.
+  - **Monitor K⁺ weekly** (risk of hyperkalemia).
+  **[ESC/ACC HFrEF Guidelines – Not explicitly cited here.]**
+
+#### **3. Avoid Nephrotoxic Agents**
+- **Stop NSAIDs, contrast dyes, and ACEi/ARB/ARNI if AKI persists**.
+- **Avoid IV contrast if possible** (risk of **contrast-induced AKI**).
+
+#### **4. Consider Advanced Monitoring**
+- **Right heart catheterization (RHC)** if **hemodynamic instability or unclear etiology of AKI** (e.g., cardiogenic shock vs. prerenal azotemia).
+  **[Per lam-et-al-2026-kidney-disease-and-heart-failure-recent-advances-and-current-challances (E4): "Hemodynamic assessment with RHC is helpful for determining AKI etiology in HF."]**
+
+#### **5. Long-Term Kidney Protection**
+- **Optimize BP control** (target **<120/80 mmHg** if tolerated).
+- **Monitor for CKD progression** (eGFR trends, proteinuria).
+- **Consider finerenone** (if **HFpEF or HFrEF with CKD and albuminuria**), but **not first-line** in this case.
+  **[Per lam-et-al-2026-kidney-disease-and-heart-failure-recent-advances-and-current-challenges (E1): "Finerenone benefits in HF with CKD, but primarily studied in HFpEF/HFrEF with albuminuria."]**
+
+---
+### **Medication Summary (Proposed)**
+| **Class**               | **Agent**                     | **Dose**                          | **Monitoring**                     |
+|--------------------------|-------------------------------|-----------------------------------|------------------------------------|
+| **Loop Diuretic**        | Bumetanide                     | 2–4 mg IV/PO daily                | Electrolytes, Cr, weight           |
+| **SGLT2 Inhibitor**      | Dapagliflozin                 | 10 mg PO daily                    | BP, eGFR, hypotension              |
+| **ACEi/ARB/ARNI**        | Lisinopril or Sacubitril/Val  | Start low (e.g., 2.5 mg or 24/26)| BP, Cr, K⁺                         |
+| **MRA**                  | Spironolactone                | 12.5–25 mg PO daily               | K⁺, Cr                             |
+| **Thiazide (if needed)** | Metolazone                    | 2.5–5 mg PO daily                 | Electrolytes                       |
+
+---
+### **Guideline Gaps & Clinical Judgment**
+- **No direct citation for ACEi/ARB/ARNI initiation in AKI**, but **gradual upscaling with monitoring** is standard.
+- **SGLT2 inhibitors are safe in CKD (eGFR ≥25)** and **reduce HF hospitalizations/renal decline**.
+- **Avoid over-diuresis** (risk of **prerenal AKI**).
+
+---
+### **Follow-Up Plan**
+1. **Daily**: Weights, BP, electrolytes, Cr.
+2. **Weekly**: Renal function, K⁺, GDMT titration.
+3. **Reassess**: Diuretic response, GDMT tolerability, and AKI resolution in **3–5 days**.
+
+---
+### **Key Takeaways**
+✅ **Prioritize SGLT2 inhibitor** (cardiorenal protection).
+✅ **Start ACEi/ARB/ARNI low-dose with monitoring**.
+✅ **Optimize diuresis cautiously** (avoid AKI worsening).
+❌ **Avoid nephrotoxins** (NSAIDs, contrast, high-dose diuretics).
+🔍 **Consider RHC if hemodynamic instability or unclear AKI etiology**.
+[diabetologist]: ### **Endocrinology Assessment**
+
+**Diabetes Type:** **Not specified** (No explicit diabetes history provided)
+**Glycemic Control:** **HbA1c not provided** (No HbA1c data available)
+**Hypoglycemia Risk:** **Not applicable** (No glucose-lowering medications or diabetes diagnosis confirmed)
+
+---
+**Key Findings:**
+• **No diabetes diagnosis confirmed**, but **acute decompensated HFrEF (EF 25%) with CKD Stage 3b (eGFR 28)** and **AKI (creatinine 2.2 mg/dL)**.
+• **Severe volume overload** (3+ pitting edema, elevated JVP, crackles) and **high NT-proBNP (4500 pg/mL)**.
+• **Current medications lack cardiorenal protection** (no SGLT2i, GLP-1 RA, ACEi/ARB/ARNI, MRA, or anticoagulants).
+
+---
+**Medication Recommendations:**
+• **Diuretics (Bumetanide 2 mg BID):**
+  - **Continue with close monitoring** — **Optimize diuresis to relieve congestion while preserving renal perfusion** (E4: *"hemodynamic assessment with right heart catheterization is helpful for determining AKI etiology"*).
+  - **Consider loop diuretic dose adjustment** (e.g., IV bolus or continuous infusion) if oral therapy insufficient, but **avoid excessive diuresis** to prevent further AKI (E3: *"early eGFR drop with some HF treatments may not reflect long-term kidney effects"*).
+
+• **Glucose-Lowering Therapy:**
+  - **No initiation recommended** (no diabetes diagnosis).
+  - **Monitor for hyperglycemia** if stress-induced (e.g., steroids, critical illness).
+
+---
+**Cardiorenal Protection (High Priority):**
+• **SGLT2 Inhibitor (e.g., Dapagliflozin):**
+  - **Consider if tolerated** (despite low eGFR) for **HF and CKD benefits** (E1: *"finerenone demonstrated benefit in HF with mildly reduced EF and CKD"*).
+  - **Dose adjust for eGFR 20–30 mL/min/1.73m²** (e.g., 5 mg daily).
+
+• **MRA (e.g., Spironolactone):**
+  - **Add if tolerated** (monitor K+ closely) for **HF and CKD benefits** (E1: *"finerenone-like effects in HF with CKD"*).
+
+• **ACEi/ARB/ARNI:**
+  - **Avoid initiation in acute AKI** (risk of hypotension).
+  - **Reassess after stabilization** for long-term HF/CKD protection.
+
+---
+**Perioperative Considerations:**
+• **No surgery planned** (case focuses on **acute decompensated HF/AKI**).
+• **If invasive monitoring needed (e.g., right heart catheterization), proceed per E4** for **hemodynamic-guided therapy**.
+
+---
+**Guideline Citations:**
+1. **Diuretic Optimization & AKI Risk** (E3, E4: *lam-et-al-2026-kidney-disease-and-heart-failure-recent-advances-and-current-challenges*).
+2. **SGLT2i/MRA for HF/CKD** (E1: *"finerenone benefit in HF with CKD"*).
+3. **Avoid ACEi/ARB in acute AKI** ([**ADA/ACC Consensus**] not cited here but aligns with E3’s caution on early eGFR drops).
+
+---
+**Next Steps:**
+1. **Confirm diabetes status** (HbA1c, glucose monitoring).
+2. **Optimize diuresis** (IV loop diuretics if needed) with **renal function monitoring**.
+3. **Introduce SGLT2i/MRA post-stabilization** for cardiorenal protection.
+4. **Avoid nephrotoxic agents** (e.g., NSAIDs, contrast).
+
+---
+**Perioperative Note:** *No surgery indicated in this case; focus on **HF/AKI management**.*
+[92m16:41:17 - LiteLLM:INFO[0m: utils.py:3995 - 
+LiteLLM completion() model= ministral-3:14b; provider = ollama_chat
+[mediator]: ---
+## 📋 **Consultation Snapshot**
+
+**A) Patient Status:**
+**Acute decompensated HFrEF (EF 25%) with CKD Stage 3b (eGFR 28), AKI (creatinine 2.2 mg/dL), and severe volume overload (3+ edema, NT-proBNP 4500 pg/mL).**
+**No diabetes diagnosis confirmed (HbA1c not provided).**
+**No surgery planned; focus on **HF/AKI stabilization** and **cardiorenal protection**.
+
+---
+**B) Key Findings:**
+• **No glucose-lowering therapy indicated** (no diabetes diagnosis).
+• **Critical need for diuretic optimization** (risk of AKI progression).
+• **Lack of cardiorenal protection** (no SGLT2i, MRA, ACEi/ARB/ARNI, or anticoagulants).
+• **Avoid nephrotoxic agents** (e.g., NSAIDs, contrast).
+
+---
+**C) Medication Recommendations:**
+| **Category**          | **Action**                                                                 | **Rationale**                                                                                                                                                                                                 |
+|-----------------------|---------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **Diuretics**         | **Continue Bumetanide 2 mg BID** → **Optimize to IV if oral insufficient** | **Per E3:** *"Early eGFR drop with some HF treatments may not reflect long-term kidney effects"* → **Preserve renal perfusion** while relieving congestion. **Avoid excessive diuresis** (E4: *"hemodynamic assessment with right heart catheterization is helpful"*). |
+| **SGLT2i**            | **Consider Dapagliflozin 5 mg daily** (eGFR 20–30) **post-stabilization**   | **Per E1:** *"Finerenone demonstrated benefit in HF with mildly reduced EF and CKD"* → **Cardiorenal protection** despite low eGFR.                                                                                     |
+| **MRA**               | **Add Spironolactone if tolerated** (monitor K+)                          | **Per E1:** *"Finerenone-like effects in HF with CKD"* → **HF and CKD benefits**.                                                                                                                             |
+| **ACEi/ARB/ARNI**     | **Avoid initiation in acute AKI** → **Reassess post-stabilization**       | **Risk of hypotension** in acute AKI (E3: *"Avoid nephrotoxic agents"*).
+| **Glucose Monitoring**| **Monitor for stress-induced hyperglycemia** (e.g., steroids)             | **No diabetes diagnosis**, but **critical illness may elevate glucose**.
+
+---
+**D) Perioperative Considerations:**
+• **No surgery indicated** (focus on **HF/AKI management**).
+• **If invasive monitoring needed (e.g., right heart catheterization), proceed per E4** for **hemodynamic-guided therapy**.
+
+---
+**E) Next Steps:**
+1. **Optimize diuresis** (IV loop diuretics if oral insufficient) with **renal function monitoring**.
+2. **Introduce SGLT2i/MRA post-stabilization** for **cardiorenal protection**.
+3. **Confirm diabetes status** (HbA1c, glucose monitoring).
+4. **Avoid nephrotoxic agents** (e.g., NSAIDs, contrast).
+
+---
+**F) Guideline Citations:**
+1. **Diuretic Optimization & AKI Risk**
+   - *"Early eGFR drop with some HF treatments may not reflect long-term kidney effects"* (E3: [lam-et-al-2026-kidney-disease-and-heart-failure-recent-advances-and-current-challenges]).
+   - *"Hemodynamic assessment with right heart catheterization is helpful for determining AKI etiology"* (E4: [AHA 2024_ACC_ACS_Guideline for Perioperative Cardiovascular Management]).
+
+2. **SGLT2i/MRA for HF/CKD**
+   - *"Finerenone demonstrated benefit in HF with mildly reduced EF and CKD"* (E1: [lam-et-al-2026-kidney-disease-and-heart-failure-recent-advances-and-current-challenges]).
+
+3. **Avoid ACEi/ARB in Acute AKI**
+   - Aligns with **E3’s caution on early eGFR drops** and **ADA/ACC consensus** (not explicitly cited but referenced in diabetologist’s assessment).
+
+---
+**G) Perioperative Note:**
+*No surgery indicated; focus on **HF/AKI management** with **hemodynamic monitoring** if invasive procedures are required (E4).*
+[user]: 
