@@ -1,0 +1,4 @@
+Start
+2
+62-year-old female patient Demographics: - Age: 62 years - Sex: Female - Weight: 85 kg - Height: 165 cm Medical History: - Type 2 diabetes - CKD Stage 3b (rapidly declining) - Hypertension Vital Signs: - Blood pressure: 138/85 mmHg - Heart rate: 75 bpm Laboratory Results: - HbA1c: 7.9% - eGFR: 32 mL/min/1.73m² - Creatinine: 1.9 mg/dL Current Medications: - Metformin 1000mg BID - Amlodipine 10mg daily - Atorvastatin 40mg daily Chief Complaint: Routine follow-up. Patient feels well but eGFR dropped from 46 to 32 since last visit.
+Confirm

@@ -1,0 +1,4 @@
+Start
+2
+71-year-old male patient Demographics: - Age: 71 years - Sex: Male - Weight: 88 kg - Height: 170 cm Medical History: - Type 2 diabetes - HFmrEF (EF 45%) - CKD Stage 3a Vital Signs: - Blood pressure: 140/85 mmHg - Heart rate: 70 bpm Laboratory Results: - HbA1c: 6.5% - eGFR: 55 mL/min/1.73m² - Creatinine: 1.2 mg/dL - UACR: 350 mg/g Current Medications: - Metformin 500mg BID - Glipizide 5mg daily - Valsartan 80mg daily - Metoprolol succinate 50mg daily Chief Complaint: Primary care physician notes HbA1c is well-controlled at 6.5% and wonders if any changes are needed.
+Confirm

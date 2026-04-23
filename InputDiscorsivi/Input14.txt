@@ -1,0 +1,4 @@
+Start
+2
+78-year-old man, 80 kg and 173 cm, with HFrEF and an ejection fraction of 30%, stage 4 CKD, type 2 diabetes, and a recent hospitalization for decompensated heart failure. Blood pressure is 100/62 mmHg and heart rate is 82 bpm. Labs show HbA1c 7.0%, eGFR 23 mL/min/1.73 m2, creatinine 2.7 mg/dL, potassium 4.9 mEq/L, and NT-proBNP 3900 pg/mL. His current medications are metoprolol succinate 100 mg daily, furosemide 80 mg twice daily, and linagliptin 5 mg daily. Sacubitril/valsartan has been suggested at discharge, and the question is whether the benefit outweighs the risks of hypotension, AKI, and the need for close monitoring.
+Confirm

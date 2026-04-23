@@ -1,0 +1,4 @@
+Start
+2
+72-year-old man, 91 kg and 172 cm, with type 2 diabetes, stage 4 CKD, severe osteoarthritis, and HFpEF. Blood pressure is 140/86 mmHg and heart rate is 76 bpm. Labs show HbA1c 7.0%, eGFR 24 mL/min/1.73 m2, creatinine 2.8 mg/dL, potassium 4.7 mEq/L, and NT-proBNP 760 pg/mL. He is taking telmisartan 80 mg daily, amlodipine 10 mg daily, metformin 500 mg twice daily, and acetaminophen as needed. The orthopedic team has suggested ibuprofen 600 mg three times daily for pain control while he awaits knee replacement. He requests medication review with a focus on renal and cardiovascular risk.
+Confirm

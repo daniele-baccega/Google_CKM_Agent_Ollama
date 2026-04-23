@@ -1,0 +1,4 @@
+Start
+2
+70-year-old male patient Demographics: - Age: 70 years - Sex: Male - Weight: 78 kg - Height: 172 cm Medical History: - Hypertension - CKD Stage 3b - T2DM - HFrEF (EF 40%) Vital Signs: - Blood pressure: 115/70 mmHg - Heart rate: 65 bpm Laboratory Results: - HbA1c: 7.1% - eGFR: 40 mL/min/1.73m² - Creatinine: 1.7 mg/dL Current Medications: - Lisinopril 40mg daily - Carvedilol 25mg BID - Empagliflozin 10mg daily - Metformin 500mg daily Chief Complaint: Peri-operative clearance for urgent orthopedic surgery (ORIF for ankle fracture) tomorrow morning.
+Confirm

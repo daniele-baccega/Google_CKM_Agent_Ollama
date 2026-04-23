@@ -1,0 +1,4 @@
+Start
+2
+78-year-old female patient Demographics: - Age: 78 years - Sex: Female - Weight: 72 kg - Height: 160 cm Medical History: - HFrEF (EF 25%) - CKD Stage 3b Vital Signs: - Blood pressure: 110/70 mmHg - Heart rate: 88 bpm - Physical exam: 3+ pitting edema, JVP elevated to earlobe, crackles at bases. Laboratory Results: - eGFR: 28 mL/min/1.73m² (down from baseline 42) - Creatinine: 2.2 mg/dL (up from baseline 1.5) - NT-proBNP: 4500 pg/mL Current Medications: - Bumetanide 2mg BID - Carvedilol 6.25mg BID Chief Complaint: Acute decompensated heart failure. Patient is severely volume overloaded. Nephrology is concerned about the bumping creatinine (AKI) and suggests pulling back on diuresis.
+Confirm

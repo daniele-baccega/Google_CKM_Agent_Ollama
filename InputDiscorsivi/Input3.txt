@@ -1,0 +1,4 @@
+Start
+2
+70-year-old man, 78 kg and 172 cm, with hypertension, stage 3b CKD, type 2 diabetes, and HFrEF with an ejection fraction of 40%. Blood pressure is 115/70 mmHg and heart rate is 65 bpm. Labs show HbA1c 7.1%, eGFR 40 mL/min/1.73 m2, and creatinine 1.7 mg/dL. Current treatment includes lisinopril 40 mg daily, carvedilol 25 mg twice daily, empagliflozin 10 mg daily, and metformin 500 mg daily. He is being evaluated before urgent orthopedic surgery, with ORIF for an ankle fracture planned for tomorrow morning.
+Confirm

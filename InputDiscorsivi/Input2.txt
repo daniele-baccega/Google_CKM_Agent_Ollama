@@ -1,0 +1,4 @@
+Start
+2
+58-year-old woman, 105 kg and 162 cm, with severe obesity (BMI 40), type 2 diabetes, hypertension, and mild stage 2 CKD. Blood pressure is 128/78 mmHg and heart rate is 80 bpm. Recent labs show HbA1c 6.8%, eGFR 75 mL/min/1.73 m2, and creatinine 0.9 mg/dL. She is taking semaglutide 1 mg subcutaneously once weekly, with the last dose given yesterday, in addition to losartan 50 mg daily and amlodipine 5 mg daily. She presents for preoperative clearance before an elective screening colonoscopy with conscious sedation scheduled in 3 days.
+Confirm

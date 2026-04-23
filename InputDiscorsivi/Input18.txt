@@ -1,0 +1,4 @@
+Start
+2
+66-year-old man, 79 kg and 174 cm, with HFrEF and an ejection fraction of 35% and hypertension, without CKD or diabetes. Blood pressure is 104/64 mmHg and heart rate is 46 bpm, with fatigue and orthostatic dizziness. Labs show eGFR 72 mL/min/1.73 m2, creatinine 1.0 mg/dL, and potassium 4.3 mEq/L. He is taking carvedilol 12.5 mg twice daily, lisinopril 20 mg daily, and empagliflozin 10 mg daily. At follow-up, uptitration of the beta-blocker toward target dose has been proposed, and the question is whether that would be safe.
+Confirm

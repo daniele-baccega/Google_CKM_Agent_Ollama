@@ -1,0 +1,4 @@
+Start
+2
+64-year-old man, 87 kg and 178 cm, with HFrEF and an ejection fraction of 32%, stage 3a CKD, and type 2 diabetes. Blood pressure is 118/72 mmHg and heart rate is 69 bpm. Labs show HbA1c 7.3%, eGFR 57 mL/min/1.73 m2, creatinine 1.2 mg/dL, potassium 4.4 mEq/L, and NT-proBNP 900 pg/mL. Current therapy includes metformin 1000 mg twice daily, sitagliptin 100 mg daily, lisinopril 20 mg daily, and metoprolol succinate 100 mg daily. He is clinically stable, and the question is whether the regimen should be maintained or whether stronger cardio-renal protection should be pursued.
+Confirm

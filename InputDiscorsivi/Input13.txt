@@ -1,0 +1,4 @@
+Start
+2
+61-year-old woman, 98 kg and 164 cm, with severe obesity, type 2 diabetes, coronary artery disease with prior NSTEMI, stage 2 CKD, and no known heart failure. Blood pressure is 126/78 mmHg and heart rate is 74 bpm. Labs show HbA1c 6.7%, eGFR 82 mL/min/1.73 m2, LDL 58 mg/dL, and UACR 22 mg/g. She is taking metformin 1000 mg twice daily, empagliflozin 10 mg daily, rosuvastatin 40 mg daily, aspirin 100 mg daily, and ramipril 5 mg daily. Despite good glycemic control, she reports major weight gain and poor exercise tolerance and asks for reassessment of her metabolic and cardiovascular therapy.
+Confirm

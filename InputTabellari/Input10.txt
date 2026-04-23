@@ -1,0 +1,4 @@
+Start
+2
+72-year-old male patient Demographics: - Age: 72 years - Sex: Male - Weight: 82 kg - Height: 170 cm Medical History: - HFrEF (EF 35%) - CKD Stage 4 - T2DM Vital Signs: - Blood pressure: 125/80 mmHg - Heart rate: 68 bpm Laboratory Results: - HbA1c: 7.2% - eGFR: 25 mL/min/1.73m² - Creatinine: 2.6 mg/dL - Potassium: 5.8 mEq/L Current Medications: - Valsartan 80mg daily - Bisoprolol 5mg daily - Empagliflozin 10mg daily Chief Complaint: Cardiology wants to initiate Spironolactone 25mg daily to optimize HFrEF GDMT.
+Confirm

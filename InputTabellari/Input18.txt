@@ -1,0 +1,4 @@
+Start
+2
+62-year-old male patient Demographics: - Age: 62 years - Sex: Male - Weight: 90 kg - Height: 180 cm Medical History: - Type 2 diabetes - HFrEF (EF 35%) - CKD Stage 3a Vital Signs: - Blood pressure: 125/75 mmHg - Heart rate: 70 bpm Laboratory Results: - HbA1c: 7.0% - eGFR: 50 mL/min/1.73m² - NT-proBNP: 800 pg/mL Current Medications: - Metformin 1000mg BID - Sitagliptin 100mg daily - Lisinopril 20mg daily - Metoprolol succinate 100mg daily Chief Complaint: Routine follow-up. Patient is stable. Should current regimen be maintained?
+Confirm

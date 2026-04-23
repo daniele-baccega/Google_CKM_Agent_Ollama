@@ -1,0 +1,4 @@
+Start
+2
+68-year-old woman, 75 kg and 158 cm, with type 2 diabetes, HFrEF with an ejection fraction of 30%, and osteoporosis. Blood pressure is 110/70 mmHg and heart rate is 80 bpm. Labs show HbA1c 8.8%, eGFR 55 mL/min/1.73 m2, and NT-proBNP 1500 pg/mL. Current medications are metformin 1000 mg twice daily, carvedilol 12.5 mg twice daily, lisinopril 10 mg daily, and furosemide 20 mg daily. An endocrine note proposes adding pioglitazone 30 mg daily for better glycemic control, and the question is whether this choice is appropriate.
+Confirm

@@ -1,0 +1,4 @@
+Start
+2
+75-year-old female patient Demographics: - Age: 75 years - Sex: Female - Weight: 68 kg - Height: 160 cm Medical History: - HFrEF (EF 30%) - CKD Stage 3b - Hypertension Vital Signs: - Blood pressure: 110/70 mmHg - Heart rate: 78 bpm Laboratory Results: - eGFR: 38 mL/min/1.73m² - Creatinine: 1.4 mg/dL - NT-proBNP: 1200 pg/mL Current Medications: - Furosemide 40mg daily - Entresto 24/26mg BID - Carvedilol 12.5mg BID Chief Complaint: Peri-operative clearance for an elective bowel resection tomorrow. Patient will be NPO starting at midnight. She is currently euvolemic with no edema.
+Confirm
