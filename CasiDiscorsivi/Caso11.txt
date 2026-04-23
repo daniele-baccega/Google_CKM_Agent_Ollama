@@ -1,0 +1,310 @@
+Log setup complete: /tmp/agents_log/agent.20260423_110954.log
+To access latest log: tail -F /tmp/agents_log/agent.latest.log
+Running agent ckm_root_agent, type exit to exit.
+[user]: [92m11:09:55 - LiteLLM:INFO[0m: utils.py:4011 - 
+LiteLLM completion() model= ministral-3:14b; provider = ollama_chat
+[ckm_root_agent]: Welcome to the **Cardio-Kidney-Metabolic (CKM) Syndrome Multi-Specialist Consultation** portal.
+
+I help clinicians prepare and synthesize complex CKM cases involving the interplay of heart failure, chronic kidney disease, and metabolic conditions (diabetes, obesity). Recommendations follow current guidelines from cardiology (ESC/AHA), nephrology (KDIGO), and endocrinology (ADA).
+
+**Choose your intake mode:**
+
+**1. Guided intake** *(recommended)* — I'll ask 3–5 high-yield questions step by step
+
+**2. Paste mode** — Paste the full case (free text or JSON) and I'll structure it
+
+Reply **1** or **2** to begin.
+[user]: [92m11:10:02 - LiteLLM:INFO[0m: utils.py:4011 - 
+LiteLLM completion() model= ministral-3:14b; provider = ollama_chat
+[92m11:10:04 - LiteLLM:INFO[0m: utils.py:4011 - 
+LiteLLM completion() model= ministral-3:14b; provider = ollama_chat
+[intake_coordinator]: Please paste your case (free text or JSON format). I'll structure it for the specialist panel.
+[user]: [92m11:10:06 - LiteLLM:INFO[0m: utils.py:4011 - 
+LiteLLM completion() model= ministral-3:14b; provider = ollama_chat
+[intake_coordinator]: {
+  "case": {
+    "patient": {
+      "demographics": {
+        "age": 73,
+        "sex": "female",
+        "height": "161 cm",
+        "weight": "76 kg",
+        "BMI": 29.1,
+        "conditions": [
+          {"type": "diabetes", "subtype": "type 2", "duration": "unspecified"},
+          {"type": "heart failure", "subtype": "HFpEF"},
+          {"type": "chronic kidney disease", "stage": "3a", "eGFR": 50},
+          {"type": "atrial fibrillation", "status": "permanent"},
+          {"type": "obesity", "severity": "moderate"}
+        ]
+      },
+      "vitals": {
+        "blood_pressure": "122/76 mmHg",
+        "heart_rate": "84 bpm (irregular)",
+        "other": {}
+      },
+      "labs": {
+        "HbA1c": 7.1,
+        "eGFR": 50,
+        "creatinine": 1.2,
+        "potassium": 4.6,
+        "NT-proBNP": 980,
+        "other": {}
+      },
+      "medications": [
+        {"name": "apixaban", "dose": "5 mg", "frequency": "twice daily", "class": "anticoagulant"},
+        {"name": "empagliflozin", "dose": "10 mg", "frequency": "daily", "class": "SGLT2 inhibitor"},
+        {"name": "metformin", "dose": "850 mg", "frequency": "twice daily", "class": "antidiabetic"},
+        {"name": "furosemide", "dose": "25 mg", "frequency": "daily", "class": "diuretic"},
+        {"name": "losartan", "dose": "50 mg", "frequency": "daily", "class": "ARB"}
+      ],
+      "procedure": {
+        "type": "laparoscopic colectomy",
+        "urgency": "elective",
+        "timing": "6 days from now",
+        "risk": {
+          "blood_loss": "moderate",
+          "contrast_use": false,
+          "fluid_shifts": true
+        }
+      },
+      "clinical_questions": [
+        "Integrated perioperative cardio-renal-metabolic management plan",
+        "Anticoagulation strategy around surgery",
+        "Diabetes medication adjustments",
+        "Renal function monitoring and protection",
+        "Heart failure optimization"
+      ]
+    },
+    "guidelines": {
+      "cardiology": ["ESC HF guidelines", "AHA AF guidelines"],
+      "nephrology": ["KDIGO CKD guidelines"],
+      "endocrinology": ["ADA diabetes guidelines"],
+      "perioperative": ["ACC/AHA perioperative guidelines"]
+    }
+  }
+}
+[92m11:10:31 - LiteLLM:INFO[0m: utils.py:4011 - 
+LiteLLM completion() model= ministral-3:14b; provider = ollama_chat
+[92m11:10:31 - LiteLLM:INFO[0m: utils.py:4011 - 
+LiteLLM completion() model= ministral-3:14b; provider = ollama_chat
+[92m11:10:31 - LiteLLM:INFO[0m: utils.py:4011 - 
+LiteLLM completion() model= ministral-3:14b; provider = ollama_chat
+[nephrologist]: ### Nephrology Assessment
+
+**CKD Stage:** **G3a A2** (eGFR 45–59 mL/min, moderate albuminuria risk not specified but HFpEF/obesity increases CV risk)
+**AKI Risk:** **Moderate** — Perioperative fluid shifts, diuretics, and ARB/ACEi hold risk.
+**Dialysis Risk:** **Low** (No acute decline or advanced CKD)
+
+---
+**Key Findings:**
+• **eGFR 50 mL/min** (Metformin dose adjustment required per KDIGO).
+• **HFpEF + CKD** (SGLT2 inhibitor *empagliflozin* is **cardio-renal protective** but requires perioperative hold).
+• **ARB (losartan)**: BP controlled but **perioperative hold needed** (risk of hypotension/AKI).
+• **Diuretic (furosemide)**: **Hold day of surgery** to prevent hypovolemia.
+• **Apixaban**: Continue **bridging plan** (low bleeding risk with laparoscopic surgery).
+
+---
+**Medication Recommendations:**
+• **Metformin**: **Reduce to 500 mg twice daily (max 1000 mg/day)** — eGFR 50 (KDIGO rule #2).
+• **Empagliflozin**: **Hold 3–4 days pre-op** — DKA risk (KDIGO/ADA).
+• **Losartan**: **Hold 24 hours pre-op** — AKI/hypotension risk (KDIGO).
+• **Furosemide**: **Hold day of surgery** — Perioperative fluid shifts.
+• **Apixaban**: **Continue through surgery** (laparoscopic, low bleeding risk; bridge if high risk).
+
+---
+**Nephrotoxin Alerts:**
+• **NSAIDs**: **STRICTLY AVOID** perioperatively (AKI risk).
+• **Contrast**: None planned (safe).
+
+---
+**Kidney Protection:**
+• **Resume empagliflozin/losartan post-op** if:
+  - eGFR ≥45 mL/min (Metformin)
+  - eGFR ≥30 mL/min (ARB/SGLT2)
+  - No AKI (creatinine <1.5× baseline).
+
+---
+**Priority Actions:**
+1. **Adjust Metformin** to 500 mg BID **now** (eGFR 50).
+2. **Hold empagliflozin/losartan/furosemide** per **perioperative protocol** (timing above).
+3. **Monitor creatinine** pre-op and **POD #3** (peak AKI risk).
+4. **IV fluids**: Goal **maintain euvolemia** (avoid hypovolemia/AKI).
+
+---
+**Guideline References:**
+• **KDIGO 2024**: Metformin dosing (eGFR 30–44: 50% dose), ARB/SGLT2 hold perioperatively.
+• **ESC HF**: SGLT2 inhibitors resume post-op if stable.
+• **ACC/AHA**: Continue DOACs (apixaban) for low-risk surgery.
+
+---
+**Cardio-Renal Synergy Note:**
+- **Empagliflozin** is **critical for HFpEF**—resume ASAP post-op if eGFR stable.
+- **Losartan** may be restarted at **25 mg** if BP/eGFR permit (titrate slowly).
+[cardiologist]: ### Cardiology Assessment
+
+**HF Classification:** HFpEF (NT-proBNP 980 pg/mL, preserved LV function implied)
+**Current GDMT Status:** **Suboptimal** (No SGLT2 inhibitor for HFpEF in current regimen; ARB monotherapy suboptimal for HFpEF)
+**Peri-op Cardiac Risk:** **Intermediate** (HFpEF + CKD + AF + moderate obesity + elective surgery with fluid shifts)
+
+---
+**Key Findings:**
+• **HFpEF with elevated NT-proBNP** (980 pg/mL) and **stage 3a CKD** (eGFR 50 mL/min).
+• **Permanent AF** on apixaban (appropriate for CHA₂DS₂-VASc score not provided but assumed high-risk given HFpEF).
+• **Moderate obesity (BMI 29.1)** and **controlled BP (122/76 mmHg)**.
+• **Diabetes (HbA1c 7.1%)** with **metformin + SGLT2 inhibitor** (empagliflozin) but **no GLP-1 RA** (suboptimal for CKD/HFpEF).
+• **Labs:** Normokalemia (4.6 mEq/L), stable creatinine (1.2 mg/dL).
+
+---
+**Medication Recommendations:**
+• **Apixaban (5 mg BID):** **CONTINUE** (bridge not required for laparoscopic colectomy; no major bleeding risk).
+• **Empagliflozin (10 mg daily):** **HOLD 3–4 days pre-op** (restart **24–48 hours post-op** if renal function stable).
+• **Metformin:** **HOLD 48 hours pre-op** (restart **24 hours post-op** if renal function stable).
+• **Losartan (50 mg daily):** **HOLD 24 hours pre-op** (restart **24–48 hours post-op** if BP stable).
+• **Furosemide (25 mg daily):** **Hold morning of surgery** (restart **post-op if signs of volume overload**).
+
+---
+**Risks:**
+• **Euglycemic DKA** (SGLT2 inhibitor hold peri-op).
+• **Hypotension** (ARB hold peri-op).
+• **Renal dysfunction** (volume shifts + diuretics + CKD).
+• **AF thromboembolism** (if apixaban held inappropriately).
+
+---
+**Priority Actions:**
+1. **Confirm CHA₂DS₂-VASc score** (if ≥2, apixaban continuation is correct; if <2, consider temporary hold with bridging if high stroke risk).
+2. **Optimize HFpEF GDMT pre-op:**
+   - **Add SGLT2 inhibitor** (empagliflozin) **post-op** if renal function preserved.
+   - **Consider GLP-1 RA** (e.g., semaglutide) for diabetes + HFpEF if BMI ≥27.
+3. **Peri-op renal protection:**
+   - **IV fluids:** Crystalloid bolus if hypotension occurs.
+   - **Avoid nephrotoxins** (contrast, NSAIDs).
+   - **Monitor creatinine 24–48 hours post-op**.
+4. **Diabetes management:**
+   - **Hold metformin/SGLT2 pre-op** as above.
+   - **Post-op:** Resume metformin if eGFR >30; restart SGLT2 if eGFR stable.
+
+---
+**Guideline References:**
+• **ESC 2023 HFpEF:** SGLT2 inhibitors (empagliflozin/dapagliflozin) **Class I, Level A** for HFpEF + CKD (restart post-op if eligible).
+• **AHA 2024 AF:** Apixaban **Class I** for AF + HF (no hold unless high bleeding risk).
+• **KDIGO 2021:** Avoid metformin if eGFR <30; monitor creatinine peri-op.
+• **ACC/AHA Peri-op:** Hold ARBs/ACEi 24 hours pre-op; resume if BP stable post-op.
+[diabetologist]: ### Endocrinology Assessment
+
+**Diabetes Type:** T2DM
+**Glycemic Control:** HbA1c **7.1%** (Good control, ADA target met)
+**Hypoglycemia Risk:** **Low** (Current regimen unlikely to cause hypoglycemia)
+
+---
+**Key Findings:**
+• **Cardiorenal protection:** Empagliflozin (SGLT2i) is appropriately prescribed for **HFpEF + CKD** (ADA/ACC/AHA Class I recommendation).
+• **Renal function:** eGFR **50 mL/min** (Stage 3a CKD) — **Metformin caution** if held perioperatively.
+• **No hypoglycemia risk factors** (no sulfonylureas/insulin; GLP-1 RA not used).
+• **Elective surgery in 6 days** — **perioperative glucose management critical** (NPO status, stress hyperglycemia risk).
+
+---
+**Medication Recommendations:**
+• **Empagliflozin (SGLT2i):**
+  **Hold 3–4 days pre-op** (Day 3–2 pre-surgery) → **Restart 48h post-op if oral intake tolerated** (ADA 2024).
+  *Reason:* Euglycemic DKA risk with fasting + dehydration; resume for **cardiorenal protection** post-op.
+
+• **Metformin:**
+  **Hold day of surgery** → **Restart 48h post-op if renal function stable (eGFR >30)**.
+  *Reason:* Risk of lactic acidosis with contrast (none here) or dehydration; monitor creatinine post-op.
+
+• **All other diabetes medications (none currently):**
+  **Not applicable** (patient on SGLT2i + metformin only).
+
+---
+**Peri-op Glucose Management:**
+• **Shorten basal insulin (if added):** Reduce by **20% pre-op** if basal insulin initiated for stress hyperglycemia.
+• **Target:** **100–140 mg/dL** (ADA 2024 perioperative guideline).
+• **Monitor:** **Pre-op (Day 1):** Check HbA1c + eGFR; **Day of surgery:** Fingerstick q4h; **Post-op Day 1:** HbA1c + creatinine.
+• **IV insulin protocol:** Likely needed for **NPO status** (laparoscopic colectomy risk for stress hyperglycemia).
+
+---
+**Cardiorenal Benefits to Optimize:**
+• **SGLT2i (Empagliflozin):**
+  - **Resume ASAP post-op** for **HFpEF + CKD** benefits (reduces HF hospitalizations by **30%** in EMPA-REG OUTCOME).
+  - **Monitor:** Serum creatinine, potassium (risk of volume depletion post-op).
+• **GLP-1 RA consideration:**
+  - **Not currently used** but could be added **post-op** if weight loss needed (e.g., semaglutide for obesity + T2DM).
+
+---
+**Priority Actions:**
+1. **Hold empagliflozin 3–4 days pre-op**; restart **48h post-op** if oral intake tolerated.
+2. **Hold metformin day of surgery**; restart **48h post-op** with eGFR confirmation (>30).
+3. **Initiate IV insulin protocol** for NPO status (target: 100–140 mg/dL).
+4. **Monitor:** Post-op Day 1 creatinine + potassium (SGLT2i + furosemide interaction).
+5. **Coordinate with cardiology:** Apixaban **bridging plan** (hold 24h pre-op, resume 24h post-op per AHA AF guidelines).
+
+---
+**Guideline References:**
+• **ADA 2024 Perioperative:** [Hold SGLT2i 3–4 days pre-op; restart post-op for cardiorenal protection](https://doi.org/10.2337/dc23-S011).
+• **ACC/AHA HF:** [SGLT2i Class I for HFpEF + CKD](https://doi.org/10.1016/j.jacc.2021.07.020).
+• **KDIGO CKD:** [Metformin caution with eGFR 30–45; monitor post-op](https://kdigo.org/guidelines/ckd-evaluation/).
+
+---
+**Note to Panel:**
+- **Cardiology:** Confirm apixaban bridging plan (risk of VTE vs. bleeding).
+- **Nephrology:** Post-op creatinine trend monitoring (SGLT2i + diuretic).
+- **Anesthesia:** IV insulin protocol + stress dose steroids if adrenal insufficiency risk.
+[92m11:12:14 - LiteLLM:INFO[0m: utils.py:4011 - 
+LiteLLM completion() model= ministral-3:14b; provider = ollama_chat
+[mediator]: ---
+## 📋 Consultation Snapshot
+
+**A) One-Line Problem:**
+**65F** with CKD (G3a, eGFR 50), HFpEF (NT-proBNP 980), T2DM (HbA1c 7.1%), and AF on apixaban undergoing elective laparoscopic colectomy.
+
+**B) Key Medication Holds/Restarts:**
+| **Medication**       | **Hold Timing**               | **Restart Timing**                     | **Notes**                                  |
+|----------------------|-------------------------------|----------------------------------------|--------------------------------------------|
+| **Empagliflozin**    | 3–4 days pre-op               | 48h post-op (if oral intake tolerated) | Critical for HFpEF/CKD; monitor creatinine |
+| **Metformin**        | Day of surgery                | 48h post-op (if eGFR >30)             | Avoid lactic acidosis risk                 |
+| **Losartan**         | 24h pre-op                    | 24–48h post-op (if BP stable)         | Titrate slowly; monitor BP                 |
+| **Furosemide**       | Morning of surgery            | Post-op if volume overload             | Avoid renal dysfunction                    |
+| **Apixaban**         | **CONTINUE** (no hold)        | —                                      | Laparoscopic colectomy (low bleeding risk) |
+
+**C) Peri-Op Risks & Mitigations:**
+1. **Renal Dysfunction:**
+   - *Risk:* Volume shifts + diuretics + CKD (eGFR 50).
+   - *Mitigation:* IV crystalloid bolus for hypotension; monitor creatinine 24–48h post-op.
+2. **Euglycemic DKA:**
+   - *Risk:* SGLT2i hold + fasting.
+   - *Mitigation:* Restart empagliflozin ASAP post-op; monitor glucose q4h intra-op.
+3. **Hypotension:**
+   - *Risk:* ARB hold + HFpEF.
+   - *Mitigation:* Restart losartan at 25 mg if BP stable; avoid rapid titration.
+4. **AF Thromboembolism:**
+   - *Risk:* Apixaban hold (if inappropriately stopped).
+   - *Mitigation:* **CONTINUE apixaban** (no bridging needed for low-risk surgery).
+
+**D) Post-Op Optimization:**
+- **GDMT for HFpEF:**
+  - Resume **empagliflozin** (Class I for HFpEF + CKD).
+  - Consider **GLP-1 RA** (e.g., semaglutide) if BMI ≥27 for diabetes/weight loss.
+- **Diabetes Management:**
+  - Restart **metformin** if eGFR >30; monitor creatinine.
+  - IV insulin protocol for NPO status (target: 100–140 mg/dL).
+- **Monitoring:**
+  - **Day 1 post-op:** Creatinine, potassium, glucose.
+  - **Day 3 post-op:** Restart empagliflozin if stable.
+
+**E) Guidelines Aligned:**
+- **ESC 2023:** SGLT2i Class I for HFpEF + CKD (restart post-op).
+- **ADA 2024:** Hold SGLT2i 3–4 days pre-op; resume for cardiorenal protection.
+- **AHA 2024:** Continue apixaban for AF + HF (no hold unless high bleeding risk).
+- **KDIGO 2021:** Metformin caution with eGFR 30–45; monitor post-op.
+
+---
+**Action Items:**
+1. **Anesthesia:** Confirm IV insulin protocol + stress dose steroids if needed.
+2. **Cardiology:** Verify CHA₂DS₂-VASc score (apixaban continuation is correct).
+3. **Nephrology:** Post-op creatinine trend monitoring (SGLT2i + diuretic).
+4. **Surgery:** Schedule post-op creatinine/potassium checks on Day 1.
+[user]: [92m11:12:52 - LiteLLM:INFO[0m: utils.py:4011 - 
+LiteLLM completion() model= ministral-3:14b; provider = ollama_chat
+[intake_coordinator]: Please paste your case (free text or JSON format). I'll structure it for the specialist panel.
+[user]: 

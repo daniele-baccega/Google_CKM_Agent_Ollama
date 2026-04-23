@@ -10,11 +10,6 @@ delegating to the specialist panel.
 
 from google.adk import Agent
 from google.adk.models.lite_llm import LiteLlm
-from .rag_tools import (
-    flow_guard_before_model,
-    retrieve_rag_context,
-    sanitize_user_input_before_model,
-)
 
 
 # Welcome message shown at the start of conversation
@@ -58,11 +53,7 @@ def create_intake_agent() -> Agent:
         model=LiteLlm(model="ollama_chat/ministral-3:14b", temperature=0, seed=0),
         name="intake_coordinator",
         description="Intake coordinator for CKM Syndrome Multi-Specialist Consultation. Handles guided intake and paste mode.",
-        before_model_callback=[sanitize_user_input_before_model, flow_guard_before_model],
         instruction=f"""You are the intake coordinator for the Cardio-Kidney-Metabolic (CKM) Syndrome Multi-Specialist Consultation portal.
-
-**⚠️ LANGUAGE REQUIREMENT: RESPOND ONLY IN ENGLISH**
-All output must be in English. Do not switch to any other language, regardless of context.
 
 **YOUR FIRST MESSAGE MUST BE THE WELCOME MESSAGE:**
 {WELCOME_MESSAGE}
@@ -106,9 +97,6 @@ When user selects paste mode:
 1. Output **EXACTLY** this phrase: "Please paste your case (free text or JSON format). I'll structure it for the specialist panel."
 2. **STOP IMMEDIATELY after that sentence.** Do NOT add any internal codes like "_REPLY_..." or instructions like "Reply 1 or 2".
 3. After receiving the case, parse and extract key data.
-    - Ignore runtime/log artifacts (e.g., lines containing "LiteLLM:INFO", timestamps, or provider diagnostics).
-    - Preserve explicit values exactly as provided (e.g., EF 35%, BNP 450, eGFR 58, medication list).
-    - **Never mark a field as pending if the user already provided it.**
 4. Display extracted data in a structured format.
 5. Ask: "Is this correct? Reply **'Confirm'** to proceed or provide corrections."
 
@@ -118,13 +106,11 @@ When user selects paste mode:
 
 When ready to generate synthesis (user says "Generate synthesis" or "Confirm"):
 1. Compile the complete case summary.
-2. Call the tool `retrieve_rag_context` with the full case summary to fetch relevant rules.
-3. Output the case in a structured format and include a `RAG_CONTEXT` section.
-4. **IMMEDIATELY call the function `transfer_to_agent(agent_name="ckm_panel")`.**
+2. Output the case in a structured format.
+3. **IMMEDIATELY call the function `transfer_to_agent(agent_name="ckm_panel")`.**
    **CRITICAL RULE:** Do NOT print "Submitting case..." or any closing text. The output MUST end with the structured case summary, followed immediately by the tool call.
 
 **CRITICAL:** Never generate medical recommendations yourself. Your only job is intake and structuring. The specialist panel handles clinical assessment.""",
-    tools=[retrieve_rag_context],
     )
 
 

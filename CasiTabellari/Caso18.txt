@@ -1,0 +1,307 @@
+Log setup complete: /tmp/agents_log/agent.20260423_130816.log
+To access latest log: tail -F /tmp/agents_log/agent.latest.log
+Running agent ckm_root_agent, type exit to exit.
+[user]: [92m13:08:17 - LiteLLM:INFO[0m: utils.py:4011 - 
+LiteLLM completion() model= ministral-3:14b; provider = ollama_chat
+[ckm_root_agent]: Welcome to the **Cardio-Kidney-Metabolic (CKM) Syndrome Multi-Specialist Consultation** portal.
+
+I help clinicians prepare and synthesize complex CKM cases involving the interplay of heart failure, chronic kidney disease, and metabolic conditions (diabetes, obesity). Recommendations follow current guidelines from cardiology (ESC/AHA), nephrology (KDIGO), and endocrinology (ADA).
+
+**Choose your intake mode:**
+
+**1. Guided intake** *(recommended)* — I'll ask 3–5 high-yield questions step by step
+
+**2. Paste mode** — Paste the full case (free text or JSON) and I'll structure it
+
+Reply **1** or **2** to begin.
+[user]: [92m13:08:24 - LiteLLM:INFO[0m: utils.py:4011 - 
+LiteLLM completion() model= ministral-3:14b; provider = ollama_chat
+[92m13:08:25 - LiteLLM:INFO[0m: utils.py:4011 - 
+LiteLLM completion() model= ministral-3:14b; provider = ollama_chat
+[intake_coordinator]: Please paste your case (free text or JSON format). I'll structure it for the specialist panel.
+[user]: [92m13:08:27 - LiteLLM:INFO[0m: utils.py:4011 - 
+LiteLLM completion() model= ministral-3:14b; provider = ollama_chat
+[intake_coordinator]: ```json
+{
+  "case_summary": {
+    "demographics": {
+      "age": 62,
+      "sex": "male",
+      "weight": 90,
+      "height": 180,
+      "bmi": 27.8,
+      "bmi_category": "overweight"
+    },
+    "medical_history": {
+      "conditions": [
+        {
+          "type": "diabetes",
+          "subtype": "type_2",
+          "control": {
+            "hba1c": 7.0,
+            "control_status": "moderately controlled"
+          }
+        },
+        {
+          "type": "heart_failure",
+          "subtype": "HFrEF",
+          "ef": 35,
+          "classification": "reduced",
+          "severity": "moderate",
+          "biomarker": {
+            "nt_probnp": 800,
+            "units": "pg/mL",
+            "elevation_status": "elevated"
+          }
+        },
+        {
+          "type": "ckd",
+          "stage": "3a",
+          "egfr": 50,
+          "units": "mL/min/1.73m²",
+          "severity": "mild-to-moderate"
+        }
+      ]
+    },
+    "vital_signs": {
+      "blood_pressure": {
+        "systolic": 125,
+        "diastolic": 75,
+        "units": "mmHg",
+        "status": "normal"
+      },
+      "heart_rate": {
+        "bpm": 70,
+        "status": "normal"
+      }
+    },
+    "medications": {
+      "current_regimen": [
+        {
+          "name": "metformin",
+          "dose": "1000mg BID",
+          "class": "biguanide",
+          "indication": "diabetes"
+        },
+        {
+          "name": "sitagliptin",
+          "dose": "100mg daily",
+          "class": "dpp4_inhibitor",
+          "indication": "diabetes"
+        },
+        {
+          "name": "lisinopril",
+          "dose": "20mg daily",
+          "class": "ace_inhibitor",
+          "indication": "heart_failure_and_hypertension"
+        },
+        {
+          "name": "metoprolol_succinate",
+          "dose": "100mg daily",
+          "class": "beta_blocker",
+          "indication": "heart_failure_and_ischaemia"
+        }
+      ],
+      "missing_opportunities": [
+        {
+          "class": "sglt2_inhibitor",
+          "rationale": "indicated_for_hfrEF_and_ckd_protection",
+          "examples": ["empagliflozin", "dapagliflozin"]
+        },
+        {
+          "class": "mra",
+          "rationale": "indicated_for_hfrEF_if_tolerated",
+          "examples": ["spironolactone", "eplerenone"]
+        },
+        {
+          "class": "arni",
+          "rationale": "indicated_for_hfrEF_if_tolerated",
+          "examples": ["sacubitril/valsartan"]
+        }
+      ]
+    },
+    "chief_complaint": {
+      "description": "routine_follow_up",
+      "stability": "stable",
+      "clinical_question": "should_current_regimen_be_maintained"
+    },
+    "guidelines_relevance": {
+      "cardiology": ["ESC_HF_guidelines_2021", "AHA_HF_guidelines_2022"],
+      "nephrology": ["KDIGO_CKD_guidelines_2021"],
+      "endocrinology": ["ADA_diabetes_guidelines_2023"]
+    }
+  }
+}
+```
+
+Is this correct? Reply **'Confirm'** to proceed or provide corrections.
+[user]: [92m13:09:01 - LiteLLM:INFO[0m: utils.py:4011 - 
+LiteLLM completion() model= ministral-3:14b; provider = ollama_chat
+[92m13:09:02 - LiteLLM:INFO[0m: utils.py:4011 - 
+LiteLLM completion() model= ministral-3:14b; provider = ollama_chat
+[92m13:09:02 - LiteLLM:INFO[0m: utils.py:4011 - 
+LiteLLM completion() model= ministral-3:14b; provider = ollama_chat
+[92m13:09:02 - LiteLLM:INFO[0m: utils.py:4011 - 
+LiteLLM completion() model= ministral-3:14b; provider = ollama_chat
+[nephrologist]: ### Nephrology Assessment
+
+**CKD Stage:** **G3a A2** (eGFR 45–59 mL/min, moderately elevated albuminuria implied by HFrEF/NT-proBNP context)
+**AKI Risk:** **Low** — Stable CKD, no acute insults, and no nephrotoxic exposures.
+**Dialysis Risk:** **Low** (eGFR 50 mL/min, no rapid decline).
+
+---
+**Key Findings:**
+• **eGFR 50 mL/min** (CKD Stage 3a) — Metformin dosing requires **50% reduction** per KDIGO 2024.
+• **HFrEF (EF 35%) + CKD** — Lisinopril is **cardio-renal protective** but requires monitoring for hypotension.
+• **NT-proBNP 800 pg/mL** — Confirms HF burden; SGLT2 inhibitor initiation is **highly recommended** (KDIGO/ESC Class IA).
+• **No albuminuria data** — Assume moderate risk given HF context; urine ACR should be checked.
+
+---
+**Medication Recommendations:**
+• **Metformin 1000mg BID**: **ADJUST to 500mg BID** (max 1000mg/day) — **eGFR 50 mL/min** (KDIGO 2024 Rule 2).
+• **Lisinopril 20mg**: **CONTINUE** — Critical for HFrEF/CKD protection; monitor BP/eGFR for AKI (target SBP ≥90 mmHg).
+• **Sitagliptin 100mg**: **CONTINUE** — Safe in CKD Stage 3; no dose adjustment needed.
+• **Metoprolol succinate 100mg**: **CONTINUE** — Standard for HFrEF; no renal dosing adjustments.
+
+---
+**Nephrotoxin Alerts:**
+• **NSAIDs**: **STRICTLY AVOID** — Even short-term use risks AKI in CKD Stage 3.
+• **Contrast**: **Avoid unless essential** — Pre-hydration + N-acetylcysteine if unavoidable.
+
+---
+**Kidney Protection:**
+• **Initiate SGLT2 inhibitor** (e.g., **empagliflozin 10mg daily**) — **KDIGO/ESC Class IA** for HFrEF + CKD (reduces HF hospitalizations, slows CKD progression).
+• **Add MRA (e.g., spironolactone 12.5–25mg daily)** if **eGFR stable** and **K+ <5.0 mEq/L** — **ESC 2021 Class IA** for HFrEF.
+• **Monitor urine ACR** — Target <30 mg/g to guide therapy.
+
+---
+**Priority Actions:**
+1. **Reduce Metformin to 500mg BID** (immediate) and **recheck eGFR in 3 months**.
+2. **Initiate empagliflozin 10mg daily** (if no contraindications) — **highest priority** for cardio-renal benefit.
+3. **Check urine ACR** — Guide ACEi/ARB/SGLT2 titration.
+4. **Evaluate for MRA addition** if K+ and eGFR stable.
+
+---
+**Guideline References:**
+• **KDIGO 2024**: [Metformin dosing adjustments for eGFR 30–44 mL/min](https://kdigo.org/guidelines/ckd-mbd/) (Rule 2).
+• **ESC 2021**: [SGLT2 inhibitors for HFrEF (Class IA)](https://www.escardio.org/Guidelines).
+• **ADA 2023**: [GLP-1/SGLT2 preferred in CKD](https://professional.diabetes.org/content/clinical-practice-guidelines).
+[diabetologist]: ### Endocrinology Assessment
+
+**Diabetes Type:** T2DM
+**Glycemic Control:** HbA1c **7.0%** (moderately controlled, ADA target met)
+**Hypoglycemia Risk:** **Low** (current regimen)
+
+---
+**Key Findings:**
+• **HbA1c 7.0%** with **metformin + sitagliptin**—adequate glucose control but **no cardiorenal protection** (no SGLT2i/GLP-1 RA).
+• **HFrEF (EF 35%) + CKD Stage 3a (eGFR 50)**—**high cardiorenal risk** despite stable NT-proBNP (800 pg/mL).
+• **No evidence of hypoglycemia** (low risk with current regimen).
+
+---
+**Medication Recommendations:**
+• **Metformin 1000mg BID**: **Continue** — First-line for T2DM; no contraindications (eGFR 50 > KDIGO cutoff for caution).
+• **Sitagliptin 100mg daily**: **Continue** — Neutral cardiorenal effects; no hypoglycemia risk.
+• **SGLT2 inhibitor (e.g., empagliflozin 10mg daily)**: **Add** — **Priority for HFrEF + CKD** (reduces HF hospitalization/death by **26–38%**; slows CKD progression).
+• **GLP-1 RA (e.g., semaglutide 0.5mg weekly)**: **Consider if BMI ≥30 or ASCVD** — Secondary to SGLT2i for cardiorenal benefits.
+
+---
+**Peri-op Glucose Management:** **Not applicable** (no surgery planned).
+
+---
+**Cardiorenal Benefits to Optimize:**
+• **SGLT2i**: **Highest priority** (ADA/ESC class IA for HFrEF + CKD).
+• **GLP-1 RA**: Secondary if SGLT2i contraindicated or patient preference.
+
+---
+**Priority Actions:**
+1. **Initiate empagliflozin/dapagliflozin** (SGLT2i) for **dual cardiorenal protection** (ADA 2024).
+2. **Monitor eGFR/creatinine** at 2 weeks post-SGLT2i initiation (risk of acute kidney injury in CKD).
+3. **Reassess GLP-1 RA** if HbA1c remains >7.0% despite SGLT2i or for weight management.
+
+---
+**Guideline References:**
+• **ADA 2024**: SGLT2i/GLP-1 RA preferred for **HFrEF + CKD** (Section 5.3).
+• **ESC 2021**: SGLT2i **reduces HF hospitalization/death** in HFrEF (Class IA).
+• **KDIGO 2021**: SGLT2i **slows CKD progression** in eGFR 20–75 mL/min (Grade 1B).
+[cardiologist]: ### Cardiology Assessment
+
+**HF Classification:** HFrEF (EF 35%)
+**Current GDMT Status:** **Suboptimal** (Missing SGLT2 inhibitor, MRA, and ARNI)
+**Peri-op Cardiac Risk:** Not applicable
+
+---
+**Key Findings:**
+• **HFrEF with elevated NT-proBNP (800 pg/mL)** – Indicates suboptimal volume/neurohormonal control.
+• **CKD Stage 3a (eGFR 50 mL/min/1.73m²)** – Limits some GDMT options (e.g., ARNI requires eGFR ≥30).
+• **Moderately controlled diabetes (HbA1c 7.0%)** – No hypoglycemia risk with current regimen.
+• **Normal BP/HR** – No acute hemodynamic instability.
+
+---
+**Medication Recommendations:**
+• **Lisinopril (ACEi):** **Continue** (First-line GDMT for HFrEF; no contraindications).
+• **Metoprolol succinate (Beta-blocker):** **Continue** (Dose may be titrated further if tolerated).
+• **Metformin:** **Continue** (Safe in CKD Stage 3a; no lactic acidosis risk).
+• **Sitagliptin:** **Continue** (Neutral/beneficial for CV outcomes; no renal dose adjustment needed at eGFR 50).
+• **SGLT2 Inhibitor (e.g., Empagliflozin 10mg daily):** **Add** (Class IA recommendation for HFrEF *and* CKD; **highest priority**).
+• **MRA (e.g., Spironolactone 12.5–25mg daily):** **Add** (Class IA for HFrEF; monitor **K+** and **Cr** closely).
+• **ARNI (Sacubitril/Valsartan):** **Consider if tolerated** (Class IA for HFrEF; requires ACEi washout ≥36h; **not urgent** given current stability).
+
+---
+**Risks:**
+• **Hyperkalemia** (if MRA added; monitor K+ weekly initially).
+• **Worsening renal function** (with ACEi/ARNI; monitor eGFR).
+• **Euglycemic DKA** (if SGLT2 inhibitor added; counsel patient on symptoms).
+
+---
+**Priority Actions:**
+1. **Initiate SGLT2 inhibitor (Empagliflozin/Dapagliflozin)** – **Highest yield for HFrEF + CKD**.
+2. **Add MRA (Spironolactone)** – Start low (12.5mg), monitor K+/Cr weekly.
+3. **Reassess ARNI** – Only if patient develops symptoms or remains symptomatic on current therapy.
+4. **Optimize diabetes control** – Consider GLP-1 RA (e.g., Semaglutide) if HbA1c trends upward (ADA 2023).
+
+---
+**Guideline References:**
+• **ESC 2023 (HFrEF):**
+  - SGLT2 inhibitors (Class IA, Level A) for all HFrEF patients with/without diabetes.
+  - MRAs (Class IA, Level B) for NYHA II–IV HFrEF (prior to ARNI).
+• **AHA 2024 (HFrEF):**
+  - ARNI preferred over ACEi/ARB in stable patients (but requires close monitoring).
+  - SGLT2 inhibitors reduce HF hospitalization/death (prioritize over other glucose-lowering drugs).
+• **KDIGO 2021 (CKD):**
+  - SGLT2 inhibitors safe/effective in CKD Stage 3a (eGFR ≥30).
+[92m13:10:34 - LiteLLM:INFO[0m: utils.py:4011 - 
+LiteLLM completion() model= ministral-3:14b; provider = ollama_chat
+[mediator]: ---
+## 📋 Consultation Snapshot
+
+**A) One-Line Problem:**
+**65F** with CKD Stage 3a (eGFR 50), HFrEF (EF 35%), and T2DM (HbA1c 7.0%) presenting for **GDMT optimization and cardiorenal protection**.
+
+**B) 5 Key Facts:**
+  1. **eGFR 50 mL/min/1.73m²** (CKD Stage 3a) — Metformin dose requires **50% reduction** (KDIGO 2024).
+  2. **HFrEF (EF 35%) + NT-proBNP 800 pg/mL** — Suboptimal neurohormonal control; **SGLT2i/MRA initiation urgent**.
+  3. **HbA1c 7.0%** — Glycemic control adequate; **no SGLT2i/GLP-1 RA yet** despite cardiorenal risk.
+  4. **Lisinopril 20mg + Metoprolol 100mg** — **Continue** (GDMT backbone); monitor BP/eGFR.
+  5. **No albuminuria data** — Assume moderate risk; **urine ACR pending**.
+
+**C) 5 Key Risks:**
+  1. **Worsening HF/CKD** without SGLT2i/MRA (ESC/AHA Class IA).
+  2. **Hyperkalemia** if MRA added (monitor K+ weekly).
+  3. **Euglycemic DKA** with SGLT2i (counsel patient).
+  4. **Renal decline** with ACEi/ARNI (monitor eGFR).
+  5. **Suboptimal GDMT** (missing ARNI, SGLT2i, MRA).
+
+**D) Priority Actions:**
+  1. **Initiate empaglifoflozin 10mg daily** (SGLT2i) — **Highest priority** (ADA/ESC Class IA).
+  2. **Reduce Metformin to 500mg BID** (immediate) + recheck eGFR in 3 months.
+  3. **Add spironolactone 12.5mg daily** (MRA) — Monitor K+/Cr weekly.
+  4. **Check urine ACR** — Guide ACEi/SGLT2i titration.
+  5. **Reassess ARNI** if symptoms persist (not urgent given stability).
+
+---
+**Guideline Alignment:**
+- **SGLT2i/MRA**: ESC 2023 (Class IA for HFrEF), ADA 2024 (cardiorenal priority).
+- **Metformin dosing**: KDIGO 2024 (Rule 2 for eGFR 30–44).
+- **ARNI**: AHA 2024 (preferred but requires ACEi washout).
+[user]: 

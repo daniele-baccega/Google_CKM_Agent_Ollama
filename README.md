@@ -532,155 +532,6 @@ python baseline_agent.py
 
 Then paste a case and press Ctrl+D (macOS/Linux) or Ctrl+Z (Windows) to submit. Uses the same `ministral-3:14b` model with a generic system prompt.
 
-## RAG Setup (Chroma + Markdown/PDF Documents)
-
-This project uses **Chroma** (vector database) to index clinical guidelines and documents. The RAG system enables agents to cite specific document excerpts when making recommendations, ensuring **full traceability** and **evidence-based reasoning**.
-
-### Key RAG Features
-
-- **Numbered Excerpt Citations**: Each retrieved excerpt gets an ID (E1, E2, E3, etc.)
-- **Source Attribution**: Document names are clearly shown without file extensions
-- **Hybrid Search**: Combines semantic similarity and keyword matching (BM25)
-- **Cross-encoder Reranking**: Improves relevance of retrieved excerpts
-- **Clean Formatting**: Excerpts displayed with 500-char preview for readability
-
-### How It Works
-
-When specialists formulate recommendations, they receive:
-
-```
-DOCUMENT EXCERPTS:
-
-E1. [Document: AHA 2024 Perioperative Guidelines | Chunk 5]
-    "SGLT2 inhibitors should be discontinued 3–4 days before surgery 
-    to minimize the risk of perioperative ketoacidosis..."
-
-E2. [Document: KDIGO 2024 | Chunk 12]
-    "Metformin is contraindicated in patients with eGFR <30 mL/min/1.73m² 
-    due to risk of lactic acidosis..."
-
-EXCERPT ID → SOURCE DOCUMENT MAP:
-  E1 → AHA 2024 Perioperative Guidelines
-  E2 → KDIGO 2024
-```
-
-Agents then cite these excerpts in recommendations:
-```
-Per AHA 2024 Perioperative Guidelines (E1: "discontinued 3–4 days..."):
-SGLT2 inhibitors should be held pre-operatively.
-```
-
-### 1) Add Documents
-
-Place clinical guidelines in the `docs/` folder as **Markdown, plain text, or PDF files**:
-
-```
-docs/
-├── AHA_2024_Perioperative_Guidelines.pdf
-├── KDIGO_2024_CKD_Guidelines.md
-└── ADA_2024_Standards_of_Care.txt
-```
-
-**Supported formats:**
-- `.pdf` — PDF documents (auto-extracted)
-- `.md` — Markdown files
-- `.txt` — Plain text files
-
-### 2) Build the RAG Index
-
-```bash
-python scripts/build_rag_index.py --docs-dir docs --chroma-dir .chroma
-```
-
-This:
-- Loads all documents from `docs/`
-- Splits documents into 500-token chunks (with 80-token overlap)
-- Generates embeddings using `sentence-transformers/all-MiniLM-L6-v2`
-- Stores in Chroma database (`.chroma/`)
-- Pre-builds BM25 index for hybrid search
-
-**Output:** `Successfully indexed N documents with M total chunks.`
-
-### 3) Run the Agent
-
-The specialist agents automatically:
-1. Retrieve relevant excerpts when processing a case
-2. Display excerpts with IDs (E1, E2, etc.) and source documents
-3. Cite excerpts when making recommendations
-4. Include a "Guideline References" section with all sources used
-
-### 4) Configuration (Optional)
-
-Set environment variables to customize RAG behavior:
-
-```bash
-# Core RAG settings
-export RAG_DOCS_DIR=docs                                          # Document folder
-export RAG_CHROMA_DIR=.chroma                                    # Chroma database folder
-export RAG_COLLECTION=ckm_rules                                  # Index collection name
-
-# Retrieval settings
-export RAG_TOP_K=5                                               # Number of excerpts to retrieve
-export RAG_ENABLE_RERANKING=true                                 # Enable cross-encoder reranking
-export RAG_ENABLE_HYBRID_SEARCH=true                             # Enable BM25 + vector search
-
-# Model settings
-export RAG_EMBED_MODEL=sentence-transformers/all-MiniLM-L6-v2   # Embedding model
-export RAG_RERANKER_MODEL=cross-encoder/ms-marco-MiniLM-L-6-v2  # Reranking model
-
-# Chunking settings
-export RAG_CHUNK_SIZE=500                                        # Chunk size (tokens)
-export RAG_CHUNK_OVERLAP=80                                      # Chunk overlap (tokens)
-```
-
-### 5) Citation in Specialist Outputs
-
-When specialists receive RAG excerpts, they cite them using this format:
-
-**Cardiologist, Nephrologist, Diabetologist:**
-```
-Per [Document Name] (E1: '[key phrase from excerpt]'): [Recommendation]
-```
-
-**Examples:**
-- `Per AHA 2024 (E1: 'Hold SGLT2i 3–4 days pre-op'): SGLT2 inhibitors should be discontinued.`
-- `Per KDIGO 2024 (E2): Metformin is contraindicated in CKD Stage 4.`
-- `[Clinical Knowledge]: Administer IV hydration for renal protection.`
-
-**Mediator Integration:**
-The mediator preserves all excerpt citations (E1, E2, etc.) in the final **Guideline References** section, creating a fully traceable document that shows exactly which passages supported each recommendation.
-
-### 6) Example RAG Workflow
-
-**Step 1: Build index**
-```bash
-python scripts/build_rag_index.py
-```
-
-**Step 2: Run agent with RAG enabled**
-```bash
-adk web .
-# or
-adk run .
-```
-
-**Step 3: Submit patient case**
-```
-66-year-old male with CKD Stage 3a, T2DM, stable CAD
-Planning elective coronary angiography tomorrow
-Current meds: Metformin 1000mg BID, Glipizide 5mg daily
-```
-
-**Step 4: View specialist outputs**
-- [Cardiologist] cites AHA 2024 Perioperative Guidelines (E1: SGLT2i hold)
-- [Nephrologist] cites KDIGO 2024 (E2: Metformin dosing in CKD)
-- [Diabetologist] cites ADA 2024 (E3: Glucose management periop)
-
-**Step 5: Review mediator snapshot**
-- Synthesizes all recommendations
-- Preserves excerpt IDs and sources
-- Final "Guideline References" shows full traceability
-
 ## Usage Examples
 
 ### Example 1: Basic Patient Case
@@ -876,10 +727,6 @@ Google-CKM-Agent-Ollama/
 ├── examples.md               # Usage examples
 ├── verify_setup.py           # Setup verification script
 ├── baseline_agent.py         # Optional: single-agent baseline (control) script
-├── docs/                      # RAG documents (Markdown/text)
-│   └── ckm_rules.md           # Example rules file
-├── scripts/
-│   └── build_rag_index.py     # Build/update Chroma index
 └── src/
     ├── __init__.py
     ├── agent.py              # Root agent and orchestration
@@ -887,8 +734,6 @@ Google-CKM-Agent-Ollama/
     ├── mediator.py           # Mediator agent
     ├── specialists.py       # Specialist agents (cardiologist, nephrologist, diabetologist)
     ├── output_templates.py   # Consultation Snapshot and medication table templates
-   ├── rag.py                 # RAG indexing + retrieval utilities
-   ├── rag_tools.py           # RAG tool for ADK agents
     └── utils.py              # Utility functions
 ```
 

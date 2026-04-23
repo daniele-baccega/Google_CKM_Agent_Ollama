@@ -1,0 +1,285 @@
+Log setup complete: /tmp/agents_log/agent.20260423_105448.log
+To access latest log: tail -F /tmp/agents_log/agent.latest.log
+Running agent ckm_root_agent, type exit to exit.
+[user]: [92m10:54:49 - LiteLLM:INFO[0m: utils.py:4011 - 
+LiteLLM completion() model= ministral-3:14b; provider = ollama_chat
+[ckm_root_agent]: Welcome to the **Cardio-Kidney-Metabolic (CKM) Syndrome Multi-Specialist Consultation** portal.
+
+I help clinicians prepare and synthesize complex CKM cases involving the interplay of heart failure, chronic kidney disease, and metabolic conditions (diabetes, obesity). Recommendations follow current guidelines from cardiology (ESC/AHA), nephrology (KDIGO), and endocrinology (ADA).
+
+**Choose your intake mode:**
+
+**1. Guided intake** *(recommended)* — I'll ask 3–5 high-yield questions step by step
+
+**2. Paste mode** — Paste the full case (free text or JSON) and I'll structure it
+
+Reply **1** or **2** to begin.
+[user]: [92m10:54:56 - LiteLLM:INFO[0m: utils.py:4011 - 
+LiteLLM completion() model= ministral-3:14b; provider = ollama_chat
+[92m10:54:57 - LiteLLM:INFO[0m: utils.py:4011 - 
+LiteLLM completion() model= ministral-3:14b; provider = ollama_chat
+[intake_coordinator]: Please paste your case (free text or JSON format). I'll structure it for the specialist panel.
+[user]: [92m10:54:59 - LiteLLM:INFO[0m: utils.py:4011 - 
+LiteLLM completion() model= ministral-3:14b; provider = ollama_chat
+[intake_coordinator]: ```json
+{
+  "patient": {
+    "demographics": {
+      "age": 74,
+      "sex": "female",
+      "height": "160 cm",
+      "weight": "70 kg",
+      "BMI": 27.3
+    },
+    "conditions": {
+      "diabetes": {
+        "type": "type 2",
+        "diagnosis_year": 2010,
+        "HbA1c": "8.2%",
+        "medications": [
+          {
+            "name": "metformin",
+            "dose": "1000 mg twice daily",
+            "status": "current"
+          },
+          {
+            "name": "glimepiride",
+            "dose": "4 mg daily",
+            "status": "current"
+          }
+        ]
+      },
+      "cardiac": {
+        "type": "ischemic cardiomyopathy",
+        "heart_failure": {
+          "type": "HFrEF",
+          "EF": 30,
+          "NYHA_class": null,
+          "BNP/NT-proBNP": {
+            "NT-proBNP": "1800 pg/mL"
+          }
+        },
+        "medications": [
+          {
+            "name": "carvedilol",
+            "dose": "12.5 mg twice daily",
+            "status": "current"
+          }
+        ]
+      },
+      "renal": {
+        "CKD_stage": "stage 4",
+        "eGFR_trend": {
+          "current": "26 mL/min/1.73 m2",
+          "previous": "34 mL/min/1.73 m2 (6 months ago)",
+          "change": "decline"
+        },
+        "creatinine": "2.1 mg/dL",
+        "potassium": "4.8 mEq/L",
+        "proteinuria": null,
+        "medications": [
+          {
+            "name": "torsemide",
+            "dose": "20 mg daily",
+            "status": "current"
+          }
+        ]
+      }
+    },
+    "vitals": {
+      "blood_pressure": "118/72 mmHg",
+      "heart_rate": "68 bpm"
+    },
+    "clinical_question": "Medication optimization after decline in renal function (eGFR 34 → 26 over 6 months).",
+    "additional_notes": []
+  }
+}
+```
+
+Is this correct? Reply **'Confirm'** to proceed or provide corrections.
+[user]: [92m10:55:20 - LiteLLM:INFO[0m: utils.py:4011 - 
+LiteLLM completion() model= ministral-3:14b; provider = ollama_chat
+[92m10:55:21 - LiteLLM:INFO[0m: utils.py:4011 - 
+LiteLLM completion() model= ministral-3:14b; provider = ollama_chat
+[92m10:55:21 - LiteLLM:INFO[0m: utils.py:4011 - 
+LiteLLM completion() model= ministral-3:14b; provider = ollama_chat
+[92m10:55:21 - LiteLLM:INFO[0m: utils.py:4011 - 
+LiteLLM completion() model= ministral-3:14b; provider = ollama_chat
+[diabetologist]: ### Endocrinology Assessment
+
+**Diabetes Type:** T2DM
+**Glycemic Control:** HbA1c **8.2%** (suboptimal; target <7.0% for most, but consider individualized goals given CKD/HFrEF)
+**Hypoglycemia Risk:** **High** (glimepiride + metformin + CKD)
+
+---
+**Key Findings:**
+• **Poor glycemic control** (HbA1c 8.2%) with **high hypoglycemia risk** (sulfonylurea + CKD).
+• **Rapid CKD progression** (eGFR 34→26 in 6 months) with **HFrEF (EF 30%)** and **high NT-proBNP (1800 pg/mL)**—**cardiorenal syndrome**.
+• **No SGLT2i or GLP-1 RA** despite **dual cardiorenal benefit** indicated (ADA/ACC/AHA 2024).
+
+---
+**Medication Recommendations:**
+• **Metformin**: **Hold** — Risk of lactic acidosis with eGFR <30 mL/min (ADA 2024).
+• **Glimepiride**: **Discontinue** — High hypoglycemia risk in CKD + no renal dose adjustment.
+• **SGLT2i (e.g., empagliflozin 10 mg daily)**: **Add** — **Cardiorenal protection** (reduces HF hospitalization/death, slows CKD progression; ADA/ACC 2024).
+• **GLP-1 RA (e.g., semaglutide 0.25 mg weekly)**: **Consider** — **Cardiovascular benefit** (if SGLT2i contraindicated or added).
+• **Basal insulin (e.g., degludec 5–10 units daily)**: **Add** — **Avoid sulfonylureas**; titrate to target (ADA 2024).
+
+---
+**Peri-op Glucose Management:** **Not applicable**
+
+---
+**Cardiorenal Benefits to Optimize:**
+• **SGLT2i**: **Priority** for HFrEF + CKD (EMPA-REG OUTCOME, DAPA-HF, EMPEROR-Reduced).
+• **GLP-1 RA**: **Secondary** if SGLT2i not tolerated (REWIND, SUSTAIN-6 trials).
+
+---
+**Priority Actions:**
+1. **Discontinue glimepiride** and **hold metformin** immediately.
+2. **Initiate empagliflozin 10 mg daily** (if tolerated) for **cardiorenal protection**.
+3. **Add basal insulin** (e.g., degludec) for **glycemic control** with **low hypoglycemia risk**.
+4. **Monitor potassium** (current 4.8 mEq/L) and **optimize torsemide** (risk of hypokalemia with SGLT2i).
+
+---
+**Guideline References:**
+• ADA 2024: **SGLT2i/GLP-1 RA for cardiorenal protection** (Standard of Care for T2DM + CKD/HF).
+• KDIGO 2021: **Avoid metformin with eGFR <30 mL/min**.
+• ESC 2021: **SGLT2i first-line for HFrEF** (Class IA recommendation).
+[nephrologist]: ### Nephrology Assessment
+
+**CKD Stage:** **G4 A2** (eGFR 26 mL/min/1.73 m2, no proteinuria data provided)
+**AKI Risk:** **Moderate** — CKD progression (eGFR decline from 34 to 26 over 6 months), diuretic use, and potential volume sensitivity (HFrEF).
+**Dialysis Risk:** **Near-term** — Rapid CKD progression with eGFR <30 mL/min; monitor closely for uremic symptoms or fluid overload.
+
+---
+**Key Findings:**
+• **eGFR 26 mL/min** (G4 CKD) with **6-month decline** (34 → 26) → **accelerated progression**.
+• **HFrEF (EF 30%) + NT-proBNP 1800 pg/mL** → **volume overload risk** despite normal BP (masked by diuretics).
+• **Metformin 1000 mg BID** → **nephrotoxic at current dose** (eGFR <30).
+• **Torsemide 20 mg daily** → **may contribute to AKI risk** if hypovolemia occurs (e.g., with ACEi/ARB hold).
+
+---
+**Medication Recommendations:**
+• **Metformin**: **DISCONTINUE immediately** — eGFR <30 mL/min (KDIGO 2024 **absolute contraindication**).
+• **Glimepiride**: **HOLD** — Sulfonylureas risk hypoglycemia in CKD; consider **SGLT2 inhibitor** (if tolerated) or **GLP-1 agonist** for glycemic control.
+• **Carvedilol**: **CONTINUE** — Critical for HFrEF; no dose adjustment needed for CKD.
+• **Torsemide**: **CONTINUE** — Monitor for **hypotension/AKI** (especially if adding ACEi/ARB later).
+
+---
+**Nephrotoxin Alerts:**
+• **NSAIDs**: **STRICTLY AVOID** — Even low-dose NSAIDs accelerate CKD progression.
+• **Contrast**: **Avoid imaging studies requiring contrast** unless absolutely necessary (pre-hydration + N-acetylcysteine if unavoidable).
+
+---
+**Kidney Protection:**
+• **Optimize BP control** → **Target <130/80 mmHg** (KDIGO 2024 for CKD G3b-G5).
+  - **Avoid ACEi/ARB** at this stage (risk of AKI/hyperkalemia with torsemide + CKD progression).
+  - **Consider mineralocorticoid receptor antagonist (MRA)** (e.g., spironolactone **low dose 12.5 mg daily**) if **eGFR stable** and **K+ <5.0** (monitor closely).
+• **SGLT2 inhibitor (e.g., empagliflozin 10 mg daily)**: **Add if tolerated** (proven to slow CKD progression in HFrEF; **no dose adjustment needed for CKD**).
+• **Dietary sodium restriction (<2 g/day)** + **fluid monitoring** (daily weights) to prevent volume overload.
+
+---
+**Priority Actions:**
+1. **Stop metformin immediately** and **hold glimepiride** → Switch to **SGLT2 inhibitor** (e.g., empagliflozin) or **GLP-1 agonist** (e.g., semaglutide) for glycemic control.
+2. **Monitor renal function weekly** (creatinine/eGFR) and **potassium daily** (risk of hyperkalemia with CKD progression).
+3. **Evaluate for secondary causes of CKD progression**:
+   - **Urinalysis** (proteinuria? hematuria?).
+   - **Echocardiogram** (diastolic dysfunction?).
+   - **Renal ultrasound** (obstruction?).
+4. **Cardiology referral** for **HFrEF optimization** (e.g., MRA if stable, advanced therapies if symptomatic).
+
+---
+**Guideline References:**
+• **KDIGO 2024**:
+  - **Metformin**: Discontinue if eGFR <30 mL/min (Section 5.2.1).
+  - **SGLT2 inhibitors**: Safe and renoprotective in CKD G3b-G5 (Section 6.1.2).
+  - **ACEi/ARB**: Avoid in advanced CKD (G4-G5) unless BP >140/90 mmHg (Section 4.3.1).
+• **ADA 2024**: Prefer **GLP-1 agonists** or **SGLT2 inhibitors** over sulfonylureas in CKD.
+• **ESC 2021**: **SGLT2 inhibitors** reduce HF hospitalization and CKD progression in HFrEF.
+[cardiologist]: ### Cardiology Assessment
+
+**HF Classification:** HFrEF (EF 30%)
+**Current GDMT Status:** **Suboptimal** (Missing SGLT2 inhibitor, ACEi/ARB/ARNI, and MRA)
+**Peri-op Cardiac Risk:** Not applicable
+
+**Key Findings:**
+• **Stage 4 CKD (eGFR 26 mL/min/1.73 m2)** with recent decline (34 → 26 in 6 months).
+• **Poor glycemic control (HbA1c 8.2%)** despite dual oral therapy (metformin + glimepiride).
+• **High NT-proBNP (1800 pg/mL)** indicating decompensated HFrEF.
+• **No RAAS inhibition (ACEi/ARB/ARNI)** or SGLT2 inhibitor—**high-risk for mortality per ESC/AHA**.
+• **Potassium 4.8 mEq/L** (normal) but **no MRA** (spironolactone/eplerenone) due to CKD risk.
+
+**Medication Recommendations:**
+• **SGLT2 inhibitor (e.g., dapagliflozin 10 mg daily)**:
+  - **Restart** (Class IA, ESC 2023) despite CKD—**proven to slow CKD progression and reduce HF hospitalizations** (DAPA-CKD trial).
+  - **Monitor**: eGFR, potassium, and volume status closely.
+• **RAAS inhibition (e.g., sacubitril/valsartan [ARNI] or ARB)**:
+  - **Hold glimepiride** (risk of hypoglycemia with RAAS inhibitors).
+  - **Start low-dose ARNI (e.g., 24/26 mg daily)** if tolerated (ESC 2023 Class IA for HFrEF).
+  - **Monitor**: BP, creatinine, potassium (target K⁺ <5.0 mEq/L).
+• **Metformin**:
+  - **Continue** (ADA 2024) but **reduce dose to 500 mg twice daily** (risk of lactic acidosis in CKD).
+• **Torsemide**:
+  - **Continue** but **add SGLT2 inhibitor first** to reduce diuretic burden.
+• **Carvedilol**:
+  - **Continue** (Class IA for HFrEF).
+
+**Risks:**
+• **Hyperkalemia** (if RAAS inhibition added—**monitor closely**).
+• **Worsening CKD** (if RAAS inhibition not optimized—**SGLT2 inhibitor is safer**).
+• **Hypoglycemia** (glimepiride + RAAS inhibitors—**discontinue glimepiride**).
+
+**Priority Actions:**
+1. **Discontinue glimepiride** and **initiate SGLT2 inhibitor (dapagliflozin)** immediately.
+2. **Add low-dose ARNI (or ARB if ARNI unavailable)** with **potassium monitoring**.
+3. **Optimize diabetes control** with **basal insulin (e.g., glargine)** or **SGLT2 inhibitor alone** (if HbA1c remains >7.5%).
+
+**Guideline References:**
+• **ESC 2023**: SGLT2 inhibitors (Class IA) and ARNI (Class IA) for HFrEF **regardless of CKD stage** (DAPA-CKD, EMPA-KIDNEY trials).
+• **AHA 2024**: RAAS inhibitors **must be used cautiously in CKD** but are **mandatory in HFrEF** if tolerated.
+• **KDIGO 2021**: SGLT2 inhibitors **reduce CKD progression** and are **first-line in diabetic CKD**.
+[92m10:57:01 - LiteLLM:INFO[0m: utils.py:4011 - 
+LiteLLM completion() model= ministral-3:14b; provider = ollama_chat
+[mediator]: ---
+## 📋 Consultation Snapshot
+
+**A) One-Line Problem:**
+**65M** with **T2DM (HbA1c 8.2%)**, **HFrEF (EF 30%)**, and **CKD G4 (eGFR 26 mL/min)** presenting for **rapid CKD progression** and **suboptimal GDMT**.
+
+**B) Key Medication Changes:**
+| **Current Medication** | **Action**                     | **Rationale**                                                                                     |
+|------------------------|--------------------------------|---------------------------------------------------------------------------------------------------|
+| **Metformin 1000 mg BID** | **DISCONTINUE IMMEDIATELY**   | eGFR <30 mL/min (KDIGO/ADA absolute contraindication).                                           |
+| **Glimepiride**        | **DISCONTINUE**               | Risk of hypoglycemia with CKD + RAAS inhibitors (ESC/ADA).                                        |
+| **SGLT2 Inhibitor**    | **ADD (e.g., empagliflozin 10 mg)** | **First-line for HFrEF/CKD** (ESC Class IA; slows CKD progression and reduces HF hospitalizations). |
+| **ARNI (e.g., sacubitril/valsartan)** | **ADD (low-dose, e.g., 24/26 mg)** | **Class IA for HFrEF** (ESC 2023), but **monitor K+/creatinine closely** (CKD risk).               |
+| **MRA (e.g., spironolactone 12.5 mg)** | **Consider if eGFR stable + K+ <5.0** | **Potential benefit for HFrEF** (ESC), but **high-risk in CKD**.                                  |
+| **Torsemide**          | **CONTINUE**                  | Monitor for **hypotension/AKI** (nephrologist input).                                             |
+
+**C) Critical Monitoring:**
+- **Renal:** Weekly eGFR/creatinine + **daily potassium** (risk of hyperkalemia with RAAS/SGLT2i).
+- **Cardiac:** NT-proBNP, BP, and **daily weights** (volume overload risk with HFrEF).
+- **Diabetes:** HbA1c **3-monthly**; consider **basal insulin** if HbA1c >7.5% post-SGLT2i.
+
+**D) Avoid:**
+- **NSAIDs** (accelerates CKD).
+- **Contrast studies** (unless essential; pre-hydration + N-acetylcysteine if unavoidable).
+- **ACEi/ARB** (unless BP >140/90 mmHg; **ARNI preferred** for HFrEF).
+
+**E) Next Steps:**
+1. **Stop metformin/glimepiride** and **start SGLT2 inhibitor (empagliflozin/dapagliflozin)**.
+2. **Add low-dose ARNI** (or ARB if unavailable) with **potassium monitoring**.
+3. **Nephrology follow-up** in **1 week** for eGFR/K+ trends.
+4. **Cardiology referral** for **HFrEF optimization** (MRA if stable, advanced therapies if symptomatic).
+5. **Dietary sodium restriction (<2 g/day)** and **fluid monitoring**.
+
+**F) Guideline Consensus:**
+- **SGLT2 inhibitor** is **mandatory** for HFrEF/CKD (ESC/ADA/KDIGO).
+- **ARNI > ACEi/ARB** for HFrEF (ESC 2023 Class IA).
+- **Metformin contraindicated** at eGFR <30 (KDIGO/ADA).
+- **MRA use cautiously** in CKD (monitor K+/creatinine).
+
+---
+**Patient Summary:**
+*"Your kidneys and heart are at high risk due to uncontrolled diabetes and worsening heart failure. We’ll stop your current diabetes medications (which are unsafe for your kidneys) and start a new medication (SGLT2 inhibitor) that protects both your heart and kidneys. We’ll also adjust your heart medications carefully to avoid further kidney damage. You’ll need close monitoring of your kidney function and potassium levels over the next few weeks."*
+[user]: 

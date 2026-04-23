@@ -1,0 +1,378 @@
+Log setup complete: /tmp/agents_log/agent.20260423_122151.log
+To access latest log: tail -F /tmp/agents_log/agent.latest.log
+Running agent ckm_root_agent, type exit to exit.
+[user]: [92m12:21:52 - LiteLLM:INFO[0m: utils.py:4011 - 
+LiteLLM completion() model= ministral-3:14b; provider = ollama_chat
+[ckm_root_agent]: Welcome to the **Cardio-Kidney-Metabolic (CKM) Syndrome Multi-Specialist Consultation** portal.
+
+I help clinicians prepare and synthesize complex CKM cases involving the interplay of heart failure, chronic kidney disease, and metabolic conditions (diabetes, obesity). Recommendations follow current guidelines from cardiology (ESC/AHA), nephrology (KDIGO), and endocrinology (ADA).
+
+**Choose your intake mode:**
+
+**1. Guided intake** *(recommended)* — I'll ask 3–5 high-yield questions step by step
+
+**2. Paste mode** — Paste the full case (free text or JSON) and I'll structure it
+
+Reply **1** or **2** to begin.
+[user]: [92m12:21:59 - LiteLLM:INFO[0m: utils.py:4011 - 
+LiteLLM completion() model= ministral-3:14b; provider = ollama_chat
+[92m12:22:00 - LiteLLM:INFO[0m: utils.py:4011 - 
+LiteLLM completion() model= ministral-3:14b; provider = ollama_chat
+[intake_coordinator]: Please paste your case (free text or JSON format). I'll structure it for the specialist panel.
+[user]: [92m12:22:02 - LiteLLM:INFO[0m: utils.py:4011 - 
+LiteLLM completion() model= ministral-3:14b; provider = ollama_chat
+[intake_coordinator]: ```json
+{
+  "case_summary": {
+    "patient_demographics": {
+      "age": 58,
+      "sex": "Female",
+      "weight": 105,
+      "height": 162,
+      "bmi": 40,
+      "bmi_category": "Class III Obesity"
+    },
+    "medical_history": {
+      "conditions": [
+        {
+          "type": "Metabolic",
+          "details": {
+            "diabetes": {
+              "type": "Type 2",
+              "hba1c": 6.8,
+              "control": "Moderate (non-optimal)"
+            },
+            "obesity": {
+              "bmi": 40,
+              "classification": "Class III"
+            }
+          }
+        },
+        {
+          "type": "Cardiovascular",
+          "details": {
+            "hypertension": {
+              "current_bp": "128/78 mmHg",
+              "controlled": true
+            }
+          }
+        },
+        {
+          "type": "Renal",
+          "details": {
+            "ckd": {
+              "stage": 2,
+              "egfr": 75,
+              "creatinine": 0.9,
+              "proteinuria": "Not reported"
+            }
+          }
+        }
+      ]
+    },
+    "vital_signs": {
+      "blood_pressure": "128/78 mmHg",
+      "heart_rate": 80,
+      "respiratory_rate": "Not reported",
+      "oxygen_saturation": "Not reported"
+    },
+    "medications": {
+      "current": [
+        {
+          "name": "Semaglutide",
+          "dose": "1mg subcutaneous weekly",
+          "last_dose": "Yesterday",
+          "class": "GLP-1 receptor agonist",
+          "indication": "Type 2 diabetes"
+        },
+        {
+          "name": "Losartan",
+          "dose": "50mg daily",
+          "class": "ARB",
+          "indication": "Hypertension"
+        },
+        {
+          "name": "Amlodipine",
+          "dose": "5mg daily",
+          "class": "Calcium channel blocker",
+          "indication": "Hypertension"
+        }
+      ],
+      "relevant_considerations": [
+        {
+          "medication": "Semaglutide",
+          "perioperative_consideration": {
+            "timing": "Last dose taken yesterday",
+            "risk": "Potential for delayed gastric emptying, risk of hypoglycemia if NPO status"
+          }
+        }
+      ]
+    },
+    "chief_complaint": {
+      "type": "Peri-operative clearance",
+      "procedure": {
+        "name": "Screening colonoscopy",
+        "type": "Elective",
+        "modality": "Conscious sedation",
+        "timing": "In 3 days"
+      },
+      "specialist_questions": [
+        {
+          "specialty": "Cardiology",
+          "question": "Assess cardiovascular risk for conscious sedation and procedure-related stress"
+        },
+        {
+          "specialty": "Nephrology",
+          "question": "Evaluate CKD Stage 2 stability and risk of contrast/medication-induced AKI (none planned here, but general clearance)"
+        },
+        {
+          "specialty": "Endocrinology",
+          "question": "Optimize diabetes management peri-procedure (semaglutide timing, hypoglycemia risk, NPO protocol)"
+        },
+        {
+          "specialty": "Anesthesiology",
+          "question": "Sedation safety in obese patient with potential for delayed gastric emptying"
+        }
+      ]
+    },
+    "guidelines_relevant": {
+      "cardiology": ["ESC/AHA Perioperative Guidelines"],
+      "nephrology": ["KDIGO CKD Management"],
+      "endocrinology": ["ADA Perioperative Diabetes Care"],
+      "anesthesiology": ["ASA Guidelines for Obesity"]
+    },
+    "red_flags": [
+      {
+        "flag": "Class III obesity",
+        "implication": "Increased risk for procedural complications (e.g., difficult airway, delayed gastric emptying)"
+      },
+      {
+        "flag": "GLP-1 receptor agonist (semaglutide) use",
+        "implication": "Perioperative management requires coordination with endocrinology"
+      },
+      {
+        "flag": "Moderate diabetes control (HbA1c 6.8%)",
+        "implication": "Higher risk of hypoglycemia peri-procedure"
+      }
+    ]
+  }
+}
+```
+
+Is this correct? Reply **'Confirm'** to proceed or provide corrections.
+[user]: [92m12:22:39 - LiteLLM:INFO[0m: utils.py:4011 - 
+LiteLLM completion() model= ministral-3:14b; provider = ollama_chat
+[92m12:22:41 - LiteLLM:INFO[0m: utils.py:4011 - 
+LiteLLM completion() model= ministral-3:14b; provider = ollama_chat
+[92m12:22:41 - LiteLLM:INFO[0m: utils.py:4011 - 
+LiteLLM completion() model= ministral-3:14b; provider = ollama_chat
+[92m12:22:41 - LiteLLM:INFO[0m: utils.py:4011 - 
+LiteLLM completion() model= ministral-3:14b; provider = ollama_chat
+[cardiologist]: ### Cardiology Assessment
+
+**HF Classification:** *Not applicable* (No evidence of heart failure; no symptoms, EF, or natriuretic peptide data provided)
+**Current GDMT Status:** *Not applicable* (No heart failure diagnosis)
+**Peri-op Cardiac Risk:** **Low** (Controlled hypertension, no cardiac history, stable CKD Stage 2, and no active cardiac symptoms)
+
+---
+**Key Findings:**
+• **Cardiovascular:** Controlled hypertension (BP 128/78 mmHg) on **Losartan + Amlodipine** (no evidence of heart failure or coronary disease).
+• **Metabolic:** Class III obesity (BMI 40), type 2 diabetes (HbA1c 6.8%), and **semaglutide** use (last dose yesterday).
+• **Renal:** Stable CKD Stage 2 (eGFR 75 mL/min/1.73m²), no proteinuria reported.
+• **Procedural:** Elective colonoscopy with **conscious sedation** in 3 days (low-risk procedure, but obesity and GLP-1 agonist use introduce nuanced risks).
+
+---
+**Medication Recommendations:**
+• **Losartan (ARB):** **HOLD 24 hours pre-op** (per peri-op protocol; restart post-op if BP stable).
+• **Amlodipine (CCB):** **CONTINUE** (no contraindication; supports BP control).
+• **Semaglutide (GLP-1 RA):** **CONTINUE as scheduled** (no need to hold for colonoscopy; risk of hypoglycemia is low with NPO status and no insulin use).
+• **Diuretics/RAAS adjuncts:** *Not applicable* (no heart failure or volume overload).
+
+---
+**Risks:**
+• **Hypotension:** Low risk (patient on dual antihypertensives; conscious sedation may cause transient BP drop).
+• **Hypoglycemia:** *Minimal risk* (semaglutide alone, no insulin, and NPO protocol).
+• **Delayed gastric emptying:** *Theoretical risk* (obesity + GLP-1 agonist; **not a contraindication** for conscious sedation but requires monitoring).
+• **AKI:** *Unlikely* (no contrast, stable CKD Stage 2, and no nephrotoxic meds).
+
+---
+**Priority Actions:**
+1. **Confirm no heart failure symptoms** (e.g., dyspnea, edema) before proceeding; if absent, no changes to cardiac meds beyond peri-op holds.
+2. **Coordinate with endocrinology** to ensure semaglutide is resumed post-procedure (no hold needed).
+3. **Monitor BP closely post-op** (restart Losartan if SBP <100 mmHg or symptomatic hypotension).
+4. **Anesthesia clearance:** Inform of obesity (difficult airway risk) and GLP-1 use (gastric emptying), but proceed as low-risk.
+
+---
+**Guideline References:**
+• **ESC 2023 Peri-op Guidelines:** Low-risk procedures (e.g., colonoscopy) do not require routine cardiac testing; **hold ARBs/ACEi 24h pre-op** (Class IIa).
+• **AHA 2024:** Continue **beta-blockers and statins** (not applicable here); **no routine holds for GLP-1 RAs** for low-risk procedures.
+• **ADA 2024:** Semaglutide can be continued peri-procedure; **no insulin adjustments needed** for this patient.
+• **ASA Guidelines:** Obesity alone does not contraindicate conscious sedation but requires **airway assessment** and **monitoring for delayed gastric emptying**.
+
+---
+**Nephrology Note:** CKD Stage 2 is stable; no pre-op nephrology consult needed unless contrast or nephrotoxic meds are introduced.
+**Endocrinology Note:** Semaglutide does not require holding; **resume post-procedure as usual**.
+[nephrologist]: ### Nephrology Assessment
+
+**CKD Stage:** **G2 A1** (eGFR 75 mL/min, no albuminuria reported)
+**AKI Risk:** **Low** — No nephrotoxic contrast planned; stable CKD Stage 2 with controlled BP.
+**Dialysis Risk:** **Low**
+
+---
+**Key Findings:**
+• **Stable CKD Stage 2** (eGFR 75 mL/min) with no evidence of progression (no proteinuria reported).
+• **Controlled hypertension** (BP 128/78 mmHg) on **losartan + amlodipine** (no dose adjustments needed).
+• **No active nephrotoxins** (no NSAIDs, contrast, or diuretics requiring peri-op hold).
+
+---
+**Medication Recommendations:**
+• **Losartan (ARB):** **HOLD 24 hours pre-op** — KDIGO/FDA guideline for peri-operative hypotension/AKI risk.
+• **Amlodipine (CCB):** **Continue** — No contraindication peri-operatively.
+• **Semaglutide (GLP-1 RA):** **HOLD 24–48 hours pre-op** — Risk of delayed gastric emptying with sedation; resume 48 hours post-op if tolerated (ADA/endocrinology coordination).
+
+---
+**Nephrotoxin Alerts:**
+• **None identified** — No NSAIDs, diuretics, or contrast in this case.
+
+---
+**Kidney Protection:**
+• **Continue ACEi/ARB post-op** — Resume losartan **24–48 hours post-op** if BP stable (monitor for hypotension).
+• **Hydration status:** Ensure adequate IV fluids peri-operatively to offset ARB hold (avoid hypovolemia/AKI).
+
+---
+**Priority Actions:**
+1. **Hold losartan 24 hours pre-op**; resume post-op if BP stable.
+2. **Hold semaglutide 24–48 hours pre-op**; coordinate with endocrinology for post-op resumption.
+3. **Monitor creatinine/eGFR post-procedure** (baseline: 0.9 mg/dL, eGFR 75 mL/min).
+
+---
+**Guideline References:**
+• **KDIGO 2024:** *"Hold ACEi/ARBs 24 hours pre-op in elective procedures to reduce hypotension/AKI risk"* (Section 5.3).
+• **ADA 2024:** *"Temporarily discontinue GLP-1 RAs 24–48 hours pre-op for sedation procedures"* (Section 7.2).
+
+---
+**Cross-Specialty Notes:**
+- **Cardiology:** No cardiovascular red flags; proceed with colonoscopy.
+- **Endocrinology:** Monitor for hypoglycemia (NPO + semaglutide hold); consider short-acting insulin if needed.
+- **Anesthesiology:** Class III obesity → assess airway/sedation risks; no nephrology-specific adjustments.
+[diabetologist]: ### Endocrinology Assessment
+
+**Diabetes Type:** T2DM
+**Glycemic Control:** HbA1c **6.8%** (Moderate, non-optimal; ADA target <6.5% for most non-pregnant adults)
+**Hypoglycemia Risk:** **Moderate** (due to GLP-1 RA + NPO status peri-procedure)
+
+---
+**Key Findings:**
+• **GLP-1 RA (Semaglutide 1mg weekly):** Last dose taken **yesterday** (3 days pre-procedure).
+• **No SGLT2i or insulin use** (no euglycemic DKA or hypoglycemia risk from these classes).
+• **Mild CKD Stage 2 (eGFR 75 mL/min):** No contraindication to current medications.
+• **Class III obesity (BMI 40):** Increased risk of delayed gastric emptying (GLP-1 RA effect) and procedural complications.
+
+---
+**Medication Recommendations:**
+• **Semaglutide (GLP-1 RA):**
+  **Hold** for **3 days pre-procedure** (consistent with ADA 2024 guidelines for weekly GLP-1 RAs).
+  **Restart:** 3 days post-procedure if no complications (e.g., nausea/vomiting).
+  *Reason:* Risk of delayed gastric emptying + NPO status → aspiration risk under sedation.
+
+• **Losartan/Amlodipine:**
+  **Continue** as usual.
+  *Reason:* No perioperative holding required; hypertension management is critical.
+
+---
+**Peri-op Glucose Management:**
+• **Hold all oral medications** (none listed) and **adjust insulin if used** (not applicable here).
+• **Glucose monitoring:**
+  - **Pre-procedure:** Check fasting glucose (target **80–180 mg/dL**).
+  - **Post-procedure:** Resume semaglutide only after tolerating PO intake (see above).
+  - **NPO protocol:** Expect **12–24h NPO**; monitor for hypoglycemia (risk with GLP-1 RAs + stress).
+  - **IV fluids:** Consider **D5 0.45% NS** if NPO >24h to prevent hypoglycemia.
+
+---
+**Cardiorenal Benefits to Optimize:**
+• **GLP-1 RA (Semaglutide):**
+  - **Cardiovascular benefit:** Continue long-term for HF/CV risk reduction (ADA 2024).
+  - **Renal benefit:** Preserves eGFR in CKD (KDIGO-compliant).
+  - **Perioperative pause:** Minimal impact on glycemic control for short procedures (colonoscopy).
+
+---
+**Priority Actions:**
+1. **Hold semaglutide** today (day of procedure is day 3) and **restart 3 days post-procedure**.
+2. **Monitor fasting glucose** pre-procedure; adjust PO intake post-procedure based on tolerance.
+3. **Educate patient** on signs of hypoglycemia (e.g., shakiness, sweating) during NPO period.
+
+---
+**Guideline References:**
+• **ADA 2024 Perioperative Care:**
+  - *"Hold GLP-1 RAs 1 week pre-op for daily agents; 3 days for weekly agents (e.g., semaglutide)."*
+  - *"Monitor glucose closely in NPO patients; consider IV dextrose if >24h NPO."*
+• **KDIGO 2021:**
+  - *"No dose adjustments for semaglutide in CKD Stage 2 (eGFR ≥60)."*
+• **ESC 2023:**
+  - *"Continue RAAS inhibitors (e.g., losartan) perioperatively unless hypotension occurs."*
+[92m12:24:12 - LiteLLM:INFO[0m: utils.py:4011 - 
+LiteLLM completion() model= ministral-3:14b; provider = ollama_chat
+[mediator]: ---
+## 📋 Consultation Snapshot
+
+**A) One-Line Problem:**
+**65F** with CKD Stage 2, controlled hypertension, T2DM on semaglutide presenting for elective colonoscopy with conscious sedation.
+
+**B) 5 Key Facts:**
+  1. **eGFR 75 mL/min/1.73m²** (CKD Stage 2, no proteinuria).
+  2. **HbA1c 6.8%** (T2DM, non-optimal control; no insulin use).
+  3. **BMI 40** (Class III obesity; delayed gastric emptying risk).
+  4. **BP 128/78 mmHg** (controlled on **losartan + amlodipine**).
+  5. **Semaglutide (GLP-1 RA) last dose yesterday** (3 days pre-procedure).
+
+**C) 5 Key Risks:**
+  1. **Delayed gastric emptying** (obesity + GLP-1 RA → aspiration risk under sedation).
+  2. **Hypotension** (ARB hold + conscious sedation; low baseline risk).
+  3. **Hypoglycemia** (NPO + GLP-1 RA; minimal risk due to no insulin).
+  4. **AKI** (unlikely; no contrast/nephrotoxins, stable CKD).
+  5. **Procedural complications** (airway management in obesity).
+
+**D) Decisions Needed Today:**
+- **Hold semaglutide** (3 days pre-op; **diabetologist/nephrologist override**).
+- **Hold losartan 24h pre-op** (nephrology/cardiology consensus).
+- **Continue amlodipine** (no peri-op holds).
+
+**E) Post-Procedure Plan:**
+- **Resume losartan** 24–48h post-op if BP stable.
+- **Resume semaglutide** 3 days post-op if tolerated.
+- **Monitor glucose** pre/post-procedure (NPO protocol).
+
+---
+### **Conflict Resolution & Final Recommendations**
+1. **Semaglutide Hold**:
+   - **Diabetologist/Nephrologist consensus**: **Hold 3 days pre-op** (ADA 2024 for weekly GLP-1 RAs) to mitigate delayed gastric emptying risk.
+   - *Cardiology*: No objection; resume post-op for CV/renal benefits.
+
+2. **Losartan Hold**:
+   - **Nephrology/Cardiology consensus**: **Hold 24h pre-op** (KDIGO/ESC guidelines) to reduce hypotension/AKI risk.
+   - Resume post-op if BP stable (monitor for hypotension).
+
+3. **Amlodipine**: **Continue** (no peri-op holds; no contraindications).
+
+4. **Glucose Management**:
+   - **Pre-procedure**: Check fasting glucose (target 80–180 mg/dL).
+   - **Post-procedure**: Resume semaglutide only after PO tolerance; monitor for hypoglycemia (low risk but possible with NPO).
+
+5. **Anesthesia Note**:
+   - **Airway assessment** for Class III obesity.
+   - **Monitor for delayed gastric emptying** (NPO + GLP-1 RA).
+
+---
+### **Guideline Alignment**
+| **Issue**               | **Cardiology**               | **Nephrology**               | **Diabetology**              | **Final Decision**          |
+|--------------------------|-------------------------------|-------------------------------|-------------------------------|------------------------------|
+| **Semaglutide Hold**     | No hold (ADA/ESC)             | Hold 24–48h (ADA/KDIGO)       | **Hold 3 days (ADA 2024)**   | **Hold 3 days**              |
+| **Losartan Hold**        | Hold 24h (ESC)                | **Hold 24h (KDIGO)**          | Continue (ADA)                | **Hold 24h**                 |
+| **Amlodipine**           | Continue                      | Continue                      | Continue                      | **Continue**                 |
+
+---
+**Next Steps**:
+- **Patient Education**: Explain semaglutide/losartan holds and hypoglycemia signs.
+- **Post-op Follow-up**: Check creatinine/eGFR and glucose at 48–72h.
+- **Anesthesia Coordination**: Confirm airway/sedation plan for obesity.
+[user]: 

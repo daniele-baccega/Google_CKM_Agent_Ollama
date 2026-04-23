@@ -4,7 +4,7 @@ This module defines standardized output formats:
 1. Consultation Snapshot - Default compact output (≤250 words)
 2. Peri-op Medication Stoplight Table - Expandable detailed table
 3. Specialty Rationale - Expandable specialist reasoning
-4. Citations - Expandable document references
+4. Citations - Expandable guideline references
 """
 
 # Consultation Snapshot Template (default output - ≤250 words)
@@ -27,7 +27,7 @@ CONSULTATION_SNAPSHOT_TEMPLATE = """
 {next_steps}
 
 ---
-*Reply: **A** for peri-op medication stoplight table | **B** for specialty rationale | **C** for document references*
+*Reply: **A** for peri-op medication stoplight table | **B** for specialty rationale | **C** for citations*
 """
 
 # Peri-op Medication Stoplight Table Template
@@ -39,7 +39,7 @@ PERIOP_MEDICATION_TABLE_TEMPLATE = """
 {medication_rows}
 
 ---
-*Reply: **B** for specialty rationale | **C** for document references | **Back** to return to snapshot*
+*Reply: **B** for specialty rationale | **C** for citations | **Back** to return to snapshot*
 """
 
 # Example medication row format:
@@ -65,12 +65,12 @@ SPECIALTY_RATIONALE_TEMPLATE = """
 {conflicts_resolved}
 
 ---
-*Reply: **A** for peri-op medication table | **C** for document references | **Back** to return to snapshot*
+*Reply: **A** for peri-op medication table | **C** for citations | **Back** to return to snapshot*
 """
 
 # Citations Template
 CITATIONS_TEMPLATE = """
-## 📚 Document References
+## 📚 Clinical Guidelines & Citations
 
 ### Cardiology
 {cardiology_citations}
@@ -82,7 +82,7 @@ CITATIONS_TEMPLATE = """
 {endocrinology_citations}
 
 ---
-*Reply: **A** for peri-op medication table | **B** for specialty rationale | **C** for document references | **Back** to return to snapshot*
+*Reply: **A** for peri-op medication table | **B** for specialty rationale | **Back** to return to snapshot*
 """
 
 # Standard medication table for common peri-op situations

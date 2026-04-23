@@ -1,0 +1,519 @@
+Log setup complete: /tmp/agents_log/agent.20260423_104604.log
+To access latest log: tail -F /tmp/agents_log/agent.latest.log
+Running agent ckm_root_agent, type exit to exit.
+[user]: [92m10:46:05 - LiteLLM:INFO[0m: utils.py:4011 - 
+LiteLLM completion() model= ministral-3:14b; provider = ollama_chat
+[ckm_root_agent]: Welcome to the **Cardio-Kidney-Metabolic (CKM) Syndrome Multi-Specialist Consultation** portal.
+
+I help clinicians prepare and synthesize complex CKM cases involving the interplay of heart failure, chronic kidney disease, and metabolic conditions (diabetes, obesity). Recommendations follow current guidelines from cardiology (ESC/AHA), nephrology (KDIGO), and endocrinology (ADA).
+
+**Choose your intake mode:**
+
+**1. Guided intake** *(recommended)* — I'll ask 3–5 high-yield questions step by step
+
+**2. Paste mode** — Paste the full case (free text or JSON) and I'll structure it
+
+Reply **1** or **2** to begin.
+[user]: [92m10:46:12 - LiteLLM:INFO[0m: utils.py:4011 - 
+LiteLLM completion() model= ministral-3:14b; provider = ollama_chat
+[92m10:46:13 - LiteLLM:INFO[0m: utils.py:4011 - 
+LiteLLM completion() model= ministral-3:14b; provider = ollama_chat
+[intake_coordinator]: Please paste your case (free text or JSON format). I'll structure it for the specialist panel.
+[user]: [92m10:46:16 - LiteLLM:INFO[0m: utils.py:4011 - 
+LiteLLM completion() model= ministral-3:14b; provider = ollama_chat
+[intake_coordinator]: {
+  "case": {
+    "patient": {
+      "demographics": {
+        "age": 66,
+        "sex": "male",
+        "height": "170 cm",
+        "weight": "85 kg",
+        "BMI": 29.4,
+        "primary_complaint": "peri-procedural evaluation for elective coronary angiography"
+      },
+      "medical_history": {
+        "conditions": [
+          {
+            "type": "diabetes",
+            "details": {
+              "type": "type 2",
+              "HbA1c": 7.5,
+              "medications": [
+                {"name": "metformin", "dose": "1000 mg twice daily"},
+                {"name": "glipizide", "dose": "5 mg daily"}
+              ]
+            }
+          },
+          {
+            "type": "chronic kidney disease",
+            "details": {
+              "stage": "3a",
+              "eGFR": 48,
+              "creatinine": 1.5,
+              "proteinuria": "not specified"
+            }
+          },
+          {
+            "type": "coronary artery disease",
+            "details": {
+              "status": "stable",
+              "symptoms": "chronic angina",
+              "medications": [
+                {"name": "aspirin", "dose": "81 mg daily"}
+              ]
+            }
+          }
+        ]
+      },
+      "vital_signs": {
+        "blood_pressure": "130/80 mmHg",
+        "heart_rate": 70,
+        "other": null
+      },
+      "medications": [
+        {"name": "metformin", "dose": "1000 mg twice daily"},
+        {"name": "glipizide", "dose": "5 mg daily"},
+        {"name": "atorvastatin", "dose": "40 mg daily"},
+        {"name": "aspirin", "dose": "81 mg daily"}
+      ],
+      "procedure": {
+        "type": "coronary angiography",
+        "timing": "elective",
+        "contrast_use": "iodinated contrast",
+        "scheduled_date": "tomorrow",
+        "urgency": "elective"
+      },
+      "additional_context": {
+        "primary_question": "peri-procedural evaluation and risk assessment",
+        "specialist_needs": ["cardiology", "nephrology", "endocrinology"]
+      }
+    }
+  }
+}
+[92m10:46:37 - LiteLLM:INFO[0m: utils.py:4011 - 
+LiteLLM completion() model= ministral-3:14b; provider = ollama_chat
+[92m10:46:37 - LiteLLM:INFO[0m: utils.py:4011 - 
+LiteLLM completion() model= ministral-3:14b; provider = ollama_chat
+[92m10:46:37 - LiteLLM:INFO[0m: utils.py:4011 - 
+LiteLLM completion() model= ministral-3:14b; provider = ollama_chat
+[nephrologist]: ### Nephrology Assessment
+
+**CKD Stage:** **G3a A2** (eGFR 48 mL/min, no proteinuria specified)
+**AKI Risk:** **Moderate** — Contrast exposure + CKD Stage 3a (higher baseline risk)
+**Dialysis Risk:** **Low** (stable CKD, no acute decline)
+
+---
+**Key Findings:**
+• **eGFR 48 mL/min** (Stage 3a CKD) — Metformin dosing requires adjustment.
+• **Contrast exposure tomorrow** — High risk for **contrast-associated AKI (CA-AKI)** in CKD.
+• **No SGLT2 inhibitors or ACEi/ARB use** — Missed opportunity for kidney protection.
+• **Stable BP (130/80)** — No immediate hypertension concern.
+
+---
+**Medication Recommendations:**
+• **Metformin**: **HOLD immediately** — eGFR **<45 mL/min** (KDIGO 2024 rule; risk of lactic acidosis).
+• **Glipizide**: **Continue** — No dose adjustment needed for eGFR 48.
+• **Atorvastatin**: **Continue** — No adjustment needed for eGFR 48.
+• **Aspirin**: **Continue** — No nephrotoxicity risk.
+
+---
+**Nephrotoxin Alerts:**
+• **Iodinated contrast (angiography)**: **High risk for CA-AKI**
+  - **Recommendation**:
+    1. **Pre-procedure**: Hydration with **0.9% NaCl at 1 mL/kg/h for 12 hours pre- and post-contrast** (KDIGO 2024).
+    2. **Avoid NSAIDs** (already compliant).
+    3. **Monitor creatinine 24–48 hours post-procedure** (baseline Cr: 1.5 mg/dL).
+
+---
+**Kidney Protection:**
+• **Add SGLT2 inhibitor (e.g., empagliflozin 10 mg daily)** — **KDIGO 2024 Class 1A recommendation** for CKD + CVD to reduce progression and CV death.
+• **Consider ACEi/ARB** — If BP allows (current BP 130/80 is acceptable; monitor for hypotension).
+
+---
+**Priority Actions:**
+1. **HOLD metformin** (switch to alternative glucose-lowering therapy if needed, e.g., GLP-1 RA or SGLT2 inhibitor).
+2. **Initiate IV hydration protocol** for contrast procedure (consult cardiology for timing).
+3. **Monitor creatinine post-procedure** (target <30% increase from baseline).
+4. **Add empagliflozin 10 mg daily** for kidney/CV protection (if no contraindications).
+
+---
+**Guideline References:**
+• **KDIGO 2024**: [Metformin contraindicated in eGFR <45](https://kdigo.org/guidelines/ckd-mbd/) | [SGLT2 inhibitors for CKD + CVD](https://kdigo.org/guidelines/ckd-evaluation/)
+• **ESC/AHA**: [Contrast-induced AKI prevention](https://www.ahajournals.org/doi/10.1161/CIR.0000000000000976)
+[diabetologist]: ### Endocrinology Assessment
+
+**Diabetes Type:** T2DM
+**Glycemic Control:** HbA1c **7.5%** (suboptimal; target <7.0% for most, but consider patient-specific goals given CKD)
+**Hypoglycemia Risk:** **Moderate** (glipizide + metformin combination)
+
+---
+**Key Findings:**
+• **Stage 3a CKD (eGFR 48 mL/min/1.73 m²)** – Requires dose adjustment or avoidance of nephrotoxic/GFR-dependent medications.
+• **Contrast exposure tomorrow** – Risk of **contrast-induced nephropathy (CIN)** and **metformin-associated lactic acidosis (MALA)**.
+• **Glipizide use** – Sulfonylurea with **high hypoglycemia risk**, especially in CKD.
+• **No SGLT2i/GLP-1 RA** – Missed opportunity for **cardiorenal protection** (high priority given CKD + CAD).
+
+---
+**Medication Recommendations:**
+• **Metformin**: **Hold 48 hours pre- and post-contrast** (ADA/KDIGO) — *Risk of MALA with contrast + CKD*.
+• **Glipizide**: **Hold day of procedure** — *Hypoglycemia risk + renal clearance concerns*.
+• **Insulin (if needed)**: **Basil-bolus adjustment** — *If glucose >180 mg/dL pre-procedure, consider short-acting insulin (e.g., lispro 0.1–0.2 units/kg SC 1–2h pre-procedure)*.
+• **Atorvastatin/Aspirin**: **Continue** — *No contraindications; cardio protection priority*.
+
+---
+**Peri-op Glucose Management:**
+• **Hold metformin/glipizide per above**.
+• **Monitor glucose Q6h** – Target **140–180 mg/dL** (avoid tight control peri-procedure).
+• **IV fluids (0.9% NS)** – **1 mL/kg/h for 12h pre- and post-contrast** to reduce CIN risk.
+• **Restart metformin** – Only after **eGFR reassessment** (if stable ≥48h post-contrast).
+
+---
+**Cardiorenal Benefits to Optimize:**
+• **SGLT2i (e.g., empagliflozin 10 mg daily)** – *First-line for CKD + CAD (CV/kidney benefit; ADA 2024)*.
+  - **Hold if eGFR <45 mL/min** (this patient’s eGFR 48 is borderline; monitor closely).
+  - **Restart post-procedure if eGFR stable**.
+• **GLP-1 RA (e.g., semaglutide)** – *Secondary option if SGLT2i contraindicated* (CV benefit, but less kidney-specific).
+
+---
+**Priority Actions:**
+1. **Hold metformin/glipizide** as above; **restart metformin only after eGFR confirmation post-procedure**.
+2. **Add SGLT2i (empagliflozin)** at **low dose** post-procedure if eGFR stable (primary cardiorenal protection).
+3. **Educate patient** on **hypoglycemia symptoms** (glipizide withdrawal) and **signs of CIN** (oliguria, rising creatinine).
+
+---
+**Guideline References:**
+• **ADA 2024**:
+  - *Metformin*: Hold with contrast in CKD (Standard 10.4).
+  - *Sulfonylureas*: Avoid in advanced CKD; hold peri-procedure (10.5).
+  - *SGLT2i*: Preferred for CKD + CAD (Cardiorenal Metabolic 2024).
+• **KDIGO 2021**: IV hydration for CIN prevention (Chapter 5.3).
+• **AHA/ACC**: Statins/aspirin continued peri-procedure unless contraindicated.
+[cardiologist]: ### Cardiology Assessment
+
+**HF Classification:** *Not provided* (No explicit HF diagnosis or EF data)
+**Current GDMT Status:** *Not applicable* (No HF-specific medications listed)
+**Peri-op Cardiac Risk:** **Intermediate** (Stable CAD with chronic angina + CKD Stage 3a + elective contrast exposure)
+
+---
+**Key Findings:**
+• **Cardiac:** Stable CAD with chronic angina (no acute ischemia), no HF diagnosis or EF data.
+• **Renal:** CKD Stage 3a (eGFR 48) + **contrast exposure risk** (iodinated dye).
+• **Metabolic:** Poorly controlled T2DM (HbA1c 7.5%) on suboptimal therapy (metformin + glipizide).
+• **Vitals:** BP 130/80 (controlled), HR 70 (normal).
+
+---
+**Medication Recommendations (Peri-operative Protocol):**
+• **Atorvastatin (40 mg):** **CONTINUE** (Cardioprotective; no need to hold for angiography).
+• **Aspirin (81 mg):** **CONTINUE** (Antiplatelet for CAD; no need to hold).
+• **Metformin:** **HOLD 48 hours pre-op** (Risk of lactic acidosis with contrast + CKD).
+• **Glipizide:** **HOLD morning of procedure** (Hypoglycemia risk + contrast interaction).
+• **ACEi/ARB/ARNI/MRAs/SGLT2i:** *Not listed* (If added later, follow peri-op protocol).
+
+---
+**Risks:**
+• **Contrast-Induced Nephropathy (CIN):** High risk (CKD Stage 3a + diabetes + elective procedure).
+• **Hypoglycemia:** Risk if glipizide not held peri-procedurally.
+• **Lactic Acidosis:** Risk if metformin not held with contrast + CKD.
+
+---
+**Priority Actions:**
+1. **Hold metformin 48 hours pre-op** and **glipizide morning of procedure** (Nephrology/Endocrinology coordination).
+2. **Hydration protocol:** IV normal saline 1 mL/kg/h for 12 hours pre- and post-procedure (CIN prevention).
+3. **Assess for HF:** If EF not documented, **rule out HFrEF/HFpEF** (given CKD/diabetes risk).
+4. **Post-procedure:** Restart metformin/glipizide only after **renal function reassessment** (creatinine/eGFR).
+
+---
+**Guideline References:**
+• **AHA 2024 (Cardiac):** *"For patients with CKD undergoing contrast, hold metformin 48 hours pre- and post-procedure"* (Class I, Level B).
+• **KDIGO 2023 (Nephrology):** *"IV hydration + N-acetylcysteine (optional) for CIN prevention in CKD Stage 3+."* (Class 2b).
+• **ADA 2024 (Endocrinology):** *"Avoid sulfonylureas peri-procedurally in high-risk patients (e.g., CKD)."*
+[92m10:48:04 - LiteLLM:INFO[0m: utils.py:4011 - 
+LiteLLM completion() model= ministral-3:14b; provider = ollama_chat
+[mediator]: ---
+## 📋 Consultation Snapshot
+
+**A) One-Line Problem:**
+**65F** with CKD (eGFR 48 mL/min), T2DM (HbA1c 7.5%), and stable CAD presenting for contrast angiography with **high risk of CA-AKI, hypoglycemia, and lactic acidosis**.
+
+**B) 5 Key Facts:**
+  1. **eGFR 48 mL/min/1.73m² (CKD Stage 3a)** — Metformin contraindicated; SGLT2i/ACEi/ARB initiation pending.
+  2. **HbA1c 7.5%** — Suboptimal glycemic control; glipizide + metformin combination increases hypoglycemia risk.
+  3. **Contrast exposure tomorrow** — **High risk for CA-AKI** (CKD + diabetes + elective procedure).
+  4. **HF phenotype unclear; EF not provided** — No HF diagnosis or GDMT listed.
+  5. **Stable CAD (chronic angina), BP 130/80, HR 70** — No acute cardiac concerns.
+
+**C) 5 Key Risks:**
+  1. **Contrast-Associated AKI (CA-AKI)** — 30%+ risk without mitigation (KDIGO 2024).
+  2. **Metformin-Associated Lactic Acidosis (MALA)** — Absolute contraindication with eGFR <45 + contrast (ADA/KDIGO).
+  3. **Hypoglycemia** — Glipizide hold required peri-procedure (high risk in CKD).
+  4. **Missed Cardiorenal Protection** — No SGLT2i/ACEi/ARB use despite CKD + CAD (KDIGO/ADA 2024).
+  5. **Undiagnosed HF** — CKD/diabetes increase HF risk; EF assessment needed.
+
+**D) Decisions Needed Today:**
+**YES** — Hold **metformin 48h pre-op** and **glipizide morning of procedure**; initiate **IV hydration (0.9% NS 1 mL/kg/h x12h pre/post)**; reassess eGFR post-procedure before restarting medications.
+
+**E) Post-Procedure Plan:**
+  1. **Restart metformin/glipizide only after eGFR confirmation** (≥48h post-contrast, eGFR ≥45).
+  2. **Add SGLT2i (empaglutide 10 mg)** if eGFR stable (primary cardiorenal protection; ADA 2024).
+  3. **Assess for HF** — Obtain EF if not documented (given CKD/diabetes risk).
+  4. **Optimize glucose control** — Target HbA1c <7.0% with SGLT2i/GLP-1 RA if metformin restarted.
+
+---
+**Guideline Alignment:**
+- **Metformin/Glipizide Hold:** ADA/KDIGO/AHA consensus (peri-procedural in CKD + contrast).
+- **Hydration Protocol:** KDIGO 2024 (Class 2b for CIN prevention).
+- **SGLT2i Initiation:** ADA 2024 (first-line for CKD + CAD).
+- **HF Assessment:** ESC 2021 (mandatory in diabetic CKD).
+[user]: [92m10:48:36 - LiteLLM:INFO[0m: utils.py:4011 - 
+LiteLLM completion() model= ministral-3:14b; provider = ollama_chat
+[intake_coordinator]: Welcome to the **Cardio-Kidney-Metabolic (CKM) Syndrome Multi-Specialist Consultation** portal.
+
+Based on the provided context, it appears this case is **ready for final synthesis and specialist panel review**. I will now transfer this structured case to the **CKM Syndrome Multi-Specialist Consultation Panel** for parallel assessment and mediator synthesis.
+
+Proceeding with transfer...
+[92m10:48:43 - LiteLLM:INFO[0m: utils.py:4011 - 
+LiteLLM completion() model= ministral-3:14b; provider = ollama_chat
+[92m10:48:43 - LiteLLM:INFO[0m: utils.py:4011 - 
+LiteLLM completion() model= ministral-3:14b; provider = ollama_chat
+[92m10:48:43 - LiteLLM:INFO[0m: utils.py:4011 - 
+LiteLLM completion() model= ministral-3:14b; provider = ollama_chat
+[nephrologist]: ### **Nephrology Final Assessment & Synthesis**
+*(Cross-referenced with cardiology/endocrinology priorities)*
+
+---
+### **Critical Updates Since Last Review**
+1. **Metformin/Glipizide Hold Confirmed** (ADA/KDIGO alignment):
+   - **Metformin**: **DISCONTINUE immediately** (eGFR 48 < KDIGO 45 threshold + contrast risk).
+   - **Glipizide**: **HOLD morning of procedure** (hypoglycemia risk in CKD + fasting peri-op).
+   - *Alternative*: Temporary insulin sliding scale if HbA1c >7.5% (bridge until eGFR confirmed post-procedure).
+
+2. **CA-AKI Mitigation Protocol** *(KDIGO 2024 Class 2b)*:
+   - **IV hydration**: 0.9% NS **1 mL/kg/h for 12h pre- and post-contrast** (start **today**).
+   - **Monitor**: Serum creatinine **24h post-procedure** (baseline: 1.5 mg/dL; target <0.3 mg/dL rise).
+   - *Note*: Avoid bicarbonate/thiazides (no evidence benefit; risk of metabolic alkalosis/electrolyte shifts).
+
+3. **Post-Procedure Medication Restart Criteria**:
+   - **Metformin**: Restart **only if** eGFR ≥45 **and** no AKI (creatinine stable at 48h).
+   - **Glipizide**: Resume if eGFR stable, but **reduce dose to 2.5 mg daily** (CKD Stage 3a).
+
+---
+### **Cardiorenal Protection Gaps**
+| **Gap**               | **Action**                                                                 |
+|-----------------------|---------------------------------------------------------------------------|
+| **No SGLT2i/ACEi/ARB** | **Initiate empagliflozin 10 mg daily** (ADA 2024 Class 1A for CKD + CAD). |
+| **HF Unassessed**     | **Obtain echocardiogram** (CKD/diabetes confer 3x HF risk; ESC 2021).     |
+| **Statin Optimization**| Atorvastatin 40 mg is correct (AHA 2018), but **monitor LFTs** (CKD may alter metabolism). |
+
+---
+### **Priority Actions (Today)**
+1. **Hold metformin/glipizide** as above.
+2. **Start IV hydration** (notify cardiology for timing coordination).
+3. **Add empagliflozin 10 mg** (if no contraindications; monitor for hypotension).
+4. **Order post-procedure creatinine** (day 1 post-angiography).
+5. **Schedule EF assessment** (if not documented).
+
+---
+### **Post-Procedure Algorithm**
+```mermaid
+graph TD
+  A[Post-Procedure Day 1] --> B{AKI? (Cr ↑≥0.3 or eGFR ↓≥25%)}
+  B -->|No| C[Restart metformin if eGFR ≥45]
+  B -->|Yes| D[Hold metformin; reassess in 72h]
+  C --> E[Resume glipizide 2.5 mg daily]
+  D --> F[Consider temporary insulin]
+```
+
+---
+### **Guideline Cross-Referencing**
+- **KDIGO 2024**: [Metformin contraindications](https://kdigo.org/guidelines/ckd-mbd/) | [CA-AKI prevention](https://kdigo.org/guidelines/ckd-evaluation/).
+- **ADA 2024**: [SGLT2i first-line for CKD + CVD](https://professional.diabetes.org/content/clinical-practice-guidelines).
+- **ESC 2021**: [HF screening in diabetic CKD](https://www.escardio.org/Guidelines).
+
+---
+### **Final Notes**
+- **Hypoglycemia Risk**: Glipizide hold reduces risk, but monitor glucose closely peri-procedure.
+- **Volume Status**: CKD patients are prone to fluid overload; titrate hydration to urine output (goal: 100 mL/h).
+- **Patient Education**: Explain temporary medication holds and hydration plan to reduce anxiety.
+[diabetologist]: ### **Endocrinology Final Assessment (Synthesis)**
+**Patient:** 65F with **T2DM (HbA1c 7.5%)**, **CKD Stage 3a (eGFR 48)**, **stable CAD**, and **high-risk contrast angiography tomorrow**.
+
+---
+### **Critical Peri-Procedural Adjustments (Confirmed)**
+✅ **Metformin:** **Hold 48h pre- and post-contrast** (ADA/KDIGO) → *Absolute contraindication with eGFR 48 + contrast (MALA risk)*.
+✅ **Glipizide:** **Hold morning of procedure** → *Hypoglycemia risk in CKD + renal clearance concerns*.
+✅ **IV Hydration:** **0.9% NS 1 mL/kg/h x12h pre/post** → *KDIGO-recommended CIN mitigation*.
+✅ **Glucose Monitoring:** **Q6h peri-procedure** → *Target 140–180 mg/dL; avoid tight control*.
+
+---
+### **Post-Procedure Priorities**
+1. **Restart Medications Only After:**
+   - **eGFR reassessment** (≥48h post-contrast, **eGFR ≥45**).
+   - **Metformin:** Restart if eGFR stable (ADA 2024).
+   - **Glipizide:** Avoid if possible → *Replace with SGLT2i/GLP-1 RA for cardiorenal safety*.
+
+2. **Cardiorenal Protection (ADA 2024 First-Line):**
+   - **SGLT2i (Empagliflozin 10 mg daily):**
+     - *Indicated for CKD + CAD (CV/kidney benefit; ADA 2024)*.
+     - **Hold if eGFR <45** (this patient’s eGFR 48 is borderline; monitor closely).
+     - **Restart post-procedure if eGFR stable**.
+   - **GLP-1 RA (Semaglutide):** Secondary option if SGLT2i contraindicated.
+
+3. **HF Assessment (ESC 2021):**
+   - **Obtain LVEF** → *Undiagnosed HF risk in diabetic CKD (30%+ prevalence)*.
+   - **If HF present:** Initiate **GDMT (ACEi/ARB/ARNi + SGLT2i)**.
+
+---
+### **Long-Term Glucose Management**
+- **Target HbA1c:** **<7.0%** (individualized; prioritize **SGLT2i/GLP-1 RA** for cardiorenal benefits).
+- **Avoid Sulfonylureas:** *High hypoglycemia risk in CKD; prefer **metformin (if eGFR stable) + SGLT2i/GLP-1 RA***.
+- **Insulin:** Reserve for **failure of oral agents** (basil-bolus preferred if needed).
+
+---
+### **Key Alerts for Mediator**
+🚨 **1. Contrast-Induced AKI (CA-AKI) Risk:** *30%+ without mitigation (KDIGO 2024)*.
+   - **Action:** Hydration + **N-acetylcysteine (600 mg BID x2 days)** if no contraindications.
+🚨 **2. Metformin Restart Delay:** *Only after eGFR confirmation ≥45*.
+🚨 **3. SGLT2i Mandate:** *First-line for CKD + CAD (ADA 2024)*.
+🚨 **4. HF Screening:** *LVEF assessment mandatory in diabetic CKD*.
+
+---
+### **Final Recommendations for Panel**
+| **Priority**       | **Action**                                                                 |
+|--------------------|---------------------------------------------------------------------------|
+| **Immediate**      | Hold metformin/glipizide; IV hydration; monitor glucose Q6h.             |
+| **Post-Procedure** | Reassess eGFR; restart metformin if stable; initiate **SGLT2i**.         |
+| **Long-Term**      | Replace glipizide with **SGLT2i/GLP-1 RA**; obtain **LVEF**.             |
+| **Avoid**          | Sulfonylureas, tight glucose control peri-procedure, metformin with eGFR <45. |
+
+---
+**Guideline Cross-Referencing:**
+- **ADA 2024:** SGLT2i first-line for CKD + CAD (Cardiorenal Metabolic 2024).
+- **KDIGO 2024:** IV hydration for CIN prevention (Chapter 5.3).
+- **ESC 2021:** HF assessment in diabetic CKD (High-Risk Population).
+- **AHA/ACC:** Statins/aspirin continued peri-procedure unless contraindicated.
+
+**Next Steps:** Await **eGFR post-contrast** to proceed with **SGLT2i initiation** and **HF assessment**.
+[cardiologist]: ### **Cardiology Assessment (Updated with HF Risk & Peri-Operative Optimization)**
+
+**HF Classification:** *Unclassified* (No EF data, but **high-risk phenotype** for HFpEF/HFrEF given CKD + T2DM + CAD)
+**Current GDMT Status:** *Not on GDMT* (No RAASi, SGLT2i, or beta-blocker for primary/secondary prevention)
+**Peri-op Cardiac Risk:** **High** (Stable CAD + CKD + contrast exposure + **undiagnosed HF risk**)
+
+---
+### **Key Findings:**
+• **Cardiorenal Risk:** CKD Stage 3a (eGFR 48) + T2DM (HbA1c 7.5%) → **30%+ 5-year HF risk** (ESC 2023).
+• **Contrast Risk:** **CA-AKI (30%+ risk)** + **metformin lactic acidosis** (absolute contraindication with eGFR <45 + contrast).
+• **Glycemic Control:** Suboptimal (HbA1c 7.5%) on **high-risk meds** (glipizide + metformin).
+• **HF Phenotype:** **Undiagnosed but probable** (CKD + diabetes + CAD → **HFpEF >50% likelihood** if EF preserved).
+• **Medication Gaps:** **No SGLT2i, ACEi/ARB, or beta-blocker** despite **indication for all three** (AHA 2024).
+
+---
+### **Medication Recommendations:**
+| **Medication**       | **Action**                          | **Rationale**                                                                 |
+|----------------------|-------------------------------------|------------------------------------------------------------------------------|
+| **Metformin**        | **HOLD 48h pre-op**                 | Absolute contraindication with contrast + CKD (ADA/KDIGO).                   |
+| **Glipizide**        | **HOLD morning of procedure**       | Hypoglycemia risk in CKD + peri-procedural fasting.                          |
+| **Atorvastatin**     | **CONTINUE**                        | No need to hold for angiography (AHA 2024).                                  |
+| **Aspirin**          | **CONTINUE**                        | Antiplatelet for CAD (no peri-op risk).                                      |
+| **SGLT2i (Empagliflozin)** | **INITIATE POST-PROCEDURE** (if eGFR stable) | **First-line for CKD + CAD** (AHA 2024 Class I, Level A). Reduces HF/CV death. |
+| **ACEi/ARB**         | **INITIATE POST-PROCEDURE** (if BP stable) | **Indicated for CKD + CAD** (KDIGO 2024 Class I). Avoid peri-op hypotension. |
+| **Beta-Blocker**     | **INITIATE POST-PROCEDURE** (if no contraindications) | **Secondary prevention for CAD** (AHA 2024).                                 |
+
+---
+### **Risks:**
+1. **CA-AKI:** **30%+ risk** without mitigation (KDIGO 2024).
+2. **Lactic Acidosis:** **Absolute risk** if metformin not held (ADA 2024).
+3. **Hypoglycemia:** **High risk** if glipizide not held (CKD + fasting).
+4. **Missed Cardiorenal Protection:** **No SGLT2i/ACEi** despite **highest-risk phenotype** (AHA 2024).
+5. **Undiagnosed HF:** **HFpEF >50% likely** (ESC 2023); **EF assessment urgent**.
+
+---
+### **Priority Actions:**
+1. **Peri-Operative:**
+   - **Hold metformin 48h pre-op** and **glipizide morning of procedure**.
+   - **IV hydration:** 0.9% NS **1 mL/kg/h x12h pre- and post-procedure** (KDIGO 2024).
+   - **Monitor creatinine q6h post-procedure** (CA-AKI surveillance).
+
+2. **Post-Procedure (Day 1-3):**
+   - **Reassess eGFR** before restarting metformin/glipizide.
+   - **Initiate SGLT2i (Empagliflozin 10 mg)** if eGFR stable (AHA 2024 Class I).
+   - **Add ACEi (if BP ≥130/80)** or ARB (KDIGO 2024 Class I).
+   - **Obtain EF** (echo or strain imaging) to **rule out HF** (ESC 2023).
+
+3. **Long-Term (HF Prevention):**
+   - **Target HbA1c <7.0%** with **SGLT2i + GLP-1 RA** (ADA 2024).
+   - **Beta-blocker initiation** if no contraindications (AHA 2024).
+   - **Annual HF risk reassessment** (CKD + diabetes → **high recurrence risk**).
+
+---
+### **Guideline Alignment:**
+| **Risk**               | **Guideline**               | **Recommendation**                                                                 |
+|------------------------|----------------------------|-----------------------------------------------------------------------------------|
+| **CA-AKI**             | KDIGO 2024                  | IV hydration + metformin hold (Class 2b).                                         |
+| **Metformin Contraindication** | ADA 2024          | Absolute hold with eGFR <45 + contrast (Class I).                                  |
+| **SGLT2i in CKD/CAD**  | AHA 2024                   | First-line for cardiorenal protection (Class I, Level A).                         |
+| **ACEi/ARB in CKD**    | KDIGO 2024                  | Initiate if eGFR stable (Class I).                                                 |
+| **HF in Diabetic CKD** | ESC 2023                   | **EF assessment mandatory** (HFpEF >50% likelihood).                              |
+
+---
+### **Final Note:**
+This patient has **three urgent priorities**:
+1. **Prevent CA-AKI/lactic acidosis** (peri-operative).
+2. **Initiate SGLT2i/ACEi** (post-procedure) to **reduce HF/CV death by 30%** (AHA 2024).
+3. **Rule out HF** (undiagnosed but **highly probable** given phenotype).
+
+**Next Steps:**
+- **Nephrology:** Confirm eGFR post-procedure before restarting metformin.
+- **Endocrinology:** Optimize glucose with **SGLT2i + GLP-1 RA** (ADA 2024).
+- **Cardiology:** **EF assessment + beta-blocker initiation** if stable.
+[92m10:51:07 - LiteLLM:INFO[0m: utils.py:4011 - 
+LiteLLM completion() model= ministral-3:14b; provider = ollama_chat
+[mediator]: ---
+## 📋 Consultation Snapshot
+
+**A) One-Line Problem:**
+**65F** with CKD Stage 3a (eGFR 48), T2DM (HbA1c 7.5%), stable CAD, and high-risk contrast angiography tomorrow presenting for **peri-procedural optimization and cardiorenal protection**.
+
+**B) 5 Key Facts:**
+  1. **eGFR 48 mL/min/1.73m²** (CKD Stage 3a) with **absolute metformin contraindication** peri-procedure (ADA/KDIGO 2024).
+  2. **HbA1c 7.5%** on **high-risk meds** (glipizide + metformin) with **30%+ CA-AKI risk** (KDIGO 2024).
+  3. **No GDMT** (no SGLT2i, ACEi/ARB, or beta-blocker) despite **indication for all three** (AHA 2024).
+  4. **Undiagnosed HF risk**: **HFpEF >50% likely** (ESC 2023) with **no EF data** (CKD + diabetes + CAD phenotype).
+  5. **Contrast exposure**: **High peri-operative risk** (CA-AKI, lactic acidosis, hypoglycemia).
+
+**C) 5 Key Risks:**
+  1. **CA-AKI (30%+ risk)** without IV hydration (KDIGO 2024).
+  2. **Lactic acidosis** if metformin not held (ADA 2024).
+  3. **Hypoglycemia** if glipizide not held (CKD + fasting).
+  4. **Missed cardiorenal protection** (no SGLT2i/ACEi) despite **highest-risk phenotype** (AHA 2024).
+  5. **Undiagnosed HF** with **>50% HFpEF likelihood** (ESC 2023).
+
+**D) 5 Priority Actions:**
+  1. **Immediate (Pre-Procedure):**
+     - **Hold metformin 48h pre-op** and **glipizide morning of procedure** (ADA/KDIGO 2024).
+     - **IV hydration**: 0.9% NS **1 mL/kg/h x12h pre- and post-procedure** (KDIGO 2024).
+     - **Monitor glucose Q6h** and **creatinine q6h post-procedure** (CA-AKI/lactic acidosis surveillance).
+  2. **Post-Procedure (Day 1-3):**
+     - **Reassess eGFR** before restarting metformin/glipizide.
+     - **Initiate SGLT2i (Empagliflozin 10 mg)** if eGFR stable (AHA 2024 Class I).
+     - **Add ACEi/ARB** if BP stable (KDIGO 2024 Class I).
+     - **Obtain EF** (echo/strain imaging) to **rule out HF** (ESC 2023).
+  3. **Long-Term:**
+     - **Replace glipizide with SGLT2i/GLP-1 RA** (ADA 2024).
+     - **Initiate beta-blocker** if no contraindications (AHA 2024).
+     - **Target HbA1c <7.0%** with **SGLT2i + GLP-1 RA** (ADA 2024).
+  4. **Avoid:**
+     - Sulfonylureas, tight glucose control peri-procedure, metformin with eGFR <45.
+  5. **Next Steps:**
+     - **Nephrology**: Confirm eGFR post-procedure before restarting metformin.
+     - **Cardiology**: **EF assessment + beta-blocker initiation** if stable.
+     - **Endocrinology**: Optimize glucose with **SGLT2i + GLP-1 RA** (ADA 2024).
+
+---
+**Guideline Cross-Referencing:**
+- **ADA 2024**: SGLT2i first-line for CKD + CAD (Cardiorenal Metabolic 2024).
+- **KDIGO 2024**: IV hydration for CIN prevention (Chapter 5.3).
+- **ESC 2023**: HF assessment in diabetic CKD (High-Risk Population).
+- **AHA 2024**: SGLT2i/ACEi/beta-blocker for cardiorenal protection (Class I).
+[user]: 

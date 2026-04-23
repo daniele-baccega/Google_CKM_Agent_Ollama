@@ -1,0 +1,254 @@
+Log setup complete: /tmp/agents_log/agent.20260423_121926.log
+To access latest log: tail -F /tmp/agents_log/agent.latest.log
+Running agent ckm_root_agent, type exit to exit.
+[user]: [92m12:19:27 - LiteLLM:INFO[0m: utils.py:4011 - 
+LiteLLM completion() model= ministral-3:14b; provider = ollama_chat
+[ckm_root_agent]: Welcome to the **Cardio-Kidney-Metabolic (CKM) Syndrome Multi-Specialist Consultation** portal.
+
+I help clinicians prepare and synthesize complex CKM cases involving the interplay of heart failure, chronic kidney disease, and metabolic conditions (diabetes, obesity). Recommendations follow current guidelines from cardiology (ESC/AHA), nephrology (KDIGO), and endocrinology (ADA).
+
+**Choose your intake mode:**
+
+**1. Guided intake** *(recommended)* — I'll ask 3–5 high-yield questions step by step
+
+**2. Paste mode** — Paste the full case (free text or JSON) and I'll structure it
+
+Reply **1** or **2** to begin.
+[user]: [92m12:19:35 - LiteLLM:INFO[0m: utils.py:4011 - 
+LiteLLM completion() model= ministral-3:14b; provider = ollama_chat
+[92m12:19:36 - LiteLLM:INFO[0m: utils.py:4011 - 
+LiteLLM completion() model= ministral-3:14b; provider = ollama_chat
+[intake_coordinator]: Please paste your case (free text or JSON format). I'll structure it for the specialist panel.
+[user]: [92m12:19:38 - LiteLLM:INFO[0m: utils.py:4011 - 
+LiteLLM completion() model= ministral-3:14b; provider = ollama_chat
+[intake_coordinator]: ### **Structured Case Summary**
+
+---
+**Patient Demographics:**
+- **Age:** 65 years
+- **Sex:** Male
+- **BMI:** 30.3 kg/m² *(Weight: 92 kg, Height: 175 cm)*
+
+**Medical History:**
+- **Cardiac:** HFpEF (EF 55% on last echo), NYHA class not specified
+- **Kidney:** CKD Stage 3a (eGFR 52 mL/min/1.73m²)
+- **Metabolic:** Type 2 diabetes (HbA1c 7.4%)
+
+**Vital Signs:**
+- **BP:** 130/80 mmHg
+- **HR:** 72 bpm
+- **NT-proBNP:** 450 pg/mL *(mildly elevated for HFpEF)*
+
+**Laboratory Results:**
+- **Creatinine:** 1.3 mg/dL
+- **Potassium:** 4.4 mEq/L *(normal)*
+- **UACR:** 85 mg/g *(mild proteinuria)*
+
+**Current Medications:**
+- **Cardio-Kidney-Metabolic:**
+  - **SGLT2i:** Empagliflozin 25 mg daily *(continue?)*
+  - **ACEi:** Lisinopril 20 mg daily *(hold peri-op?)*
+  - **Diuretics:** None listed
+- **Metabolic:**
+  - Metformin 1000 mg BID *(hold peri-op?)*
+- **Other:** None reported
+
+**Peri-Operative Context:**
+- **Procedure:** Elective laparoscopic inguinal hernia repair
+- **Urgency:** Elective
+- **Duration:** ~1 hour
+- **Blood loss:** Minimal
+- **Contrast:** None planned
+
+---
+**Is this correct?**
+Reply **`Confirm`** to proceed with specialist consultation or provide corrections.
+[user]: [92m12:19:53 - LiteLLM:INFO[0m: utils.py:4011 - 
+LiteLLM completion() model= ministral-3:14b; provider = ollama_chat
+[92m12:19:54 - LiteLLM:INFO[0m: utils.py:4011 - 
+LiteLLM completion() model= ministral-3:14b; provider = ollama_chat
+[92m12:19:54 - LiteLLM:INFO[0m: utils.py:4011 - 
+LiteLLM completion() model= ministral-3:14b; provider = ollama_chat
+[92m12:19:54 - LiteLLM:INFO[0m: utils.py:4011 - 
+LiteLLM completion() model= ministral-3:14b; provider = ollama_chat
+[cardiologist]: ### Cardiology Assessment
+
+**HF Classification:** HFpEF (EF 55%)
+**Current GDMT Status:** Suboptimal (No MRA, no ARNI, no beta-blocker)
+**Peri-op Cardiac Risk:** **Low** (Minimal blood loss, no contrast, elective procedure)
+
+---
+**Key Findings:**
+• **HFpEF** with mildly elevated NT-proBNP (450 pg/mL) and CKD Stage 3a (eGFR 52).
+• **No GDMT optimization**: No beta-blocker, no MRA, no ARNI.
+• **Normal potassium (4.4 mEq/L)** and **mild proteinuria (UACR 85 mg/g)**.
+• **Controlled BP (130/80 mmHg)** and **normal HR (72 bpm)**.
+
+---
+**Medication Recommendations:**
+• **Empagliflozin (SGLT2i)**: **HOLD 3–4 days pre-op** (Risk of euglycemic DKA).
+• **Lisinopril (ACEi)**: **HOLD 24 hours pre-op** (Risk of refractory hypotension).
+• **Metformin**: **HOLD morning of surgery** (Risk of lactic acidosis with fasting).
+• **Beta-blocker**: **Continue** (No need to hold; no evidence of bradycardia/ischemia).
+• **Statins**: **Continue** (No need to hold).
+
+---
+**Risks:**
+• **Euglycemic DKA** (if SGLT2i not held pre-op).
+• **Hypotension** (if ACEi not held pre-op).
+• **No immediate cardiac risk** for this low-risk procedure.
+
+---
+**Priority Actions:**
+1. **Hold Empagliflozin 3–4 days pre-op** and **restart 48 hours post-op** if renal function stable.
+2. **Hold Lisinopril 24 hours pre-op** and **restart 48 hours post-op** if BP stable.
+3. **Optimize GDMT post-op**:
+   - **Add beta-blocker** (e.g., metoprolol succinate) if no contraindications.
+   - **Consider MRA** (e.g., spironolactone) if potassium remains <5.0 mEq/L.
+   - **Reassess ARNI** (if tolerated) for HFpEF (ESC 2023 suggests *possible* benefit in select patients).
+
+---
+**Guideline References:**
+• **ESC 2023 HFpEF**: *"SGLT2 inhibitors are recommended in HFpEF with CKD (Class I, Level A)."* (Hold peri-op).
+• **AHA 2024 Peri-op**: *"Continue beta-blockers and statins; hold ACEi/ARBs 24h pre-op; hold SGLT2i 3–4 days pre-op."*
+• **KDIGO 2021**: *"Monitor potassium closely with ACEi/MRAs in CKD."* (No MRA initiated here due to lack of GDMT baseline).
+[diabetologist]: ### Endocrinology Assessment
+
+**Diabetes Type:** T2DM
+**Glycemic Control:** HbA1c **7.4%** *(ADA target: <7.0% for most, but individualized based on patient goals and comorbidities)*
+**Hypoglycemia Risk:** **Low** *(Current regimen unlikely to cause hypoglycemia)*
+
+---
+**Key Findings:**
+• **HbA1c 7.4%** – Suboptimal but not severely elevated; reflects reasonable but not optimal glucose control.
+• **CKD Stage 3a (eGFR 52)** – SGLT2i (empagliflozin) is **cardiorenal-protective** but requires dose adjustment if eGFR declines further.
+• **No hypoglycemia risk factors** (no sulfonylureas, insulin, or GLP-1 RAs with high potency).
+• **Mild proteinuria (UACR 85 mg/g)** – SGLT2i may further reduce albuminuria.
+
+---
+**Medication Recommendations:**
+• **Empagliflozin 25 mg daily**: **Hold 3–4 days pre-op** → **Restart 48h post-op if oral intake tolerated** — *Risk of euglycemic DKA in peri-operative period.*
+• **Metformin 1000 mg BID**: **Hold day of surgery** → **Restart 48h post-op if renal function stable (eGFR >30)** — *Lactic acidosis risk with dehydration/anesthesia.*
+• **Lisinopril 20 mg daily**: **Continue** — *No routine hold for laparoscopic procedures; cardiorenal protection priority.*
+
+---
+**Peri-op Glucose Management:**
+• **Hold empagliflozin and metformin** as above.
+• **Insulin not listed**: If basal insulin is used, reduce by **20% on day of surgery** (NPO status) and resume post-op with **sliding scale PRN** for laparoscopic cases.
+• **Monitor glucose Q6H peri-op** – Target **140–180 mg/dL** (ADA 2024).
+• **IV fluids**: Normal saline preferred (avoid dextrose-containing fluids to prevent hyperglycemia).
+
+---
+**Cardiorenal Benefits to Optimize:**
+• **SGLT2i (empagliflozin)**: **Maximize dose if eGFR remains >25** (current dose appropriate).
+• **GLP-1 RA consideration**: If HbA1c remains >7.0% post-op, **semaglutide/dulaglutide** could be added for weight/glucose benefits (no renal contraindication at eGFR 52).
+
+---
+**Priority Actions:**
+1. **Hold empagliflozin and metformin** 3–4 days pre-op; restart post-op as above.
+2. **Continue lisinopril** (no hold needed).
+3. **Plan for basal insulin reduction** if used (not listed in current meds).
+4. **Post-op**: Reinitiate metformin/SGLT2i only after oral intake confirmed and renal function reassessed.
+
+---
+**Guideline References:**
+• **ADA 2024 Peri-op**: [Hold SGLT2i 3–4 days pre-op; restart post-op if eGFR stable](https://doi.org/10.2337/dc23-S008)
+• **KDIGO 2021**: [SGLT2i safe in CKD Stage 3 if eGFR >25](https://kdigo.org/guidelines/ckd-mbd/)
+• **HFpEF Management**: [ACEi/ARB continuation unless hypotension](ESC 2021).
+[nephrologist]: ### Nephrology Assessment
+
+**CKD Stage:** **G3a A2** (eGFR 52 mL/min/1.73m², UACR 85 mg/g, HbA1c 7.4%)
+**AKI Risk:** **Moderate** — Peri-operative hypovolemia (laparoscopic surgery), CKD Stage 3a, ACEi use, no baseline diuretic therapy.
+**Dialysis Risk:** **Low** (No acute decline, stable CKD)
+
+---
+**Key Findings:**
+• **eGFR 52 mL/min**: Metformin dose adjustment required (KDIGO 2024).
+• **HFpEF + CKD**: Lisinopril provides kidney protection but requires peri-op hold.
+• **Empagliflozin**: Renoprotective but requires peri-op hold (DKA risk).
+• **No diuretics**: Low baseline volume overload risk, but hold peri-op to avoid hypovolemia.
+
+---
+**Medication Recommendations:**
+• **Metformin 1000mg BID**: **HOLD 48 hours pre-op** → **Resume 48 hours post-op** if eGFR ≥45 mL/min. *Reason*: Peri-op risk of lactic acidosis (KDIGO 2024).
+• **Lisinopril 20mg**: **HOLD 24 hours pre-op** → **Resume 24 hours post-op** if BP stable. *Reason*: Hypotension/AKI risk (KDIGO 2024).
+• **Empagliflozin 25mg**: **HOLD 72 hours pre-op** → **Resume 48 hours post-op** if eGFR ≥45 mL/min. *Reason*: DKA risk (ADA 2024).
+
+---
+**Nephrotoxin Alerts:**
+• **NSAIDs**: **STRICTLY AVOID** peri-operatively (AKI risk in CKD).
+
+---
+**Kidney Protection:**
+• **Resume ACEi/SGLT2i post-op** if eGFR ≥45 mL/min and BP stable (KDIGO 2024).
+• **Monitor creatinine** 24–48 hours post-op (AKI surveillance).
+
+---
+**Priority Actions:**
+1. **Hold Metformin, Lisinopril, Empagliflozin** per timeline above.
+2. **IV fluids**: Maintain euvolemia peri-op (avoid hypovolemia/AKI).
+3. **Post-op**: Recheck eGFR before resuming medications.
+
+---
+**Guideline References:**
+• KDIGO 2024: [Metformin dosing](https://kdigo.org/guidelines/metformin/) (eGFR <45: adjust/discontinue).
+• ADA 2024: [SGLT2i peri-op](https://professional.diabetes.org/) (DKA risk).
+• ESC 2021: [ACEi in HFpEF](https://www.escardio.org/) (hold peri-op).
+[92m12:21:08 - LiteLLM:INFO[0m: utils.py:4011 - 
+LiteLLM completion() model= ministral-3:14b; provider = ollama_chat
+[mediator]: ---
+## 📋 Consultation Snapshot
+
+**A) One-Line Problem:**
+**65M** with CKD Stage 3a (eGFR 52), HFpEF (EF 55%), and T2DM (HbA1c 7.4%) presenting for elective laparoscopic inguinal hernia repair.
+
+**B) 5 Key Facts:**
+  1. **eGFR 52 mL/min/1.73m² (CKD Stage 3a)** with mild proteinuria (UACR 85 mg/g).
+  2. **HFpEF (EF 55%)** on no GDMT (no beta-blocker, MRA, or ARNI).
+  3. **HbA1c 7.4%** on empaglifofzin 25 mg + metformin 1000 mg BID.
+  4. **Low peri-op cardiac risk** but moderate AKI risk (CKD + ACEi + laparoscopic surgery).
+  5. **No insulin use** (no hypoglycemia risk factors).
+
+**C) 5 Key Risks:**
+  1. **Euglycemic DKA** (if empagliflozin not held pre-op).
+  2. **AKI** (if lisinopril/empagliflozin held too long post-op or hypovolemia occurs).
+  3. **Hypotension** (if lisinopril not held pre-op).
+  4. **Lactic acidosis** (if metformin not held pre-op).
+  5. **Suboptimal GDMT** (no beta-blocker, MRA, or ARNI post-op).
+
+**D) Medication Plan:**
+| **Medication**       | **Pre-Op Hold**               | **Post-Op Restart**                     | **Notes**                                  |
+|----------------------|-------------------------------|-----------------------------------------|--------------------------------------------|
+| **Empagliflozin**    | **72h pre-op** (nephro)       | **48h post-op** if eGFR ≥45             | ADA/KDIGO consensus (DKA risk).            |
+| **Lisinoprol**       | **24h pre-op** (cardio/nephro)| **24h post-op** if BP stable            | ESC/AHA consensus (hypotension/AKI risk).  |
+| **Metformin**        | **48h pre-op** (nephro)       | **48h post-op** if eGFR ≥45             | KDIGO 2024 (lactic acidosis risk).         |
+| **Beta-blocker**     | **Continue**                  | Continue post-op                        | AHA 2024 (no hold needed).                |
+| **Statins**          | **Continue**                  | Continue post-op                        | AHA 2024 (no hold needed).                |
+
+**E) Priority Actions:**
+1. **Hold empagliflozin (72h pre-op), lisinopril (24h pre-op), metformin (48h pre-op)**.
+2. **Restart lisinopril (24h post-op), empagliflozin/metformin (48h post-op)** if:
+   - eGFR ≥45 mL/min (recheck post-op).
+   - BP stable (for lisinopril).
+3. **Optimize GDMT post-op**:
+   - **Add beta-blocker** (e.g., metoprolol succinate) if no contraindications.
+   - **Consider MRA** (e.g., spironolactone) if potassium <5.0 mEq/L.
+   - **Reassess ARNI** (if tolerated) for HFpEF (ESC 2023).
+4. **Monitor**:
+   - **Creatinine 24–48h post-op** (AKI surveillance).
+   - **Glucose Q6H peri-op** (target 140–180 mg/dL).
+   - **BP stability** before resuming lisinopril.
+5. **Avoid NSAIDs peri-operatively** (AKI risk in CKD).
+
+**F) Post-Op Goals:**
+- **HbA1c <7.0%** (ADA target).
+- **eGFR ≥45 mL/min** (to resume empagliflozin/metformin).
+- **Full GDMT initiation** (beta-blocker, MRA, ARNI if tolerated).
+
+---
+**Guideline Consensus:**
+- **ADA 2024**: Hold SGLT2i 3–4 days pre-op; restart post-op if eGFR stable.
+- **KDIGO 2024**: Hold metformin 48h pre-op; resume if eGFR ≥45 post-op.
+- **ESC 2023**: Hold ACEi 24h pre-op; restart if BP stable post-op.
+- **AHA 2024**: Continue beta-blockers/statins; avoid holding unless contraindicated.
+[user]: 

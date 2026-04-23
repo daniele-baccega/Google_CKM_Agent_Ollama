@@ -59,16 +59,6 @@ def check_dependencies():
         import requests
     except ImportError:
         missing.append("requests")
-
-    try:
-        import chromadb
-    except ImportError:
-        missing.append("chromadb")
-
-    try:
-        import sentence_transformers
-    except ImportError:
-        missing.append("sentence-transformers")
     
     return len(missing) == 0, missing
 

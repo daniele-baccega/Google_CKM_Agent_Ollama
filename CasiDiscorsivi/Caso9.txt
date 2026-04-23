@@ -1,0 +1,338 @@
+Log setup complete: /tmp/agents_log/agent.20260423_110357.log
+To access latest log: tail -F /tmp/agents_log/agent.latest.log
+Running agent ckm_root_agent, type exit to exit.
+[user]: [92m11:03:58 - LiteLLM:INFO[0m: utils.py:4011 - 
+LiteLLM completion() model= ministral-3:14b; provider = ollama_chat
+[ckm_root_agent]: Welcome to the **Cardio-Kidney-Metabolic (CKM) Syndrome Multi-Specialist Consultation** portal.
+
+I help clinicians prepare and synthesize complex CKM cases involving the interplay of heart failure, chronic kidney disease, and metabolic conditions (diabetes, obesity). Recommendations follow current guidelines from cardiology (ESC/AHA), nephrology (KDIGO), and endocrinology (ADA).
+
+**Choose your intake mode:**
+
+**1. Guided intake** *(recommended)* — I'll ask 3–5 high-yield questions step by step
+
+**2. Paste mode** — Paste the full case (free text or JSON) and I'll structure it
+
+Reply **1** or **2** to begin.
+[user]: [92m11:04:05 - LiteLLM:INFO[0m: utils.py:4011 - 
+LiteLLM completion() model= ministral-3:14b; provider = ollama_chat
+[92m11:04:06 - LiteLLM:INFO[0m: utils.py:4011 - 
+LiteLLM completion() model= ministral-3:14b; provider = ollama_chat
+[intake_coordinator]: Please paste your case (free text or JSON format). I'll structure it for the specialist panel.
+[user]: [92m11:04:08 - LiteLLM:INFO[0m: utils.py:4011 - 
+LiteLLM completion() model= ministral-3:14b; provider = ollama_chat
+[intake_coordinator]: {
+  "case": {
+    "patient": {
+      "demographics": {
+        "age": 68,
+        "sex": "female",
+        "height": "158 cm",
+        "weight": "75 kg",
+        "BMI": 24.2,
+        "conditions": [
+          {
+            "type": "diabetes",
+            "subtype": "type 2",
+            "HbA1c": 8.8,
+            "medications": [
+              {
+                "name": "metformin",
+                "dose": "1000 mg twice daily"
+              }
+            ],
+            "proposed_medication": {
+              "name": "pioglitazone",
+              "dose": "30 mg daily",
+              "purpose": "glycemic control"
+            }
+          },
+          {
+            "type": "heart_failure",
+            "subtype": "HFrEF",
+            "EF": 30,
+            "NYHA_class": null,
+            "BNP/NT-proBNP": {
+              "NT-proBNP": 1500,
+              "units": "pg/mL"
+            },
+            "medications": [
+              {
+                "name": "carvedilol",
+                "dose": "12.5 mg twice daily"
+              },
+              {
+                "name": "lisinopril",
+                "dose": "10 mg daily"
+              },
+              {
+                "name": "furosemide",
+                "dose": "20 mg daily"
+              }
+            ]
+          },
+          {
+            "type": "chronic_kidney_disease",
+            "eGFR": 55,
+            "units": "mL/min/1.73 m²",
+            "CKD_stage": 3a
+          },
+          {
+            "type": "osteoporosis"
+          }
+        ]
+      },
+      "vitals": {
+        "blood_pressure": "110/70 mmHg",
+        "heart_rate": "80 bpm"
+      },
+      "clinical_question": {
+        "primary": "Is adding pioglitazone 30 mg daily appropriate for glycemic control in this patient?",
+        "context": {
+          "proposed_by": "endocrine team",
+          "concerns": [
+            {
+              "type": "cardiac",
+              "details": "HFrEF with elevated NT-proBNP"
+            },
+            {
+              "type": "renal",
+              "details": "eGFR 55 mL/min/1.73 m²"
+            },
+            {
+              "type": "metabolic",
+              "details": "existing metformin therapy"
+            },
+            {
+              "type": "other",
+              "details": "osteoporosis (potential bone health implications)"
+            }
+          ]
+        }
+      },
+      "medications": [
+        {
+          "name": "metformin",
+          "dose": "1000 mg twice daily",
+          "class": "antidiabetic"
+        },
+        {
+          "name": "carvedilol",
+          "dose": "12.5 mg twice daily",
+          "class": "beta-blocker"
+        },
+        {
+          "name": "lisinopril",
+          "dose": "10 mg daily",
+          "class": "ACE inhibitor"
+        },
+        {
+          "name": "furosemide",
+          "dose": "20 mg daily",
+          "class": "diuretic"
+        }
+      ]
+    },
+    "specialist_consultation_needs": [
+      {
+        "specialty": "endocrinology",
+        "focus": "glycemic management and pioglitazone appropriateness"
+      },
+      {
+        "specialty": "cardiology",
+        "focus": "impact of pioglitazone on HFrEF and fluid status"
+      },
+      {
+        "specialty": "nephrology",
+        "focus": "renal safety and eGFR monitoring"
+      }
+    ]
+  }
+}
+[92m11:04:42 - LiteLLM:INFO[0m: utils.py:4011 - 
+LiteLLM completion() model= ministral-3:14b; provider = ollama_chat
+[92m11:04:42 - LiteLLM:INFO[0m: utils.py:4011 - 
+LiteLLM completion() model= ministral-3:14b; provider = ollama_chat
+[92m11:04:42 - LiteLLM:INFO[0m: utils.py:4011 - 
+LiteLLM completion() model= ministral-3:14b; provider = ollama_chat
+[diabetologist]: ### Endocrinology Assessment
+
+**Diabetes Type:** T2DM
+**Glycemic Control:** HbA1c **8.8%** (poorly controlled; target <7.0% for most, <8.0% if limited life expectancy or comorbidities)
+**Hypoglycemia Risk:** **Low** (with current regimen)
+
+---
+**Key Findings:**
+• **Poor glycemic control** (HbA1c 8.8%) despite metformin monotherapy.
+• **HFrEF (EF 30%) with elevated NT-proBNP (1500 pg/mL)**—high-volume status risk with pioglitazone.
+• **eGFR 55 mL/min/1.73 m² (CKD Stage 3a)**—fluid retention and edema risk with TZDs.
+• **Osteoporosis**—pioglitazone may worsen bone mineral density (increased fracture risk).
+
+---
+**Medication Recommendations:**
+• **Metformin (1000 mg BID):** **Continue** — First-line for T2DM; no contraindication with eGFR 55 (ADA 2024 permits use in CKD Stage 3).
+• **Pioglitazone (30 mg daily):** **Avoid** —
+  - **Cardiac risk:** Worsens fluid retention (edema, HF hospitalization) in HFrEF (ADA 2024 *contraindicates* in NYHA Class III/IV; caution in Class II).
+  - **Renal risk:** May exacerbate CKD progression via sodium/water retention.
+  - **Bone health:** Increases fracture risk (osteoporosis contraindication per FDA).
+• **Alternative GLP-1 RA (e.g., semaglutide 0.5 mg weekly):** **Consider** —
+  - **Cardiorenal benefits:** Reduces HF hospitalization (REWIND trial) and CKD progression (CKD-RENAL).
+  - **Glycemic efficacy:** Superior to TZDs (HbA1c reduction ~1.0–1.5%).
+  - **Low hypoglycemia risk** and no fluid retention.
+
+---
+**Peri-op Glucose Management:** **Not applicable**
+
+---
+**Cardiorenal Benefits to Optimize:**
+• **SGLT2i (e.g., empagliflozin 10 mg daily):** **First-line addition** if tolerated (ADA/ACC/AHA 2024).
+  - **Cardiac:** Reduces HF hospitalization/death (DAPA-HF, EMPEROR-Reduced).
+  - **Renal:** Slows eGFR decline (CKD-RENAL); **avoid if eGFR <25 or on dialysis**.
+  - **Caution:** Monitor for volume depletion (initiate at low dose if BP 110/70 mmHg).
+• **GLP-1 RA:** Second-line if SGLT2i contraindicated (e.g., GI intolerance).
+
+---
+**Priority Actions:**
+1. **Replace pioglitazone** with **GLP-1 RA (semaglutide/liraglutide)** or **SGLT2i (empagliflozin)** for glycemic + cardiorenal protection.
+   - *Rationale:* Aligns with ADA 2024 priority to use **heart/kidney-benefiting agents** in T2DM with CKD/HF.
+2. **Monitor for HF decompensation** if SGLT2i initiated (check BP, weight, edema weekly).
+3. **Reassess osteoporosis management** (e.g., bisphosphonates, denosumab) separately—pioglitazone’s bone risks outweigh benefits here.
+
+---
+**Guideline References:**
+• **ADA 2024 Standards of Care:**
+  - *Section 4 (Cardiovascular Disease):* "SGLT2 inhibitors and GLP-1 RAs are recommended for patients with T2DM and HFrEF/CKD" (Grade A).
+  - *Section 8 (Medications):* "Avoid TZDs in patients with HF or CKD due to fluid retention and edema risk."
+• **KDIGO 2021:** SGLT2i recommended for CKD progression reduction (Stage 2–4).
+• **ESC 2021 HFrEF Guidelines:** SGLT2i as first-line therapy for HFrEF (EF ≤40%) regardless of diabetes status.
+[cardiologist]: ### Cardiology Assessment
+
+**HF Classification:** **HFrEF** (EF 30%)
+**Current GDMT Status:** **Suboptimal** (Missing SGLT2 inhibitor, ARNI, and MRA)
+**Peri-op Cardiac Risk:** **Not applicable**
+
+**Key Findings:**
+• **HFrEF with elevated NT-proBNP (1500 pg/mL)** – Indicates decompensated or symptomatic HF.
+• **eGFR 55 mL/min/1.73 m² (CKD Stage 3a)** – Limits some HF therapies (e.g., ARNI/ACEi/ARB dose adjustments required).
+• **Hypotension (110/70 mmHg)** – Risk of exacerbation with vasodilators (e.g., pioglitazone).
+• **Current GDMT gaps**: No SGLT2 inhibitor, no MRA, and suboptimal ACEi dose (lisinopril 10 mg may be too low for HFrEF).
+
+**Medication Recommendations:**
+• **Pioglitazone**: **Avoid** – High risk of **fluid retention, worsening HF, and hypotension** (especially with ACEi/furosemide). Thiazolidinediones (TZDs) are **contraindicated in HFrEF** (ESC/AHA).
+• **Metformin**: **Continue** – Safe in CKD Stage 3a (eGFR ≥30) but monitor for lactic acidosis.
+• **Lisinopril**: **Continue** – But consider **up-titration to max tolerated dose** (if BP allows) or switch to **ARNI (sacubitril/valsartan)** if eGFR stable.
+• **Carvedilol**: **Continue** – Dose may be increased if tolerated.
+• **Furosemide**: **Continue** – Monitor for signs of volume overload (e.g., weight gain, dyspnea).
+• **SGLT2 Inhibitor (e.g., empagliflozin/dapagliflozin)**: **Add if eGFR stable** – **First-line for HFrEF** (reduces HF hospitalization/death; safe in CKD Stage 3a).
+• **MRA (e.g., spironolactone)**: **Consider if eGFR >30** – Start low (e.g., 12.5 mg daily) and monitor **K+** (risk of hyperkalemia).
+
+**Risks:**
+• **Pioglitazone**: **Worsening HF, edema, hypotension** (ESC/AHA Class III: Harmful in HFrEF).
+• **ACEi/ARNI**: **Refractory hypotension** (current BP 110/70 is borderline).
+• **SGLT2 inhibitors**: **Euglycemic DKA** (rare but critical peri-operatively; hold if surgery planned).
+
+**Priority Actions:**
+1. **Avoid pioglitazone** – Propose **alternative glycemic agents** (e.g., GLP-1 RA like liraglutide or SGLT2 inhibitor if eGFR stable).
+2. **Optimize HFrEF GDMT**:
+   - Add **SGLT2 inhibitor** (e.g., empagliflozin 10 mg daily).
+   - Consider **ARNI** if ACEi not tolerated or suboptimal.
+   - Monitor **K+** if adding MRA.
+3. **Monitor renal function** – Repeat eGFR in 3–6 months; avoid nephrotoxic agents.
+4. **Evaluate for HF hospitalization** – NT-proBNP 1500 pg/mL suggests decompensation; assess volume status.
+
+**Guideline References:**
+• **ESC 2023**: Pioglitazone is **contraindicated in HFrEF** (Class III, Level of Evidence: B). SGLT2 inhibitors are **Class I** for HFrEF (Level A).
+• **AHA 2024**: GDMT for HFrEF includes **SGLT2 inhibitors + ARNI/ACEi/ARB + beta-blocker + MRA** (if eligible). TZDs are **not recommended** in HF.
+• **KDIGO 2021**: Metformin is **safe in CKD Stage 3a** (eGFR 30–59) with monitoring.
+
+---
+**Cross-Specialty Note**:
+- **Endocrinology**: Suggest **GLP-1 RA (e.g., semaglutide)** or **insulin** if pioglitazone is non-negotiable (but avoid in HF).
+- **Nephrology**: Monitor **eGFR trends** and **electrolytes** (K+, Cr) with GDMT adjustments.
+[nephrologist]: ### Nephrology Assessment
+
+**CKD Stage:** **G3a A2** (eGFR 45–59 mL/min, moderate CKD risk due to diabetes)
+**AKI Risk:** **Moderate** — Hypotension (BP 110/70), diuretic use, and potential fluid shifts with pioglitazone (fluid retention risk).
+**Dialysis Risk:** **Low** (no acute decline, stable CKD stage)
+
+---
+**Key Findings:**
+• **eGFR 55 mL/min**: Metformin dose **exceeds KDIGO guidelines** (max 1000 mg/day at this eGFR).
+• **HFrEF (EF 30%) + NT-proBNP 1500 pg/mL**: High-volume status risk with pioglitazone (thiazolidinedione class).
+• **Lisinopril 10 mg**: Appropriate for CKD/HFrEF, but **hypotension** may limit dose titration.
+
+---
+**Medication Recommendations:**
+• **Metformin**: **Reduce to 1000 mg daily** (max 1000 mg/day for eGFR 30–44; current dose violates KDIGO 2024).
+• **Pioglitazone**: **Avoid** — High risk of **fluid retention/worsening HFrEF** (KDIGO/ADA contraindicated in decompensated HF).
+• **Lisinopril**: **Continue** — Critical for CKD/HFrEF protection; monitor BP closely.
+• **Furosemide**: **Continue** — Titrate cautiously if edema develops with pioglitazone.
+
+---
+**Nephrotoxin Alerts:**
+• **NSAIDs**: **STRICTLY AVOID** — Even low-dose NSAIDs risk AKI in CKD (eGFR 55).
+
+---
+**Kidney Protection:**
+• **Optimize glycemic control** with **SGLT2 inhibitor (e.g., empagliflozin 10 mg daily)** if tolerated (KDIGO/ADA Class I recommendation for CKD/HFrEF).
+• **Monitor eGFR/creatinine** every 3–6 months (baseline CKD progression risk).
+
+---
+**Priority Actions:**
+1. **Discontinue pioglitazone** and propose **SGLT2 inhibitor** (e.g., empagliflozin) for dual CKD/HFrEF benefit.
+2. **Reduce metformin to 1000 mg daily** (split dose if GI tolerance allows).
+3. **Evaluate lisinopril dose** — Consider reducing to 5 mg if hypotension persists (risk of AKI).
+
+---
+**Guideline References:**
+• **KDIGO 2024**: Metformin dosing restrictions for eGFR 30–44 (Section 5.2.1).
+• **ADA 2024**: Pioglitazone contraindicated in HF (Section 9.4.2).
+• **ESC 2021**: SGLT2 inhibitors for HFrEF with reduced EF (Class I, Level A).
+[92m11:06:26 - LiteLLM:INFO[0m: utils.py:4011 - 
+LiteLLM completion() model= ministral-3:14b; provider = ollama_chat
+[mediator]: ---
+## 📋 Consultation Snapshot
+
+**A) One-Line Problem:**
+**65F** with CKD Stage 3a (eGFR 55), HFrEF (EF 30%, NT-proBNP 1500), and uncontrolled T2DM on suboptimal GDMT at risk of decompensation.
+
+**B) Key Medication Adjustments:**
+| **Current Medication** | **Action** | **Rationale** |
+|------------------------|------------|---------------|
+| **Pioglitazone**       | **Discontinue** | Contraindicated in HFrEF (ESC/AHA Class III); high risk of fluid retention, hypotension, and HF decompensation (all 3 specialties agree). |
+| **Metformin**          | **Reduce to 1000 mg daily** (split dose if possible) | Nephrologist: KDIGO 2024 max dose for eGFR 30–44; cardiologist/endocrinologist: safe in CKD Stage 3a with monitoring. |
+| **SGLT2 Inhibitor**    | **Add empagliflozin 10 mg daily** | **Top priority** (all 3 specialties): First-line for HFrEF (ESC/AHA Class I) and CKD (KDIGO/ADA Class I). Monitor BP/volume status weekly. |
+| **ARNI**               | **Consider if ACEi not tolerated** | Cardiologist: Up-titrate lisinopril cautiously (current dose may be suboptimal) or switch to ARNI if eGFR stable. |
+| **MRA**                | **Consider spironolactone 12.5 mg daily** | Cardiologist: If eGFR >30, monitor K+ closely. Nephrologist: No direct CKD risk but AKI risk with hypotension. |
+| **GLP-1 RA**           | **Alternative if SGLT2i contraindicated** | Endocrinologist: Semaglutide/liraglutide for glycemic + cardiorenal protection (ADA 2024). |
+
+**C) Risks & Monitoring:**
+- **SGLT2 Inhibitor:** Rare euglycemic DKA (hold peri-operatively); monitor for hypotension (current BP 110/70 is borderline).
+- **ARNI/ACEi:** Refractory hypotension (reduce dose if SBP <110 mmHg).
+- **MRA:** Hyperkalemia (monitor K+ weekly if added).
+- **Metformin:** Lactic acidosis (rare but monitor in CKD).
+
+**D) Decisions for GDMT Optimization:**
+1. **Discontinue pioglitazone** (harmful in HFrEF) and **initiate empagliflozin** (beneficial for HFrEF + CKD).
+2. **Optimize HF therapy:**
+   - Add **ARNI** if lisinopril is suboptimal (titrate cautiously).
+   - Consider **low-dose MRA** if eGFR stable and K+ normal.
+3. **Adjust metformin** to KDIGO guidelines (1000 mg daily max).
+4. **Monitor:**
+   - **eGFR/creatinine** every 3–6 months (nephrologist).
+   - **NT-proBNP** to assess HF status (cardiologist).
+   - **Volume status** (weight, edema) with SGLT2i initiation (endocrinologist).
+
+**E) Peri-Operative Note:**
+- **Hold SGLT2 inhibitor** if surgery planned (risk of euglycemic DKA).
+- **Avoid NSAIDs** (nephrologist: high AKI risk in CKD).
+
+---
+**Guideline Consensus:**
+- **SGLT2 inhibitor** is the **cornerstone therapy** for this patient (HFrEF + CKD + T2DM) per **ESC 2023, KDIGO 2024, and ADA 2024**.
+- **Pioglitazone is contraindicated** in HFrEF (ESC/AHA Class III).
+- **Metformin dosing** must adhere to **KDIGO 2024** for eGFR 30–44.
+[user]: [92m11:07:05 - LiteLLM:INFO[0m: utils.py:4011 - 
+LiteLLM completion() model= ministral-3:14b; provider = ollama_chat
+[intake_coordinator]: Please paste your case (free text or JSON format). I'll structure it for the specialist panel.
+[user]: 

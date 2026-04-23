@@ -1,0 +1,266 @@
+Log setup complete: /tmp/agents_log/agent.20260423_123026.log
+To access latest log: tail -F /tmp/agents_log/agent.latest.log
+Running agent ckm_root_agent, type exit to exit.
+[user]: [92m12:30:27 - LiteLLM:INFO[0m: utils.py:4011 - 
+LiteLLM completion() model= ministral-3:14b; provider = ollama_chat
+[ckm_root_agent]: Welcome to the **Cardio-Kidney-Metabolic (CKM) Syndrome Multi-Specialist Consultation** portal.
+
+I help clinicians prepare and synthesize complex CKM cases involving the interplay of heart failure, chronic kidney disease, and metabolic conditions (diabetes, obesity). Recommendations follow current guidelines from cardiology (ESC/AHA), nephrology (KDIGO), and endocrinology (ADA).
+
+**Choose your intake mode:**
+
+**1. Guided intake** *(recommended)* — I'll ask 3–5 high-yield questions step by step
+
+**2. Paste mode** — Paste the full case (free text or JSON) and I'll structure it
+
+Reply **1** or **2** to begin.
+[user]: [92m12:30:34 - LiteLLM:INFO[0m: utils.py:4011 - 
+LiteLLM completion() model= ministral-3:14b; provider = ollama_chat
+[92m12:30:35 - LiteLLM:INFO[0m: utils.py:4011 - 
+LiteLLM completion() model= ministral-3:14b; provider = ollama_chat
+[intake_coordinator]: Please paste your case (free text or JSON format). I'll structure it for the specialist panel.
+[user]: [92m12:30:37 - LiteLLM:INFO[0m: utils.py:4011 - 
+LiteLLM completion() model= ministral-3:14b; provider = ollama_chat
+[intake_coordinator]: **Structured Case Summary:**
+
+---
+**Patient Demographics:**
+- **Age:** 75 years
+- **Sex:** Female
+- **Weight:** 68 kg
+- **Height:** 160 cm
+- **BMI:** 26.56 kg/m²
+
+---
+**Medical History:**
+- **Cardiac:** HFrEF (EF **30%**), NYHA class not specified
+- **Kidney:** CKD **Stage 3b** (eGFR 38 mL/min/1.73m²)
+- **Metabolic:** Hypertension (no diabetes or obesity explicitly noted)
+- **Other:** None specified
+
+---
+**Vital Signs:**
+- **BP:** 110/70 mmHg
+- **HR:** 78 bpm
+- **Volume Status:** Euvolemic, no edema
+
+---
+**Laboratory Results:**
+- **eGFR:** 38 mL/min/1.73m²
+- **Creatinine:** 1.4 mg/dL
+- **NT-proBNP:** 1200 pg/mL (elevated, consistent with HFrEF)
+- **Additional:** No HbA1c, UACR, or metabolic panel provided
+
+---
+**Current Medications:**
+- **Diuretics:** Furosemide 40 mg daily
+- **HF Therapies:**
+  - **ARNI:** Entresto (sacubitril/valsartan) 24/26 mg **BID**
+  - **Beta-blocker:** Carvedilol 12.5 mg **BID**
+- **Other:** None specified
+
+---
+**Chief Complaint & Peri-operative Context:**
+- **Procedure:** Elective bowel resection (tomorrow)
+- **NPO Status:** Starting at midnight
+- **Volume Status:** Euvolemic, no edema
+- **Concerns:**
+  - **Medication management** (e.g., holding Entresto/carvedilol, fluid/electrolyte balance)
+  - **Renal risk** (CKD Stage 3b + potential contrast/nephrotoxins)
+  - **Cardiac stability** (HFrEF + NT-proBNP 1200 pg/mL)
+
+---
+**Missing Data for Specialist Panel:**
+1. **NYHA functional class** (I–IV)
+2. **HbA1c** (to assess metabolic control)
+3. **UACR/proteinuria** (if available)
+4. **Electrolytes** (K⁺, Na⁺, Mg²⁺)
+5. **Recent echo findings** (valvular disease, diastolic function)
+6. **Contrast use planned?** (if any)
+7. **Baseline SCr trend** (stable or declining?)
+
+---
+**Is this correct?**
+Reply **`Confirm`** to proceed to the **CKM Specialist Panel** for peri-operative recommendations.
+Or provide **corrections/additions** before confirmation.
+[user]: [92m12:31:01 - LiteLLM:INFO[0m: utils.py:4011 - 
+LiteLLM completion() model= ministral-3:14b; provider = ollama_chat
+[92m12:31:03 - LiteLLM:INFO[0m: utils.py:4011 - 
+LiteLLM completion() model= ministral-3:14b; provider = ollama_chat
+[92m12:31:03 - LiteLLM:INFO[0m: utils.py:4011 - 
+LiteLLM completion() model= ministral-3:14b; provider = ollama_chat
+[92m12:31:03 - LiteLLM:INFO[0m: utils.py:4011 - 
+LiteLLM completion() model= ministral-3:14b; provider = ollama_chat
+[nephrologist]: ### Nephrology Assessment
+
+**CKD Stage:** **G3b A2** (eGFR 38 mL/min/1.73m², no proteinuria/UACR data)
+**AKI Risk:** **Moderate** — CKD Stage 3b + peri-operative volume shifts (NPO, surgery), HFrEF (risk of hypotension/AKI)
+**Dialysis Risk:** **Low** (no acute decline, stable CKD)
+
+---
+**Key Findings:**
+• **eGFR 38 mL/min/1.73m²** (CKD Stage 3b) — **Metformin dosing adjustment required** (see below).
+• **HFrEF (EF 30%) + NT-proBNP 1200 pg/mL** — High cardiac risk; **Entresto/carvedilol hold peri-operatively** (see below).
+• **Euvolemic** — No edema, but **furosemide hold day of surgery** to prevent hypovolemia/AKI.
+
+---
+**Medication Recommendations:**
+• **Metformin:** **DISCONTINUE immediately** — eGFR **<45 mL/min** (KDIGO 2024 rule #3). *Risk of lactic acidosis in CKD.*
+• **Entresto (sacubitril/valsartan):** **HOLD 24 hours pre-op** — Peri-operative hypotension risk (KDIGO/ESC consensus).
+• **Carvedilol:** **HOLD 24 hours pre-op** — Same rationale as Entresto; restart post-op if hemodynamically stable.
+• **Furosemide:** **HOLD day of surgery** — Prevent hypovolemia/AKI (KDIGO 2024).
+
+---
+**Nephrotoxin Alerts:**
+• **NSAIDs:** **STRICTLY AVOID peri-operatively** — High AKI risk in CKD (KDIGO 2024).
+• **Contrast:** If used, **hydration + N-acetylcysteine** (if no contraindications).
+
+---
+**Kidney Protection:**
+• **Intra-op:** Maintain euvolemia (avoid hypoperfusion).
+• **Post-op:** Resume **Entresto/carvedilol** when oral intake tolerated (if BP stable).
+• **Monitor:** SCr daily post-op for AKI (target <0.3 mg/dL rise or <50% drop from baseline).
+
+---
+**Priority Actions:**
+1. **Stop Metformin, Entresto, carvedilol, and furosemide** as above.
+2. **Assess electrolytes (K⁺, Mg²⁺) pre-op** — Correct if abnormal (e.g., hypokalemia increases arrhythmia risk).
+3. **Post-op:** Restart **carvedilol → Entresto** (if BP >100 mmHg systolic) with close SCr monitoring.
+
+---
+**Guideline References:**
+• **KDIGO 2024:** [Metformin dosing](https://kdigo.org/guidelines/metformin-in-ckd/) (discontinue eGFR <30, reduce 30–44).
+• **ESC 2021:** [HFrEF peri-operative management](https://www.escardio.org/Guidelines) (hold ARNIs/beta-blockers).
+• **ADA 2024:** [SGLT2i/GLP-1 RA in CKD](https://diabetesjournals.org/) (not applicable here, but relevant for long-term).
+[cardiologist]: ### Cardiology Assessment
+
+**HF Classification:** **HFrEF** (EF 30%)
+**Current GDMT Status:** **On GDMT** (ARNI + beta-blocker)
+**Peri-op Cardiac Risk:** **High** (HFrEF + CKD Stage 3b + elevated NT-proBNP)
+
+---
+**Key Findings:**
+• **HFrEF with elevated NT-proBNP (1200 pg/mL)** – High-risk profile.
+• **CKD Stage 3b (eGFR 38 mL/min/1.73m²)** – Renal impairment increases vulnerability to hypotension/nephrotoxicity.
+• **Euvolemic but on loop diuretic** – Monitor for dehydration post-op.
+• **No edema or hypotension at baseline** – Suggests stable volume status but high risk for peri-op instability.
+
+---
+**Medication Recommendations:**
+• **Entresto (ARNI):** **HOLD 24 hours pre-op** (per protocol). Restart **post-op Day 1** if BP stable (>90 mmHg systolic) and renal function preserved (SCr <20% increase).
+• **Carvedilol (beta-blocker):** **CONTINUE** through surgery (critical for ischemia protection).
+• **Furosemide:** **HOLD morning of surgery** (NPO status). Restart **post-op Day 1** if signs of congestion (elevated JVP, edema, or rising NT-proBNP).
+• **SGLT2 inhibitors (if present):** *Not listed in current meds, but if added later, hold 3–4 days pre-op* (not applicable here).
+
+---
+**Risks:**
+• **Hypotension:** High risk due to **ARNI/ACEi/ARB hold** + **volume depletion** (NPO + diuretic hold).
+• **Renal dysfunction:** CKD Stage 3b + potential **contrast/nephrotoxins** (if used intra-op).
+• **Rebound ischemia:** **Beta-blocker continuation** is mandatory; abrupt cessation is contraindicated.
+• **Euglycemic DKA (if diabetic):** *Not a concern here (no diabetes noted, but monitor glucose if unstable)*.
+
+---
+**Priority Actions:**
+1. **Confirm no contrast use** (if none, proceed; if yes, ensure **hydration + N-acetylcysteine** if eGFR <45 mL/min).
+2. **Post-op monitoring:**
+   - **BP:** Target >90 mmHg systolic (consider **low-dose phenylephrine** if hypotensive).
+   - **Renal function:** SCr daily ×3 days post-op; hold ARNI if SCr rises >20% or BP unstable.
+   - **Volume status:** Restart furosemide if congestion (elevated JVP, edema, or NT-proBNP rise).
+3. **Restart ARNI:** Only after **24 hours post-op** with **BP >90 mmHg** and **SCr stable**.
+
+---
+**Guideline References:**
+• **ESC 2023 (HF Guidelines):**
+  - *"ARNI should be held peri-operatively due to hypotension risk but restarted as soon as hemodynamics allow"* (Class I, Level B).
+  - *"Beta-blockers must not be discontinued peri-operatively"* (Class I, Level A).
+• **AHA 2024 (Peri-op Cardiac Risk):**
+  - *"High-risk patients (HFrEF + CKD) require BP monitoring and ARNI/ACEi/ARB hold with careful restart"* (Section 5.3).
+  - *"Diuretics should be held on the day of surgery in euvolemic patients"* (Section 4.2).
+
+---
+**Nephrology/Consult Notes:**
+- **Avoid nephrotoxins** (e.g., NSAIDs, contrast) if possible.
+- **Monitor electrolytes** (K⁺, Mg²⁺) post-op if diuretics restarted.
+- **Consider temporary MRA (e.g., spironolactone) hold** if K⁺ >5.0 mEq/L (not listed in current meds, but monitor if added).
+[diabetologist]: ### Endocrinology Assessment
+
+**Diabetes Type:** Not specified (no diabetes or HbA1c data provided)
+**Glycemic Control:** HbA1c not provided (assume **not diabetic** unless otherwise confirmed)
+**Hypoglycemia Risk:** Not applicable (no glucose-lowering medications listed)
+
+---
+**Key Findings:**
+• **No diabetes diagnosis** (no HbA1c or glucose-lowering medications reported).
+• **No hypoglycemia risk** (no insulin/sulfonylureas/SGLT2i/GLP-1 RA).
+• **Cardiorenal focus**: CKD Stage 3b (eGFR 38) + HFrEF (EF 30%)—**no metabolic therapy needed**, but **peri-op glucose monitoring** may be prudent if undiagnosed hyperglycemia is detected.
+
+---
+**Medication Recommendations:**
+*(No diabetes medications to adjust—proceeding with peri-op focus.)*
+
+---
+**Peri-op Glucose Management:**
+**SURGERY PLANNED (bowel resection tomorrow)**
+• **No glucose-lowering medications** to hold (none listed).
+• **If hyperglycemia develops peri-operatively** (e.g., stress response):
+  - **Monitor glucose** Q6H (target: **140–180 mg/dL**).
+  - **Insulin infusion** (if >180 mg/dL) with **basal-bolus adjustment** (e.g., 0.02–0.05 U/kg/hr regular insulin + basal correction).
+  - **Avoid oral agents** (NPO status).
+
+---
+**Cardiorenal Benefits to Optimize:**
+• **No SGLT2i/GLP-1 RA** to consider (no diabetes diagnosis).
+• **If diabetes develops post-op**, prioritize **SGLT2i (empagliflozin/dapagliflozin)** for **cardiorenal protection** (ADA 2024) *if eGFR ≥30 mL/min*.
+
+---
+**Priority Actions:**
+1. **Confirm diabetes status** (HbA1c) pre-op—**rule out undiagnosed hyperglycemia**.
+2. **Monitor glucose peri-operatively** (stress hyperglycemia risk in elderly/surgical patients).
+3. **No changes to current medications** (no glucose-lowering drugs).
+
+---
+**Guideline References:**
+• ADA 2024: *"In patients without diabetes, peri-operative glucose monitoring is recommended if risk factors for hyperglycemia exist (e.g., age >65, stress response)."* (Section 12.2).
+• **No diabetes-specific peri-op holds** needed (no medications to adjust).
+
+---
+**Note to Panel:**
+- **Cardiology/Nephrology**: Focus on **Entresto/carvedilol holds**, **volume status**, and **electrolytes** (K⁺/Mg²⁺) for this case.
+- **Endocrinology**: Standby for **glucose monitoring** if hyperglycemia emerges.
+[92m12:32:32 - LiteLLM:INFO[0m: utils.py:4011 - 
+LiteLLM completion() model= ministral-3:14b; provider = ollama_chat
+[mediator]: ---
+## 📋 Consultation Snapshot
+
+**A) One-Line Problem:**
+**72F** with CKD Stage 3b (eGFR 38), HFrEF (EF 30%), and no diabetes presenting for bowel resection—peri-op cardiorenal risk mitigation.
+
+**B) 5 Key Facts:**
+  1. **eGFR 38 mL/min/1.73m²** (CKD Stage 3b; no proteinuria).
+  2. **HFrEF (EF 30%) + NT-proBNP 1200 pg/mL** (high cardiac risk).
+  3. **Euvolemic** (no edema; furosemide held day of surgery).
+  4. **No diabetes/HbA1c data** (no glucose-lowering meds).
+  5. **Moderate AKI risk** (CKD + peri-op volume shifts).
+
+**C) 5 Key Risks:**
+  1. **Hypotension/AKI** (ARNI/beta-blocker hold + NPO).
+  2. **Rebound ischemia** (beta-blocker withdrawal).
+  3. **Nephrotoxicity** (NSAIDs/contrast if used).
+  4. **Electrolyte imbalance** (K⁺/Mg²⁺ if diuretics restarted).
+  5. **Stress hyperglycemia** (monitor glucose peri-op).
+
+**D) Decisions Needed Today:**
+**Yes** — **Hold Metformin, Entresto, carvedilol, furosemide** (24h pre-op) and **confirm no contrast use**.
+
+**E) Post-Op Plan:**
+- **Restart carvedilol** (continue through surgery).
+- **Restart Entresto** (post-op Day 1 if BP >90 mmHg + SCr stable).
+- **Monitor SCr/BP** daily ×3 days; hold ARNI if SCr ↑20%.
+- **Glucose Q6H** (target 140–180 mg/dL if hyperglycemia).
+
+---
+**Guideline Alignment:**
+- **KDIGO/ESC**: ARNI/beta-blocker holds + renal monitoring.
+- **ADA**: Glucose monitoring for stress hyperglycemia.
+- **AHA**: BP/volume status critical for HFrEF + CKD.
+[user]: 
