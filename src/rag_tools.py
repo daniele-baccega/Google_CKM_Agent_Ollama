@@ -231,6 +231,43 @@ def _has_rag_context(llm_request: LlmRequest) -> bool:
     return False
 
 
+def _has_locked_case_facts(llm_request: LlmRequest) -> bool:
+    """Check whether the request already contains an explicit PATIENT_DATA block."""
+    for content in llm_request.contents:
+        text = _extract_text_from_content(content)
+        if "PATIENT_DATA (do not alter or contradict):" in text:
+            return True
+    return False
+
+
+def inject_locked_case_facts_before_model(
+    callback_context: CallbackContext, llm_request: LlmRequest
+) -> Optional[LlmResponse]:
+    """Inject high-confidence demographics/meds facts to reduce demographic drift."""
+    try:
+        if _has_locked_case_facts(llm_request):
+            return None
+
+        text = _all_user_text(llm_request)
+        if not text:
+            return None
+
+        locked_facts = _extract_locked_case_facts(text)
+        if not locked_facts:
+            return None
+
+        llm_request.contents.append(
+            types.Content(
+                role="user",
+                parts=[types.Part(text=locked_facts)],
+            )
+        )
+    except Exception as exc:  # pragma: no cover - best-effort safety net
+        callback_context.state["locked_facts_error"] = str(exc)
+
+    return None
+
+
 def inject_rag_context_before_model(
     callback_context: CallbackContext, llm_request: LlmRequest
 ) -> Optional[LlmResponse]:
@@ -239,49 +276,32 @@ def inject_rag_context_before_model(
     This avoids relying on an upstream LLM tool call to include retrieved rules.
     """
     try:
+        agent_name = callback_context.agent_name
+        # Keep mediator input focused on specialist outputs; inject RAG only for specialists.
+        if agent_name not in {"cardiologist", "nephrologist", "diabetologist"}:
+            return None
+
         full_user_text = _all_user_text(llm_request)
 
         if _has_rag_context(llm_request):
             return None
 
-        agent_name = callback_context.agent_name
-        
-        # Reuse context across specialists/mediator within the same session.
-        cached = callback_context.state.get("rag_context_block")
-        if isinstance(cached, str) and cached.strip():
-            rag_context = cached
-        else:
-            query_text = _clean_noise(_latest_user_text(llm_request))
-            if len(query_text) < 80:
-                query_text = _clean_noise(full_user_text)
+        query_text = _clean_noise(_latest_user_text(llm_request))
+        if len(query_text) < 80:
+            query_text = _clean_noise(full_user_text)
 
-            # Only skip if TRULY empty (control commands like "A", "B", "C" shouldn't get RAG)
-            if not query_text or len(query_text) < 10:
-                return None
+        # Only skip if TRULY empty (control commands like "A", "B", "C" shouldn't get RAG)
+        if not query_text or len(query_text) < 10:
+            return None
 
-            # Save original case summary for mediator to use later
-            if agent_name != "mediator" and query_text:
-                callback_context.state["original_case_summary"] = query_text
-            
-            rag_context = retrieve_rag_context(query_text)
-            callback_context.state["rag_context_block"] = rag_context
-
-        # MEDIATOR SPECIAL: Always retrieve fresh RAG context using original case
-        if agent_name == "mediator":
-            original_case = callback_context.state.get("original_case_summary", "")
-            if original_case and len(original_case) >= 10:
-                rag_context = retrieve_rag_context(original_case)
-                callback_context.state["rag_context_block"] = rag_context
-            else:
-                # No original case to use
-                return None
+        rag_context = retrieve_rag_context(query_text)
 
         if not rag_context or rag_context.strip() == "RAG_CONTEXT: None":
             return None
 
         # Extract actual source labels for an explicit footer
         actual_sources = set()
-        source_matches = re.findall(r"\d+\.\s+\[([^\]]+)\]", rag_context)
+        source_matches = re.findall(r"(?:E\d+|\d+)\.\s+\[([^\]]+)\]", rag_context)
         actual_sources.update(source_matches)
         
         # Build explicit source footer
@@ -344,7 +364,7 @@ def hide_rag_internals_after_model(
         # Clean up excess blank lines (more than 2 consecutive)
         text = re.sub(r"\n\n\n+", "\n\n", text)
         
-        # Strip leading/trailing whitespace
+        # Strip leading/trailing whitespa':!*.pdf'ce
         text = text.strip()
         
         # Update response

@@ -46,14 +46,11 @@ ckm_panel = SequentialAgent(
 
 # Create root agent that handles the full flow
 root_agent = Agent(
-    model=LiteLlm(model="ollama_chat/ministral-3:14b", temperature=0,  seed=0),
+    model=LiteLlm(model="ollama_chat/ministral-3:14b", temperature=0),
     name="ckm_root_agent",
     description="Root agent for CKM Syndrome multi-agent consultation pattern. Handles intake, coordinates specialist assessments, and manages output expansions.",
     before_model_callback=flow_guard_before_model,
     instruction=f"""You are the coordinator for a Cardio-Kidney-Metabolic (CKM) Syndrome Multi-Specialist Consultation portal.
-
-**⚠️ LANGUAGE REQUIREMENT: RESPOND ONLY IN ENGLISH**
-All output must be in English. Do not switch to any other language, regardless of context.
 
 ## WELCOME MESSAGE (First Message Only)
 
@@ -98,12 +95,12 @@ The mediator will provide output in this format:
 - D) Decisions needed today
 - E) Next steps (bullets with owner + timing)
 
-Followed by: "Reply A for peri-op medication stoplight table, B for specialty rationale, C for document references."
+Followed by: "Reply A for peri-op medication stoplight table, B for specialty rationale, C for citations."
 
 **Expansion Requests:**
 - User replies **A** → Show Peri-op Medication Stoplight Table
 - User replies **B** → Show Specialty Rationale (brief summaries from each specialty)
-- User replies **C** → Show Document References with Page Numbers
+- User replies **C** → Show Citations and Guideline References
 - User replies **Back** → Return to Consultation Snapshot
 
 ## CRITICAL RULES

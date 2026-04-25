@@ -29,7 +29,6 @@ def run_baseline(case_text):
             "content": GENERIC_SYSTEM_PROMPT + f"\n\nPATIENT CASE:\n{case_text}"
         }],
         temperature=0,
-        seed=0,
     )
     return response.choices[0].message.content
 

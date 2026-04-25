@@ -5,6 +5,7 @@ from __future__ import annotations
 import hashlib
 import json
 import os
+import re
 from dataclasses import dataclass
 from typing import Iterable, List
 from typing import Optional
@@ -610,13 +611,15 @@ def format_rag_context(matches: List[dict], max_chars: int = 3000) -> str:
     total = 0
     
     for idx, match in enumerate(matches, start=1):
-        excerpt_id = f"E{idx}"
         content = match.get("content", "").strip()
         # Collapse multiple spaces for cleaner display, but preserve structure
         snippet = " ".join(content.split())
         source = match.get("source", "unknown")
         source_clean = _strip_extension(source)  # Remove .pdf, .md, .txt
-        chunk_index = match.get("chunk_index", 0)
+
+        # Preserve native excerpt IDs when available (e.g., E3, E4), fallback to positional IDs.
+        native_id_match = re.search(r"\b(E\d+)\b", content)
+        excerpt_id = native_id_match.group(1) if native_id_match else f"E{idx}"
         
         # Map excerpt ID to source for reference
         excerpt_sources[excerpt_id] = source_clean
@@ -625,8 +628,8 @@ def format_rag_context(matches: List[dict], max_chars: int = 3000) -> str:
         # Truncate snippet to reasonable length for display (but full text is in content field)
         snippet_preview = snippet[:500] if len(snippet) > 500 else snippet
         
-        # Format: EXCERPT_ID [DOCUMENT_SOURCE] "PREVIEW..." 
-        line = f"{excerpt_id}. [Document: {source_clean} | Chunk {chunk_index}]\n    \"{snippet_preview}...\"\n"
+        # Format: EXCERPT_ID [DOCUMENT_SOURCE] "PREVIEW..." (no chunk citation)
+        line = f"{excerpt_id}. [Document: {source_clean}]\n    \"{snippet_preview}...\"\n"
         
         if total + len(line) > max_chars:
             break
@@ -643,7 +646,7 @@ def format_rag_context(matches: List[dict], max_chars: int = 3000) -> str:
     lines.append("  ✓ Include both the EXCERPT_ID (E1, E2, etc.) AND the SOURCE DOCUMENT")
     lines.append("  ❌ Do NOT hide the source - cite explicitly which excerpt AND DOCUMENT informed your recommendation")
     lines.append("\nEXCERPT ID → SOURCE DOCUMENT MAP:")
-    for excerpt_id in sorted(excerpt_sources.keys(), key=lambda x: int(x[1:])):
+    for excerpt_id in sorted(excerpt_sources.keys(), key=lambda x: int(re.sub(r"^E", "", x))):
         source_doc = excerpt_sources[excerpt_id]
         lines.append(f"  {excerpt_id} → {source_doc}")
 
