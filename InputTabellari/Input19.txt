@@ -1,4 +1,0 @@
-Start
-2
-69-year-old male patient Demographics: - Age: 69 years - Sex: Male - Weight: 84 kg - Height: 175 cm Medical History: - Type 2 diabetes - CKD Stage 3b (progressive albuminuria) - Hypertension Vital Signs: - Blood pressure: 125/78 mmHg - Heart rate: 72 bpm Laboratory Results: - HbA1c: 6.8% - eGFR: 42 mL/min/1.73m² - Potassium: 4.4 mEq/L - UACR: 450 mg/g (persistently elevated despite max RAS blockade) Current Medications: - Losartan 100mg daily (maximum tolerated dose) - Dapagliflozin 10mg daily - Metformin 500mg BID - Amlodipine 5mg daily Chief Complaint: Nephrology follow-up. Blood pressure and glucose are at target, but UACR remains elevated.
-Confirm

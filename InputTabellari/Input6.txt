@@ -1,4 +1,0 @@
-Start
-2
-74-year-old female patient Demographics: - Age: 74 years - Sex: Female - Weight: 70 kg - Height: 160 cm Medical History: - Type 2 diabetes, diagnosed 2010 - Ischemic cardiomyopathy (HFrEF, EF 30%) - CKD Stage 4 (recently progressed) Vital Signs: - Blood pressure: 118/72 mmHg - Heart rate: 68 bpm Laboratory Results: - HbA1c: 8.2% - eGFR: 26 mL/min/1.73m² - Creatinine: 2.1 mg/dL - Potassium: 4.8 mEq/L - NT-proBNP: 1800 pg/mL Current Medications: - Metformin 1000mg BID - Glimepiride 4mg daily - Carvedilol 12.5mg BID - Torsemide 20mg daily Chief Complaint: Medication optimization. Patient presents for routine follow-up. Labs show eGFR has declined from 34 to 26 over the last 6 months.
-Confirm

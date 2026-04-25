@@ -1,4 +1,0 @@
-Start
-2
-76-year-old male patient Demographics: - Age: 76 years - Sex: Male - Weight: 80 kg - Height: 174 cm Medical History: - HFrEF (EF 25%) - CKD Stage 4 - T2DM Vital Signs: - Blood pressure: 105/65 mmHg - Heart rate: 82 bpm Laboratory Results: - HbA1c: 6.9% - eGFR: 24 mL/min/1.73m² - Creatinine: 2.5 mg/dL - Potassium: 4.9 mEq/L - NT-proBNP: 3200 pg/mL Current Medications: - Metoprolol succinate 100mg daily - Furosemide 80mg BID - Linagliptin 5mg daily Chief Complaint: Recent discharge for HF exacerbation. Cardiology recommends starting Sacubitril/Valsartan 24/26mg BID.
-Confirm

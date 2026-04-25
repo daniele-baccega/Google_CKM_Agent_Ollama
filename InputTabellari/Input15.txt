@@ -1,4 +1,0 @@
-Start
-2
-65-year-old male patient Demographics: - Age: 65 years - Sex: Male - Weight: 80 kg - Height: 175 cm Medical History: - HFrEF (EF 35%) - Hypertension Vital Signs: - Blood pressure: 105/65 mmHg - Heart rate: 48 bpm - Symptoms: Patient reports feeling dizzy and tired when standing. Laboratory Results: - eGFR: 65 mL/min/1.73m² - Creatinine: 1.1 mg/dL Current Medications: - Carvedilol 12.5mg BID - Lisinopril 20mg daily - Empagliflozin 10mg daily Chief Complaint: Cardiology guidelines suggest up-titrating Carvedilol to 25mg BID to reach target GDMT dose.
-Confirm

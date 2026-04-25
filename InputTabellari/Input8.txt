@@ -1,4 +1,0 @@
-Start
-2
-60-year-old male patient Demographics: - Age: 60 years - Sex: Male - Weight: 88 kg - Height: 175 cm Medical History: - CKD Stage 4 - Hypertension - Severe osteoarthritis of the knee Vital Signs: - Blood pressure: 145/90 mmHg - Heart rate: 72 bpm Laboratory Results: - eGFR: 22 mL/min/1.73m² - Creatinine: 3.1 mg/dL - Potassium: 4.9 mEq/L Current Medications: - Losartan 100mg daily - Amlodipine 10mg daily - Acetaminophen 1000mg PRN Chief Complaint: Medication review. Orthopedics suggested starting Celecoxib 200mg daily or Ibuprofen 800mg TID for knee pain until surgery can be scheduled.
-Confirm

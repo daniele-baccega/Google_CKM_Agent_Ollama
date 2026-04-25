@@ -1,4 +1,0 @@
-Start
-2
-66-year-old male patient Demographics: - Age: 66 years - Sex: Male - Weight: 85 kg - Height: 170 cm Medical History: - Type 2 diabetes - CKD Stage 3a - Coronary Artery Disease (stable angina) Vital Signs: - Blood pressure: 130/80 mmHg - Heart rate: 70 bpm Laboratory Results: - HbA1c: 7.5% - eGFR: 48 mL/min/1.73m² - Creatinine: 1.5 mg/dL Current Medications: - Metformin 1000mg BID - Glipizide 5mg daily - Atorvastatin 40mg daily - Aspirin 81mg daily Chief Complaint: Peri-operative clearance. Cardiology has scheduled an elective coronary angiogram (with iodinated contrast) for tomorrow.
-Confirm

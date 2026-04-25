@@ -1,4 +1,0 @@
-Start
-2
-64-year-old female patient Demographics: - Age: 64 years - Sex: Female - Weight: 70 kg - Height: 165 cm Medical History: - HFrEF (EF 30%) - Hypertension - No CKD, No Diabetes Vital Signs: - Blood pressure: 120/75 mmHg - Heart rate: 68 bpm - Symptoms: NYHA Class II (mild shortness of breath walking up stairs) Laboratory Results: - eGFR: 75 mL/min/1.73m² - Potassium: 4.2 mEq/L - NT-proBNP: 650 pg/mL Current Medications: - Lisinopril 20mg daily - Carvedilol 25mg BID - Spironolactone 25mg daily - Dapagliflozin 10mg daily Chief Complaint: Routine cardiology follow-up. Patient is on "triple therapy" plus SGLT2i, but remains symptomatic.
-Confirm

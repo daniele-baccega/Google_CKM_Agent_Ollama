@@ -1,4 +1,0 @@
-Start
-2
-68-year-old male patient Demographics: - Age: 68 years - Sex: Male - Weight: 82 kg - Height: 175 cm Medical History: - CKD Stage 3a - T2DM - Hypertension Vital Signs: - Blood pressure: 135/82 mmHg - Heart rate: 68 bpm Laboratory Results: - HbA1c: 8.5% - eGFR: 55 mL/min/1.73m² - Creatinine: 1.4 mg/dL - Potassium: 5.1 mEq/L - UACR: 300 mg/g Current Medications: - Losartan 100mg daily - Amlodipine 5mg daily - Glipizide 10mg daily Chief Complaint: Primary care wants to start Dapagliflozin 10mg daily for albuminuria and glycemic control, but is concerned about the patient's baseline Potassium of 5.1 mEq/L.
-Confirm

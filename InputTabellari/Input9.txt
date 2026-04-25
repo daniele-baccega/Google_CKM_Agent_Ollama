@@ -1,4 +1,0 @@
-Start
-2
-68-year-old male patient Demographics: - Age: 68 years - Sex: Male - Weight: 85 kg - Height: 178 cm Medical History: - HFrEF (EF 35%) - CKD Stage 3b - Hypertension Vital Signs: - Blood pressure: 135/85 mmHg - Heart rate: 76 bpm Laboratory Results: - eGFR: 38 mL/min/1.73m² - Creatinine: 1.8 mg/dL - Potassium: 5.3 mEq/L - NT-proBNP: 950 pg/mL Current Medications: - Sacubitril/Valsartan 24/26mg BID - Bisoprolol 5mg daily - Dapagliflozin 10mg daily Chief Complaint: Cardiology wants to initiate Spironolactone 25mg daily to complete GDMT quadruple therapy. Nephrology is concerned.
-Confirm

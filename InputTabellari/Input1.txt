@@ -1,4 +1,0 @@
-Start
-2
-65-year-old male patient Demographics: - Age: 65 years - Sex: Male - Weight: 92 kg - Height: 175 cm Medical History: - Type 2 diabetes - HFpEF (last echo: EF 55%) - CKD Stage 3a Vital Signs: - Blood pressure: 130/80 mmHg - Heart rate: 72 bpm Laboratory Results: - HbA1c: 7.4% - eGFR: 52 mL/min/1.73m² - Creatinine: 1.3 mg/dL - Potassium: 4.4 mEq/L - NT-proBNP: 450 pg/mL - UACR: 85 mg/g Current Medications: - Empagliflozin 25mg daily - Metformin 1000mg BID - Lisinopril 20mg daily Chief Complaint: Peri-operative clearance for elective laparoscopic inguinal hernia repair scheduled in 5 days. Expected duration 1 hour, minimal blood loss, no contrast.
-Confirm

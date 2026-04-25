@@ -1,4 +1,0 @@
-Start
-2
-59-year-old female patient Demographics: - Age: 59 years - Sex: Female - Weight: 108 kg - Height: 160 cm Medical History: - Obesity (BMI 42) - Type 2 diabetes - ASCVD (prior MI 2 years ago) Vital Signs: - Blood pressure: 130/80 mmHg - Heart rate: 72 bpm Laboratory Results: - HbA1c: 6.9% - eGFR: 88 mL/min/1.73m² - LDL-C: 65 mg/dL Current Medications: - Metformin 1000mg BID - Empagliflozin 10mg daily - Rosuvastatin 40mg daily - Aspirin 81mg daily Chief Complaint: Medication review. Patient has a BMI of 42 and prior MI. HbA1c is at target.
-Confirm

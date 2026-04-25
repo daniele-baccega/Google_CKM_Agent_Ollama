@@ -1,4 +1,0 @@
-Start
-2
-58-year-old female patient Demographics: - Age: 58 years - Sex: Female - Weight: 105 kg - Height: 162 cm Medical History: - Obesity (BMI 40) - Type 2 diabetes - Hypertension - Mild CKD Stage 2 Vital Signs: - Blood pressure: 128/78 mmHg - Heart rate: 80 bpm Laboratory Results: - HbA1c: 6.8% - eGFR: 75 mL/min/1.73m² - Creatinine: 0.9 mg/dL Current Medications: - Semaglutide 1mg subcutaneous weekly (last dose taken yesterday) - Losartan 50mg daily - Amlodipine 5mg daily Chief Complaint: Peri-operative clearance. Patient is scheduled for an elective screening colonoscopy with conscious sedation in 3 days.
-Confirm

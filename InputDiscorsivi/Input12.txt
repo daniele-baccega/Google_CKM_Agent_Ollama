@@ -1,4 +1,0 @@
-Start
-2
-67-year-old man, 89 kg and 176 cm, with ischemic HFrEF and an ejection fraction of 28%, stage 3b CKD, and type 2 diabetes. Blood pressure is 108/68 mmHg and heart rate is 58 bpm. Labs show HbA1c 6.9%, eGFR 36 mL/min/1.73 m2, creatinine 1.8 mg/dL, potassium 5.2 mEq/L, and NT-proBNP 2100 pg/mL. Current medications are sacubitril/valsartan 24/26 mg twice daily, bisoprolol 7.5 mg daily, dapagliflozin 10 mg daily, metformin 500 mg twice daily, and furosemide 50 mg daily. Increasing spironolactone from 25 mg to 50 mg daily has been proposed because of persistent NYHA class II-III symptoms, and the question is whether this is safe.
-Confirm
