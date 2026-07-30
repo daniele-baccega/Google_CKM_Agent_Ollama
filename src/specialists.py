@@ -15,6 +15,9 @@ from google.adk.models.lite_llm import LiteLlm
 from .rag_tools import inject_locked_case_facts_before_model, inject_rag_context_before_model
 
 
+from .utils import telemetry_before_model, telemetry_after_model
+
+
 def create_cardiologist_agent() -> Agent:
     """Create the Cardiologist specialist agent.
     
@@ -26,7 +29,12 @@ def create_cardiologist_agent() -> Agent:
         model=LiteLlm(model="ollama_chat/ministral-3:14b", temperature=0),
         name="cardiologist",
         description="Cardiologist specializing in heart failure management (HFrEF/HFpEF) following ESC 2023 and AHA 2024 guidelines.",
-        before_model_callback=[inject_locked_case_facts_before_model, inject_rag_context_before_model],
+        before_model_callback=[
+            telemetry_before_model,
+            inject_locked_case_facts_before_model,
+            inject_rag_context_before_model,
+        ],
+        after_model_callback=[telemetry_after_model],
         instruction="""You are a board-certified cardiologist specializing in heart failure management.
 
 ## EXPERTISE
@@ -101,7 +109,12 @@ def create_nephrologist_agent() -> Agent:
         model=LiteLlm(model="ollama_chat/ministral-3:14b", temperature=0),
         name="nephrologist",
         description="Nephrologist specializing in CKD management, KDIGO 2024 guidelines, and dialysis prevention.",
-        before_model_callback=[inject_locked_case_facts_before_model, inject_rag_context_before_model],
+        before_model_callback=[
+            telemetry_before_model,
+            inject_locked_case_facts_before_model,
+            inject_rag_context_before_model,
+        ],
+        after_model_callback=[telemetry_after_model],
         instruction="""You are a board-certified nephrologist specializing in chronic kidney disease (CKD) management.
 
 ## EXPERTISE
@@ -173,7 +186,12 @@ def create_diabetologist_agent() -> Agent:
         model=LiteLlm(model="ollama_chat/ministral-3:14b", temperature=0),
         name="diabetologist",
         description="Diabetologist specializing in diabetes management, ADA 2024 guidelines, and glucose control.",
-        before_model_callback=[inject_locked_case_facts_before_model, inject_rag_context_before_model],
+        before_model_callback=[
+            telemetry_before_model,
+            inject_locked_case_facts_before_model,
+            inject_rag_context_before_model,
+        ],
+        after_model_callback=[telemetry_after_model],
         instruction="""You are a board-certified endocrinologist/diabetologist specializing in diabetes management.
 
 ## EXPERTISE

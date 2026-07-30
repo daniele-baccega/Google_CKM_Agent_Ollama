@@ -14,6 +14,10 @@ from .rag_tools import (
     flow_guard_before_model,
     sanitize_user_input_before_model,
 )
+from .utils import (
+    telemetry_before_model,
+    telemetry_after_model,
+)
 
 
 # Welcome message shown at the start of conversation
@@ -57,7 +61,14 @@ def create_intake_agent() -> Agent:
         model=LiteLlm(model="ollama_chat/ministral-3:14b", temperature=0),
         name="intake_coordinator",
         description="Intake coordinator for CKM Syndrome Multi-Specialist Consultation. Handles guided intake and paste mode.",
-        before_model_callback=[sanitize_user_input_before_model, flow_guard_before_model],
+        before_model_callback=[
+            telemetry_before_model,
+            sanitize_user_input_before_model,
+            flow_guard_before_model
+        ],
+        after_model_callback=[
+            telemetry_after_model,
+        ],
         instruction=f"""You are the intake coordinator for the Cardio-Kidney-Metabolic (CKM) Syndrome Multi-Specialist Consultation portal.
 
 **YOUR FIRST MESSAGE MUST BE THE WELCOME MESSAGE:**

@@ -9,6 +9,11 @@ a unified treatment plan using the "output gate" pattern:
 - Details revealed only on user request
 """
 
+import time
+from copy import deepcopy
+from typing import Optional
+from google.adk.models.llm_response import LlmResponse
+
 from google.adk import Agent
 from google.adk.models.lite_llm import LiteLlm
 from .rag_tools import (
@@ -16,6 +21,58 @@ from .rag_tools import (
   hide_rag_internals_after_model,
   inject_locked_case_facts_before_model,
 )
+
+from .utils import (
+    telemetry_before_model,
+    telemetry_after_model,
+    get_telemetry_report,
+    save_telemetry_data,
+)
+
+
+def append_telemetry_report(callback_context, llm_response) -> Optional[LlmResponse]:
+    """Append telemetry report to the final output."""
+    telemetry_after_model(callback_context, llm_response)
+
+    if llm_response is None:
+        return None
+
+    # Mark the end of the primary consultation flow
+    callback_context.state.setdefault("telemetry", {})["e2e_end_time"] = time.time()
+
+    # Save raw telemetry data to file
+    save_telemetry_data(callback_context.state)
+
+    content = getattr(llm_response, "content", None)
+    parts = getattr(content, "parts", None) if content else None
+    if not parts:
+        return None
+
+    text_indexes = []
+    text_chunks = []
+
+    for i, part in enumerate(parts):
+        text = getattr(part, "text", None)
+        if text:
+            text_indexes.append(i)
+            text_chunks.append(text)
+
+    if not text_chunks:
+        return None
+
+    report = get_telemetry_report(callback_context.state)
+    if not report:
+        return None
+
+    new_response = deepcopy(llm_response)
+    first_idx = text_indexes[0]
+    combined_text = "\n".join(text_chunks).rstrip()
+    new_response.content.parts[first_idx].text = combined_text + report
+
+    for i in text_indexes[1:]:
+        new_response.content.parts[i].text = None
+
+    return new_response
 
 
 def create_mediator_agent() -> Agent:
@@ -32,8 +89,15 @@ def create_mediator_agent() -> Agent:
       model=LiteLlm(model="ollama_chat/ministral-3:14b", temperature=0),
         name="mediator",
         description="Mediator agent that synthesizes recommendations from cardiologist, nephrologist, and diabetologist into a unified CKM treatment plan using the Consultation Snapshot format.",
-      before_model_callback=[flow_guard_before_model, inject_locked_case_facts_before_model],
-      after_model_callback=hide_rag_internals_after_model,
+      before_model_callback=[
+          telemetry_before_model,
+          flow_guard_before_model,
+          inject_locked_case_facts_before_model,
+      ],
+      after_model_callback=[
+          hide_rag_internals_after_model,
+          append_telemetry_report,
+      ],
         instruction="""You are a senior clinical coordinator and mediator for Cardio-Kidney-Metabolic (CKM) conditions.
 
 # CITATION REQUIREMENT FOR MEDIATOR - PRESERVE DOCUMENT EXCERPTS
@@ -199,3 +263,4 @@ Pay special attention to:
 
 # Export the mediator agent
 mediator_agent = create_mediator_agent()
+

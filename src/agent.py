@@ -27,6 +27,9 @@ from .intake_agent import intake_agent, WELCOME_MESSAGE
 from .rag_tools import flow_guard_before_model
 
 
+from .utils import telemetry_before_model, telemetry_after_model
+
+
 # Create parallel agent for specialist assessments
 specialists_parallel = ParallelAgent(
     name="specialists_panel",
@@ -49,7 +52,8 @@ root_agent = Agent(
     model=LiteLlm(model="ollama_chat/ministral-3:14b", temperature=0),
     name="ckm_root_agent",
     description="Root agent for CKM Syndrome multi-agent consultation pattern. Handles intake, coordinates specialist assessments, and manages output expansions.",
-    before_model_callback=flow_guard_before_model,
+    before_model_callback=[telemetry_before_model, flow_guard_before_model],
+    after_model_callback=[telemetry_after_model],
     instruction=f"""You are the coordinator for a Cardio-Kidney-Metabolic (CKM) Syndrome Multi-Specialist Consultation portal.
 
 ## WELCOME MESSAGE (First Message Only)

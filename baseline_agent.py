@@ -2,6 +2,7 @@
 Baseline Single-Agent for CKM Study Control Group.
 Runs the same Qwen2.5:14b model but with a generic, single-shot prompt.
 """
+from time import perf_counter, time
 from litellm import completion
 
 # Initialize the same local model used in the MAS
@@ -42,7 +43,14 @@ if __name__ == "__main__":
     
     if case_input:
         print("\nGenerating Standard LLM Response...\n")
+        start = perf_counter()
         output = run_baseline(case_input)
+        elapsed = perf_counter() - start
         print("="*60)
         print(output)
         print("="*60)
+
+        print(f"\nResponse generated in {elapsed:.2f} seconds.")
+        print(f"Prompt tokens: {output.usage.prompt_tokens}")
+        print(f"Completion tokens: {output.usage.completion_tokens}")
+        print(f"Total tokens: {output.usage.total_tokens}")
