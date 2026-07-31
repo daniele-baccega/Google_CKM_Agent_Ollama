@@ -145,14 +145,12 @@ def _get_tokenizer(model_name: str) -> Optional[object]:
     global _CACHED_TOKENIZER
     if not HAS_TOKENIZER:
         return None
-    
+
     if _CACHED_TOKENIZER and _CACHED_TOKENIZER[0] == model_name:
         return _CACHED_TOKENIZER[1]
-    
+
     try:
-        # For sentence-transformers models, use the underlying transformer tokenizer
-        base_model = model_name.replace("sentence-transformers/", "")
-        tokenizer = AutoTokenizer.from_pretrained(base_model, trust_remote_code=True)
+        tokenizer = AutoTokenizer.from_pretrained(model_name, trust_remote_code=True)
         _CACHED_TOKENIZER = (model_name, tokenizer)
         return tokenizer
     except Exception as e:
@@ -161,16 +159,20 @@ def _get_tokenizer(model_name: str) -> Optional[object]:
 
 
 def _count_tokens(text: str, tokenizer: Optional[object]) -> int:
-    """Count tokens in text using tokenizer, fallback to char-based estimate."""
     if tokenizer is None:
-        # Fallback: rough estimate (1 token ≈ 1.3 characters for clinical text)
-        return len(text) // 1.3
-    
+        return max(1, round(len(text) / 1.3))
+
     try:
-        tokens = tokenizer.encode(text, add_special_tokens=False)
+        # Use truncation to avoid exceeding model_max_length
+        tokens = tokenizer.encode(
+            text,
+            add_special_tokens=False,
+            truncation=True,
+            max_length=512,
+        )
         return len(tokens)
     except Exception:
-        return len(text) // 1.3
+        return max(1, round(len(text) / 1.3))
 
 
 def chunk_text(text: str, chunk_size: int, overlap: int, embedding_model: str = DEFAULT_EMBED_MODEL) -> List[str]:
