@@ -577,19 +577,19 @@ Place clinical guidelines in the `docs/` folder as **Markdown, plain text, or PD
 ```
 docs/
 ├── AHA_2024_Perioperative_Guidelines.pdf
-├── KDIGO_2024_CKD_Guidelines.md
-└── ADA_2024_Standards_of_Care.txt
+├── KDIGO_2024_CKD_Guidelines.pdf
+└── ADA_2024_Standards_of_Care.md
 ```
 
 **Supported formats:**
-- `.pdf` — PDF documents (auto-extracted)
+- `.pdf` — PDF documents (auto-extracted via PyMuPDF)
 - `.md` — Markdown files
 - `.txt` — Plain text files
 
 ### 2) Build the RAG Index
 
 ```bash
-python scripts/build_rag_index.py --docs-dir docs --chroma-dir .chroma
+python scripts/build_rag_index.py
 ```
 
 This:
@@ -598,8 +598,15 @@ This:
 - Generates embeddings using `sentence-transformers/all-MiniLM-L6-v2`
 - Stores in Chroma database (`.chroma/`)
 - Pre-builds BM25 index for hybrid search
+- Uses incremental hashing to only update changed files
 
-**Output:** `Successfully indexed N documents with M total chunks.`
+**Output Example:**
+```
+RAG index status:
+  Documents: 12
+  Chunks: 145
+  Message: Index updated. 1 docs updated, 11 docs skipped (unchanged).
+```
 
 ### 3) Run the Agent
 
@@ -621,8 +628,8 @@ export RAG_COLLECTION=ckm_rules                                  # Index collect
 
 # Retrieval settings
 export RAG_TOP_K=5                                               # Number of excerpts to retrieve
-export RAG_ENABLE_RERANKING=true                                 # Enable cross-encoder reranking
-export RAG_ENABLE_HYBRID_SEARCH=true                             # Enable BM25 + vector search
+export RAG_ENABLE_RERANKING=true                                 # Enable cross-encoder reranking (default: true)
+export RAG_ENABLE_HYBRID_SEARCH=true                             # Enable BM25 + vector search (default: true)
 
 # Model settings
 export RAG_EMBED_MODEL=sentence-transformers/all-MiniLM-L6-v2   # Embedding model
@@ -639,12 +646,12 @@ When specialists receive RAG excerpts, they cite them using this format:
 
 **Cardiologist, Nephrologist, Diabetologist:**
 ```
-Per [Document Name] (E1: '[key phrase from excerpt]'): [Recommendation]
+Per [Document Name]: [Recommendation] (E1: "[key phrase from excerpt]")
 ```
 
 **Examples:**
-- `Per AHA 2024 (E1: 'Hold SGLT2i 3–4 days pre-op'): SGLT2 inhibitors should be discontinued.`
-- `Per KDIGO 2024 (E2): Metformin is contraindicated in CKD Stage 4.`
+- `Per AHA 2024: SGLT2 inhibitors should be discontinued (E1: "Hold SGLT2i 3–4 days pre-op").`
+- `Per KDIGO 2024: Metformin is contraindicated in CKD Stage 4 (E2).`
 - `[Clinical Knowledge]: Administer IV hydration for renal protection.`
 
 **Mediator Integration:**

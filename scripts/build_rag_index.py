@@ -20,8 +20,8 @@ def main() -> None:
         "--embed-model",
         default="sentence-transformers/all-MiniLM-L6-v2",
     )
-    parser.add_argument("--chunk-size", type=int, default=800)
-    parser.add_argument("--chunk-overlap", type=int, default=120)
+    parser.add_argument("--chunk-size", type=int, default=500, help="Chunk size in tokens")
+    parser.add_argument("--chunk-overlap", type=int, default=80, help="Chunk overlap in tokens")
 
     args = parser.parse_args()
     result = build_rag_index(

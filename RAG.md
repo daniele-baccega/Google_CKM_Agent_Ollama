@@ -18,11 +18,12 @@
 ## Core Components
 
 ### 1. Document Indexing (src/rag.py)
-- **Loading**: Reads markdown/text files from `docs/` directory
+- **Loading**: Reads markdown, text, and PDF files from `docs/` directory
+  - PDF support via `PyMuPDF` (primary) or `pdfplumber` (fallback)
 - **Chunking**: Splits text into overlapping chunks using **token-based sizing** (~500 tokens default, 80 token overlap)
   - Uses `transformers.AutoTokenizer` for accurate token counting
   - Falls back to character-based estimation (1 token ≈ 1.3 chars) if tokenizer unavailable
-  - Respects paragraph boundaries to avoid breaking mid-token
+  - Respects paragraph boundaries to avoid breaking mid-sentence
   - Maintains context continuity across chunks
   - More precise chunk sizes aligned with LLM context windows
 - **Embedding**: Uses SentenceTransformers (`all-MiniLM-L6-v2`) to convert chunks to dense vectors
@@ -41,17 +42,11 @@ Combines two complementary search strategies:
 
 Better recall for keyword-heavy queries (e.g., drug names) and better precision for semantic queries.
 
-#### Re-ranking with Cross-Encoder
-After hybrid search, optionally applies semantic re-ranking:
+#### Re-ranking with Cross-Encoder (Enabled by default)
+After hybrid search, applies semantic re-ranking:
 
-**Without re-ranking:**
 ```python
-Query → Hybrid search (vector + BM25) → Return top 5 results
-```
-
-**With re-ranking (NEW):**
-```python
-Query → Hybrid search (top 10 candidates) 
+Query → Hybrid search (top 15 candidates) 
    → Cross-Encoder scores all pairs 
    → Re-rank by semantic relevance 
    → Return top 5 best matches
@@ -76,20 +71,20 @@ matches = [
     "vector_distance": 0.42,    # Vector similarity score
     "bm25_score": 0.512,        # BM25 keyword relevance
     "hybrid_score": 0.597,      # Combined score
-    "rerank_score": 7.84        # Cross-encoder confidence (if enabled)
+    "rerank_score": 7.84        # Cross-encoder confidence
   },
   ...
 ]
 ```
 
 ### 3. Agent Integration (src/rag_tools.py)
-- **`retrieve_rag_context()`**: Takes case summary → returns formatted context block with deduplication and optional re-ranking
+- **`retrieve_rag_context()`**: Takes case summary → returns formatted context block with deduplication and re-ranking
 - Reads configuration from environment variables (see Configuration section)
 - **Feature Toggles**: 
   - `RAG_ENABLE_HYBRID_SEARCH`: Use hybrid search (default: true)
-  - `RAG_ENABLE_RERANKING`: Apply cross-encoder re-ranking (default: false)
+  - `RAG_ENABLE_RERANKING`: Apply cross-encoder re-ranking (default: true)
   - `RAG_TOP_K`: Number of results (default: 5)
-- **Output**: Compact markdown-formatted context injected into agent prompts with source attribution
+- **Output**: Compact markdown-formatted context injected into agent prompts with source attribution and explicit citation requirements.
 
 ---
 
@@ -97,7 +92,7 @@ matches = [
 
 | Variable | Default | Purpose |
 |----------|---------|---------|
-| `RAG_DOCS_DIR` | `docs/` | Source markdown directory |
+| `RAG_DOCS_DIR` | `docs/` | Source document directory |
 | `RAG_CHROMA_DIR` | `.chroma/` | Vector DB storage |
 | `RAG_EMBED_MODEL` | `all-MiniLM-L6-v2` | Embedding model |
 | `RAG_CHUNK_SIZE` | `500` | Chunk size in tokens |
@@ -105,7 +100,7 @@ matches = [
 | `RAG_ENABLE_HYBRID_SEARCH` | `true` | Enable hybrid (vector + BM25) search |
 | `RAG_RERANKER_MODEL` | `ms-marco-MiniLM-L-6-v2` | Re-ranking model |
 | `RAG_TOP_K` | `5` | Results to return |
-| `RAG_ENABLE_RERANKING` | `false` | Enable re-ranking |
+| `RAG_ENABLE_RERANKING` | `true` | Enable re-ranking |
 
 ### Manual API
 
